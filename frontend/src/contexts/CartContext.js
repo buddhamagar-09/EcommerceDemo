@@ -37,7 +37,7 @@ export const CartProvider = ({ children }) => {
     if (isAuthenticated) {
       fetchCart();
     }
-  }, [isAuthenticated, token]);
+  }, [isAuthenticated]);
 
   const addToCart = async (productId, quantity = 1) => {
     try {
