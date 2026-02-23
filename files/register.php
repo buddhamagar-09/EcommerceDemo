@@ -110,7 +110,7 @@ body{
 
 <div class="register-box">
     <h2>Create Account</h2>
-    <form action="" method="post">
+    <form action="../admin/insert.php" method="post">
         
         <div class="form-group">
             <label>Name</label>
