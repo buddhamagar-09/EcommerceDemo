@@ -90,16 +90,16 @@
     <div class="login-box">
         <h2>User Login</h2>
 
-        <form action="#" method="post">
+        <form action="../admin/userredirect.php" method="post">
 
             <div class="input-box">
                 <label>Email</label>
-                <input type="email" name="email" placeholder="Enter your email" required>
+                <input type="email" name="user_email" placeholder="Enter your email" required>
             </div>
 
             <div class="input-box">
                 <label>Password</label>
-                <input type="password" name="password" placeholder="Enter your password" required>
+                <input type="password" name="user_password" placeholder="Enter your password" required>
             </div>
 
             <button type="submit" name="submit">Login</button>
