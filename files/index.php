@@ -212,7 +212,7 @@ footer ul li{
         <li><a href="#">Products</a></li>
         <li><a href="#">Contact</a></li>
         <li><a href="register.php">Register</a></li>
-        <li><a href="#">Login</a></li>
+        <li><a href="login.php">Login</a></li>
     </ul>
 </nav>
 
