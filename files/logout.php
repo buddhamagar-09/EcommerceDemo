@@ -4,6 +4,6 @@ if (isset($_SESSION['user_email']) && isset($_SESSION['user_role']) && isset($_S
     session_destroy();
     header("Location: login.php");
 } else {
-    header("Location: login.php");
+    header("Location: index.php");
 }
 ?>
