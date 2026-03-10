@@ -1,10 +1,7 @@
-
 <?php
 session_start();
 if (!isset($_SESSION['user_email'])) {
     header('location:../files/login.php');
-} elseif ($_SESSION['user_role'] == 'user') {
-    header('location:index.php');
 }
 ?>
 <!DOCTYPE html>
