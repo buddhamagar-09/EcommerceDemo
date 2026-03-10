@@ -12,9 +12,11 @@ if (isset($_POST['submit'])) {
         $row = mysqli_fetch_assoc($result);
         if ($row['userrole'] == 'admin') {
             header("Location: ../admin/dashboard.php");
+            $_SESSION['name'] = $row['name'];
             $_SESSION['user_email'] = $row['email'];
             $_SESSION['user_role'] = $row['userrole'];
         } elseif ($row['userrole'] == 'user') {
+            $_SESSION['name'] = $row['name'];
             $_SESSION['user_email'] = $row['email'];
             $_SESSION['user_role'] = $row['userrole'];
             header("Location: ../files/index.php");
