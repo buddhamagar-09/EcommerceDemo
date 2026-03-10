@@ -2,8 +2,6 @@
 session_start();
 if (!isset($_SESSION['user_email'])) {
     header('location:../files/login.php');
-} elseif ($_SESSION['user_role'] == 'admin') {
-    header('location:dashboard.php');
 }
 ?>
 <!DOCTYPE html>
@@ -199,7 +197,7 @@ body{
             <h2>Dashboard</h2>
             <div class="profile">
                 <span>Admin</span>
-                <a href="../logout.php" class="logout-btn">Logout</a>
+                <a href="../files/logout.php" class="logout-btn">Logout</a>
             </div>
         </div>
 
