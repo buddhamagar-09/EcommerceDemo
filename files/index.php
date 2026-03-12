@@ -1,8 +1,5 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_email'])) {
-    header('location:../files/login.php');
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -217,8 +214,13 @@ footer ul li{
         <li><a href="#">Home</a></li>
         <li><a href="#">Products</a></li>
         <li><a href="#">Contact</a></li>
+        <?php if (isset($_SESSION['name']) && isset($_SESSION['user_email'])) {?>
+        <li style="color: white; ">Welcome Back <?php echo htmlspecialchars($_SESSION['name']); ?></li>
+        <li><a href="logout.php" style="color: white; background: red; border-radius: 20px; font-size: large; padding: 5px 8px;">Logout</a></li>
+        <?php } else { ?>
         <li><a href="register.php">Register</a></li>
         <li><a href="login.php">Login</a></li>
+       <?php } ?>
     </ul>
 </nav>
 
