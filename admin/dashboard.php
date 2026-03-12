@@ -3,6 +3,9 @@ session_start();
 if (!isset($_SESSION['user_email'])) {
     header('location:../files/login.php');
 }
+else if($_SESSION['user_role'] !== 'admin') {
+    header('location:../files/index.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
