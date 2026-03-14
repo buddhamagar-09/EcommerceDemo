@@ -35,7 +35,6 @@ if(isset($_POST['addproduct']))
                 echo "<script>window.location.href='addproduct.php';</script>";
             }
         }
-     
     }
     else
     {
