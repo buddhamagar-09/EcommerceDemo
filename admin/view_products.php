@@ -175,11 +175,8 @@ color:white;
 }
 
 </style>
-
 </head>
-
 <body>
-
 <div class="dashboard">
 
 <!-- Sidebar -->
