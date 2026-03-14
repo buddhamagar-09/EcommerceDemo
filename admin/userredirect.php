@@ -1,6 +1,8 @@
 <?php
 session_start();
+
 include "databaseconnection.php";
+
 if (isset($_POST['submit'])) {
     $email = $_POST['user_email'];
     $password = $_POST['user_password'];
