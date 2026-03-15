@@ -2,6 +2,14 @@
 session_start();
 include 'databaseconnection.php';
 
+$redirect_back = 'addproductform.php';
+if (!empty($_SERVER['HTTP_REFERER'])) {
+    $referer_path = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH);
+    if (!empty($referer_path)) {
+        $redirect_back = basename($referer_path);
+    }
+}
+
 if(isset($_POST['addproduct']))
     {
         $name = $_POST['product_name'];
@@ -9,8 +17,8 @@ if(isset($_POST['addproduct']))
         $price = $_POST['product_price'];
         $quantity = $_POST['product_quantity'];
         $image = $_FILES['product_image']['name'];
-        $image_location = $_FILES['product_image']['temp_name'];
-        $upload_location = "../image/";
+        $image_location = $_FILES['product_image']['tmp_name'];
+        $upload_location = "../photos/" . $image;
         // $_FILES[' product_image'] = {
         // 'name = 'nag.jpg'
         //     'type' = 'image.jpg/png';
@@ -26,19 +34,19 @@ if(isset($_POST['addproduct']))
             $query ->execute();
             if($query)
             {
-                echo "<script>alert('Product added successfully');</script>";
-                echo "<script>window.location.href='productlist.php';</script>";
+                header('location:' . $redirect_back);
+                exit();
             }
             else
             {
-                echo "<script>alert('Failed to add product');</script>";
-                echo "<script>window.location.href='addproduct.php';</script>";
+                header('location:' . $redirect_back);
+                exit();
             }
         }
     }
     else
     {
-        echo "<script>alert('Please fill all fields');</script>";
-        echo "<script>window.location.href='addproduct.php';</script>";
+        header('location:' . $redirect_back);
+        exit();
     }
 ?>
