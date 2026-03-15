@@ -202,7 +202,7 @@ else if($_SESSION['user_role'] !== 'admin') {
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="#">Users</a></li>
                 <li class="active"><a href="#">Add Products</a></li>
-                <li><a href="#">View Products</a></li>
+                <li><a href="view_products.php">View Products</a></li>
             </ul>
         </aside>
 
