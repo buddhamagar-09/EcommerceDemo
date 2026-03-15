@@ -1,3 +1,15 @@
+<?php
+session_start();
+include 'databaseconnection.php';
+if (!isset($_SESSION['user_email'])) {
+    header('location:../files/login.php');
+}
+else if($_SESSION['user_role'] !== 'admin') {
+    header('location:../files/index.php');
+}
+$sql = 'select * from products';
+$result = mysqli_query($conn,$sql);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -188,8 +200,8 @@ color:white;
 <ul class="menu">
 <li><a href="dashboard.php">Dashboard</a></li>
 <li><a href="#">Users</a></li>
-<li><a href="addproduct.php">Add Products</a></li>
-<li><a href="viewproduct.php">View Products</a></li>
+<li><a href="addproductform.php">Add Products</a></li>
+<li><a href="view_products.php">View Products</a></li>
 </ul>
 
 </div>
@@ -223,18 +235,21 @@ color:white;
 </thead>
 
 <tbody>
-
-<tr>
-<td><img src="https://via.placeholder.com/60"></td>
-<td>Perfume</td>
-<td class="description">Elevate your everyday style with this elegant Gucci GG Supreme Small Shoulder Bag. Crafted from signature GG monogram canvas in beige and ebony tones, this timeless piece features rich brown leather trim and a polished gold-tone double GG logo at the front. The slim shoulder strap ensures comfortable carrying, while the zip-top closure keeps your essentials secure. Perfect for casual outings or evening wear, this compact yet stylish bag adds a luxurious touch to any outfit.</td>
-<td>2500</td>
-<td>10</td>
+<?php while( $row = mysqli_fetch_assoc($result))
+{
+?>
+  <tr>
+  <td><img src="<?php echo $row['image']?>" alt="Product Image"></td>
+<td><?php echo $row['name']?></td>
+<td class="description"><?php echo $row['description']?></td>
+<td><?php echo $row['price']?></td>
+<td><?php echo $row['quantity']?></td>
 <td>
 <button class="btn edit">Edit</button>
-<button class="btn delete">Delete</button>
+<a href="deleteproduct.php?id=<?php echo $row['id']; ?>" class="btn delete">Delete</a>
 </td>
 </tr>
+<?php } ?>
 
 </tbody>
 
