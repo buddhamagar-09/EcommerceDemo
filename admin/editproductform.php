@@ -12,8 +12,10 @@ if(isset($_GET['id']))
         $id = $_GET['id'];
         include 'databaseconnection.php';
 
-        $sql = "Select * from products where id = $id";
-        $result = mysqli_query($conn,$sql);
+        $stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
         $conn->close();
     }
     else{
@@ -249,7 +251,7 @@ if(isset($_GET['id']))
 
                     <div class="input-group">
                         <label>Price</label>
-                        <input type="number" name="product_price" value="<?php echo $product['price']; ?>" step="0.01" required>
+                        <input type="number" name="product_price" value="<?php echo $product['price']; ?>"  required>
                     </div>
 
                     <div class="input-group">
@@ -259,7 +261,14 @@ if(isset($_GET['id']))
 
                     <div class="input-group">
                         <label>Product Image</label>
+                        <?php if(!empty($product['image'])): ?>
+                            <div style="margin-bottom:10px;">
+                                <p style="font-size:13px;color:#6b7280;margin-bottom:6px;">Current image:</p>
+                                <img src="../photos/<?php echo htmlspecialchars($product['image']); ?>" alt="Current product image" style="max-width:150px;max-height:150px;border-radius:8px;border:1px solid #d1d5db;">
+                            </div>
+                        <?php endif; ?>
                         <input type="file" name="product_image" accept="image/*">
+                        <small style="color:#6b7280;">Leave empty to keep the current image.</small>
                     </div>
 
                     <button type="submit" name="editproduct" class="btn">Update Product</button>
