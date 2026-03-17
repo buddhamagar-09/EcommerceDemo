@@ -34,19 +34,16 @@ if(isset($_POST['addproduct']))
             $query ->execute();
             if($query)
             {
-                header('location:' . $redirect_back);
-                exit();
+                echo "<script>alert('Product added successfully!'); window.location.href='view_products.php';</script>";
             }
             else
             {
-                header('location:' . $redirect_back);
-                exit();
+                echo "<script>alert('Error: Product could not be added. Please try again.'); history.back();</script>";
+            }
             }
         }
-    }
     else
     {
-        header('location:' . $redirect_back);
-        exit();
+        echo "<script>alert('All fields are required.'); history.back();</script>";
     }
 ?>
