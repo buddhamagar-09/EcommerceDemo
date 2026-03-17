@@ -233,7 +233,7 @@ else if($_SESSION['user_role'] !== 'admin') {
 
                     <div class="input-group">
                         <label>Price</label>
-                        <input type="number" name="product_price" step="0.01" required>
+                        <input type="number" name="product_price"  required>
                     </div>
 
                     <div class="input-group">
