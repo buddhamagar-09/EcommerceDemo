@@ -81,6 +81,10 @@ nav ul li a:hover{
     background:white;
     color:#3b3f8c;
     font-weight:600;
+    padding:15px 38px;
+    font-size:16px;
+    border-radius:30px;
+    text-decoration: none;
 }
 .hero-buttons .secondary{
     background:transparent;
@@ -211,9 +215,9 @@ footer ul li{
 <nav>
     <h2>My Ecom</h2>
     <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Products</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="products.php">Products</a></li>
+        <li><a href="contact.php">Contact</a></li>
         <?php if (isset($_SESSION['name']) && isset($_SESSION['user_email'])) {?>
         <li style="color: white; ">Welcome Back <?php echo htmlspecialchars($_SESSION['name']); ?></li>
         <li><a href="logout.php" style="color: white; background: red; border-radius: 20px; font-size: large; padding: 5px 8px;">Logout</a></li>
@@ -229,7 +233,7 @@ footer ul li{
     <h1>Online Shopping Made Easy</h1>
     <p>Discover premium products, trusted quality and unbeatable prices — all in one place.</p>
     <div class="hero-buttons">
-        <button class="primary">Shop Now</button>
+        <a href="products.php" class="primary">Shop Now</a>
         <button class="secondary">Explore</button>
     </div>
 </section>
@@ -326,9 +330,9 @@ footer ul li{
         <div>
             <h4>Quick Links</h4>
             <ul>
-                <li>Home</li>
-                <li>Products</li>
-                <li>Contact</li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="products.php">Products</a></li>
+                <li><a href="contact.php">Contact</a></li>
             </ul>
         </div>
         <div>
