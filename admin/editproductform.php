@@ -261,12 +261,10 @@ if(isset($_GET['id']))
 
                     <div class="input-group">
                         <label>Product Image</label>
-                        <?php if(!empty($product['image'])): ?>
                             <div style="margin-bottom:10px;">
                                 <p style="font-size:13px;color:#6b7280;margin-bottom:6px;">Current image:</p>
                                 <img src="../photos/<?php echo htmlspecialchars($product['image']); ?>" alt="Current product image" style="max-width:150px;max-height:150px;border-radius:8px;border:1px solid #d1d5db;">
                             </div>
-                        <?php endif; ?>
                         <input type="file" name="product_image" accept="image/*">
                         <small style="color:#6b7280;">Leave empty to keep the current image.</small>
                     </div>
