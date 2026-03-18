@@ -17,8 +17,8 @@ if(isset($_POST['editproduct']))
         }
 
         include 'databaseconnection.php';
-        $sql = "UPDATE products SET name=?, description=?, price=?, quantity=?, image=? WHERE id=?";
-        $stmt = $conn->prepare($sql);
+        $update_sql = "UPDATE products SET name=?, description=?, price=?, quantity=?, image=? WHERE id=?";
+        $stmt = $conn->prepare($update_sql);
         $stmt->bind_param("ssdisi", $name, $description, $price, $quantity, $image, $product_id);
         $result = $stmt->execute();
         if($result)
