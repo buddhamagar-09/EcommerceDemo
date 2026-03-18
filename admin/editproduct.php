@@ -15,7 +15,6 @@ if(isset($_POST['editproduct']))
         } else {
             $image = $_POST['current_image'];
         }
-
         include 'databaseconnection.php';
         $update_sql = "UPDATE products SET name=?, description=?, price=?, quantity=?, image=? WHERE id=?";
         $stmt = $conn->prepare($update_sql);
