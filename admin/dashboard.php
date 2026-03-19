@@ -187,7 +187,7 @@ body{
 
         <ul class="menu">
             <li class="active"><a href="#">Dashboard</a></li>
-            <li><a href="#">Users</a></li>
+            <li><a href="view_users.php">Users</a></li>
             <li><a href="addproductform.php">Add Products</a></li>
             <li><a href="view_products.php">View Products</a></li>
         </ul>
