@@ -250,7 +250,6 @@ color:white;
 <?php } ?>
 
 </tbody>
-
 </table>
 
 </div>
