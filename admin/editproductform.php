@@ -248,7 +248,6 @@ if(isset($_GET['id']))
                         <label>Description</label>
                         <textarea name="product_description" required><?php echo htmlspecialchars($product['description']); ?></textarea>
                     </div>
-
                     <div class="input-group">
                         <label>Price</label>
                         <input type="number" name="product_price" value="<?php echo $product['price']; ?>"  required>
