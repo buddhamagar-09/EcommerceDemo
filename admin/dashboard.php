@@ -26,7 +26,7 @@ else if($_SESSION['user_role'] !== 'admin') {
 }
 
 body{
-    background:#f4f6f9;
+    background:#eef7f1;
 }
 
 /* Layout */
@@ -38,7 +38,7 @@ body{
 /* Sidebar */
 .sidebar{
     width:260px;
-    background:#111827;
+    background:#14532d;
     color:white;
     padding:30px 20px;
     position:fixed;
@@ -66,7 +66,7 @@ body{
 
 .menu li a{
     text-decoration:none;
-    color:#9ca3af;
+    color:#d1fae5;
     display:block;
     padding:12px 15px;
     border-radius:8px;
@@ -75,7 +75,7 @@ body{
 
 .menu li a:hover,
 .menu li.active a{
-    background:#1f2937;
+    background:#1f7a3d;
     color:white;
 }
 
@@ -109,7 +109,7 @@ body{
 }
 
 .logout-btn{
-    background:#ef4444;
+    background:#101010;
     color:white;
     padding:8px 18px;
     border-radius:20px;
@@ -140,7 +140,7 @@ body{
 .card h3{
     font-size:28px;
     margin-bottom:8px;
-    color:#111827;
+    color:#14532d;
 }
 
 .card p{

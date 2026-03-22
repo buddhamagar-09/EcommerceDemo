@@ -41,7 +41,7 @@ if(isset($_GET['id']))
         }
 
         body {
-            background: #f4f6f9;
+            background: #eef7f1;
         }
 
         /* Layout */
@@ -53,7 +53,7 @@ if(isset($_GET['id']))
         /* Sidebar */
         .sidebar {
             width: 260px;
-            background: #111827;
+            background: #14532d;
             color: white;
             padding: 30px 20px;
             position: fixed;
@@ -81,7 +81,7 @@ if(isset($_GET['id']))
 
         .menu li a {
             text-decoration: none;
-            color: #9ca3af;
+            color: #d1fae5;
             display: block;
             padding: 12px 15px;
             border-radius: 8px;
@@ -90,7 +90,7 @@ if(isset($_GET['id']))
 
         .menu li a:hover,
         .menu li.active a {
-            background: #1f2937;
+            background: #1f7a3d;
             color: white;
         }
 
@@ -119,7 +119,7 @@ if(isset($_GET['id']))
         }
 
         .logout-btn {
-            background: #ef4444;
+            background: #101010;
             color: white;
             padding: 8px 18px;
             border-radius: 20px;
@@ -163,8 +163,8 @@ if(isset($_GET['id']))
 
         .input-group input:focus,
         .input-group textarea:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            border-color: #1f7a3d;
+            box-shadow: 0 0 0 3px rgba(31, 122, 61, 0.12);
         }
 
         textarea {
@@ -176,7 +176,7 @@ if(isset($_GET['id']))
         .btn {
             width: 100%;
             padding: 14px;
-            background: #2563eb;
+            background: #1f7a3d;
             color: white;
             border: none;
             border-radius: 8px;
@@ -187,7 +187,7 @@ if(isset($_GET['id']))
         }
 
         .btn:hover {
-            background: #1e40af;
+            background: #14532d;
         }
 
         /* Responsive */

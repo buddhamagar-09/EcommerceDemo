@@ -20,12 +20,12 @@ $conn->close();
 }
 
 body{
-    background:#f4f6fb;
+    background:#eef7f1;
 }
 
 /* ===== NAVBAR ===== */
 nav{
-    background:linear-gradient(to right,#2f3375,#4b50d6);
+    background:linear-gradient(to right,#14532d,#1f7a3d);
     padding:28px 70px;
     display:flex;
     justify-content:space-between;
@@ -53,7 +53,7 @@ nav ul li a:hover{
 
 /* ===== HERO (PROFESSIONAL) ===== */
 .hero{
-        background:linear-gradient(135deg,#6a5acd,#8b7bff);
+    background:linear-gradient(135deg,#2f8a4f,#1f7a3d);
 
     padding:130px 20px;
     text-align:center;
@@ -81,9 +81,10 @@ nav ul li a:hover{
     margin:0 10px;
 }
 .hero-buttons .primary{
-    background:white;
-    color:#3b3f8c;
+    background:#101010;
+    color:#fff;
     font-weight:600;
+    border:2px solid #fff;
 }
 .hero-buttons .secondary{
     background:transparent;
@@ -123,7 +124,7 @@ nav ul li a:hover{
     width:100%;
     height:220px;
     object-fit:contain;
-    background:#f4f6fb;
+    background:#f1f8f3;
     border-radius:12px;
 }
 .card h3{
@@ -138,23 +139,23 @@ nav ul li a:hover{
     margin:15px 0;
     font-size:18px;
     font-weight:bold;
-    color:#3b3f8c;
+    color:#1f7a3d;
 }
 .card button{
     padding:12px 28px;
-    background:#3b3f8c;
+    background:#1f7a3d;
     color:white;
     border:none;
     border-radius:25px;
     cursor:pointer;
 }
 .card button:hover{
-    background:#2f3375;
+    background:#14532d;
 }
 
 /* ===== FOOTER ===== */
 footer{
-    background:#0f0f1a;
+    background:#101010;
     color:#ccc;
     padding:80px 70px;
 }

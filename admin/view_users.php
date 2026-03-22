@@ -30,7 +30,7 @@ font-family:'Inter',sans-serif;
 }
 
 body{
-background:#f4f6f9;
+background:#eef7f1;
 }
 
 /* Layout */
@@ -44,7 +44,7 @@ display:flex;
 .sidebar{
 width:250px;
 height:100vh;
-background:#111827;
+background:#14532d;
 color:white;
 position:fixed;
 padding:30px 20px;
@@ -72,7 +72,7 @@ margin-bottom:15px;
 
 .menu li a{
 text-decoration:none;
-color:#9ca3af;
+color:#d1fae5;
 display:block;
 padding:12px 15px;
 border-radius:8px;
@@ -80,7 +80,7 @@ transition:0.3s;
 }
 
 .menu li a:hover{
-background:#1f2937;
+background:#1f7a3d;
 color:white;
 }
 
@@ -105,7 +105,7 @@ box-shadow:0 4px 15px rgba(0,0,0,0.05);
 }
 
 .logout-btn{
-background:#ef4444;
+background:#101010;
 color:white;
 padding:8px 16px;
 border-radius:20px;
@@ -129,7 +129,7 @@ border-collapse:collapse;
 }
 
 thead{
-background:#111827;
+background:#14532d;
 color:white;
 }
 
@@ -141,7 +141,7 @@ font-size:14px;
 }
 
 tbody tr:hover{
-background:#f9fafb;
+background:#e8f5ec;
 }
 
 /* Description column */
@@ -178,12 +178,12 @@ margin-right:5px;
 }
 
 .edit{
-background:#3b82f6;
+background:#1f7a3d;
 color:white;
 }
 
 .delete{
-background:#ef4444;
+background:#101010;
 color:white;
 }
 
