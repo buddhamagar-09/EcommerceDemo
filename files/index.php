@@ -255,7 +255,8 @@ $conn->close();
                 <h3><?php echo $row['name']; ?></h3>
                 <p><?php echo $row['description']; ?></p>
                 <div class="price">$<?php echo $row['price']; ?></div>
-                <button>Buy Now</button>
+               
+               <a href="product_details.php?id=<?php echo $row['id']; ?>"><button>Buy Now</button> </a> 
             </div>
         <?php } ?>
         </div>
