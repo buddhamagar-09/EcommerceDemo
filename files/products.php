@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../admin/databaseconnection.php';
 $sql = "Select * from products";
 $result = mysqli_query($conn, $sql);
@@ -217,9 +218,10 @@ footer ul li{
         <li><a href="index.php">Home</a></li>
         <li><a href="products.php">Products</a></li>
         <li><a href="contact.php">Contact</a></li>
+        <li><a href="cart.php">Cart</a></li>
         <?php if (isset($_SESSION['name']) && isset($_SESSION['user_email'])) {?>
         <li style="color: white; ">Welcome Back <?php echo htmlspecialchars($_SESSION['name']); ?></li>
-        <li><a href="logout.php" style="color: white; background: red; border-radius: 20px; font-size: large; padding: 5px 8px;">Logout</a></li>
+        <li><a href="logout.php" style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a></li>
         <?php } else { ?>
         <li><a href="register.php">Register</a></li>
         <li><a href="login.php">Login</a></li>
@@ -235,7 +237,7 @@ footer ul li{
                     <h3><?php echo $row['name']; ?></h3>
                     <p><?php echo $row['description']; ?></p>
                     <div class="price">$<?php echo $row['price']; ?></div>
-                    <button>Buy Now</button>
+                    <a href="product_details.php?id=<?php echo $row['id']; ?>"><button>Buy Now</button></a>
                 </div>
             <?php } ?>
         </div>
