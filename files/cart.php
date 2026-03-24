@@ -1,0 +1,537 @@
+<?php
+session_start();
+if($_SERVER['REQUEST_METHOD']== 'Post' && isset($_POST['action']) && $_POST['action'] == 'add')
+    {
+        $product_id = intval($_POST['product_id']);
+        $quantity = intval($_POST['quantity'] ?? 1);
+        $user_id = $_SESSION['user_id'];
+
+        if($user_id)
+            {
+                $check_query = "Select * from Cart where user_id = $user_id and product_id = $product_id";
+                $check_result = mysqli_query($conn,$check_query);
+                if($check_result->num_rows > 0)
+                    {
+                        $update_query = "Update cart set quantity = quantity + $quantity where user_id = $user_id and product_id = $product_id";
+                        $update_result = mysqli_query($conn,$update_query);
+                    }
+                    else{
+                        $price_query = "Select price from products where product_id = $product_id";
+                        $price_result = mysqli_query($conn,$price_query);
+                        $product = mysqli_fetch_assoc($price_result);
+                        $price = $product['price'];
+
+                        $insert_query = "Insert into cart (user_id,product_id,quantity,price) values($user_id,$product_id,$quantity,$price)";
+                        mysqli_query($conn,$insert_query);
+                    }
+            }
+    }
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Ecom | Cart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        body {
+            background: #eef7f1;
+            color: #111;
+        }
+
+        nav {
+            background: linear-gradient(to right, #14532d, #1f7a3d);
+            padding: 28px 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav h2 {
+            color: #fff;
+            font-size: 28px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        nav ul li a:hover {
+            opacity: 0.8;
+        }
+
+        .logout-btn {
+            color: white;
+            background: #101010;
+            border-radius: 20px;
+            font-size: 16px;
+            padding: 6px 14px;
+        }
+
+        .cart-section {
+            padding: 70px;
+            max-width: 1300px;
+            margin: auto;
+        }
+
+        .cart-title {
+            font-size: 36px;
+            margin-bottom: 12px;
+            color: #14532d;
+        }
+
+        .cart-subtitle {
+            color: #4b5563;
+            margin-bottom: 35px;
+        }
+
+        .cart-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .cart-items {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .cart-head,
+        .cart-row {
+            display: grid;
+            grid-template-columns: 2.2fr 1fr 1fr 0.8fr;
+            gap: 18px;
+            align-items: center;
+            padding: 18px 22px;
+        }
+
+        .cart-head {
+            background: #f0f7f2;
+            font-weight: 700;
+            color: #14532d;
+            border-bottom: 1px solid #e4efe7;
+        }
+
+        .cart-row {
+            border-bottom: 1px solid #edf2ef;
+        }
+
+        .cart-row:last-child {
+            border-bottom: none;
+        }
+
+        .product-cell {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .product-cell img {
+            width: 72px;
+            height: 72px;
+            object-fit: contain;
+            background: #f7faf8;
+            border-radius: 10px;
+            border: 1px solid #e8efea;
+        }
+
+        .product-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .product-meta {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .price,
+        .total {
+            color: #1f7a3d;
+            font-weight: 700;
+        }
+
+        .qty-box {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid #d9e5dc;
+            border-radius: 25px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .qty-btn {
+            width: 34px;
+            height: 34px;
+            border: none;
+            background: #f7faf8;
+            cursor: pointer;
+            font-size: 18px;
+            color: #14532d;
+        }
+
+        .qty-num {
+            min-width: 38px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .remove-link {
+            color: #dc2626;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .summary {
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 20px;
+        }
+
+        .summary h3 {
+            font-size: 24px;
+            margin-bottom: 18px;
+            color: #14532d;
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            color: #4b5563;
+        }
+
+        .summary-total {
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid #e8efe9;
+            font-size: 20px;
+            font-weight: 700;
+            color: #111;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .checkout-btn {
+            margin-top: 20px;
+            width: 100%;
+            border: none;
+            border-radius: 30px;
+            background: #1f7a3d;
+            color: #fff;
+            font-weight: 600;
+            font-size: 16px;
+            padding: 14px;
+            cursor: pointer;
+        }
+
+        .checkout-btn:hover {
+            background: #14532d;
+        }
+
+        .continue {
+            margin-top: 12px;
+            width: 100%;
+            border: 1px solid #d4dfd7;
+            border-radius: 30px;
+            background: #fff;
+            color: #14532d;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 12px;
+            cursor: pointer;
+        }
+
+        .continue:hover {
+            background: #f4faf6;
+        }
+
+        .empty-cart {
+            display: none;
+            background: #fff;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .empty-cart h3 {
+            font-size: 30px;
+            color: #14532d;
+            margin-bottom: 10px;
+        }
+
+        .empty-cart p {
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            background: #101010;
+            color: #ccc;
+            padding: 80px 70px;
+            margin-top: 70px;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 45px;
+        }
+
+        footer h4 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        footer ul {
+            list-style: none;
+        }
+
+        footer ul li {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .copy {
+            text-align: center;
+            margin-top: 55px;
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        @media(max-width:1100px) {
+            .cart-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .summary {
+                position: static;
+            }
+        }
+
+        @media(max-width:760px) {
+            nav {
+                padding: 24px 18px;
+                justify-content: center;
+                gap: 16px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 16px;
+            }
+
+            .cart-section {
+                padding: 30px 12px;
+            }
+
+            .cart-head {
+                display: none;
+            }
+
+            .cart-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                padding: 18px;
+            }
+
+            .product-cell {
+                align-items: flex-start;
+            }
+
+            footer {
+                padding: 55px 20px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <h2>My Ecom</h2>
+        <ul>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="products.php">Products</a></li>
+            <li><a href="cart.php">Cart</a></li>
+            <?php if (isset($_SESSION['name']) && isset($_SESSION['user_email'])) { ?>
+                <li style="color: white;">Welcome Back <?php echo htmlspecialchars($_SESSION['name']); ?></li>
+                <li><a href="logout.php" style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a></li>
+            <?php } else { ?>
+                <li><a href="register.php">Register</a></li>
+                <li><a href="login.php">Login</a></li>
+            <?php } ?>
+        </ul>
+    </nav>
+
+    <section class="cart-section">
+        <h1 class="cart-title">Shopping Cart</h1>
+        <p class="cart-subtitle">Review your selected items before checkout.</p>
+
+        <!--
+            Replace this static section with your fetched cart items.
+            Keep the same class names to reuse the styling.
+        -->
+        <div class="cart-layout">
+            <div class="cart-items">
+                <div class="cart-head">
+                    <div>Product</div>
+                    <div>Price</div>
+                    <div>Quantity</div>
+                    <div>Total</div>
+                </div>
+
+                <div class="cart-row">
+                    <div class="product-cell">
+                        <img src="../photos/helmet5.jpg" alt="Product">
+                        <div>
+                            <div class="product-name">Wireless Headphones</div>
+                            <div class="product-meta">Category: Electronics</div>
+                        </div>
+                    </div>
+                    <div class="price">$120.00</div>
+                    <div>
+                        <div class="qty-box">
+                            <button class="qty-btn" type="button">-</button>
+                            <span class="qty-num">1</span>
+                            <button class="qty-btn" type="button">+</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="total">$120.00</div>
+                        <a class="remove-link" href="#">Remove</a>
+                    </div>
+                </div>
+
+                <div class="cart-row">
+                    <div class="product-cell">
+                        <img src="../photos/tyre10.jpg" alt="Product">
+                        <div>
+                            <div class="product-name">Smart Watch</div>
+                            <div class="product-meta">Category: Gadgets</div>
+                        </div>
+                    </div>
+                    <div class="price">$85.00</div>
+                    <div>
+                        <div class="qty-box">
+                            <button class="qty-btn" type="button">-</button>
+                            <span class="qty-num">2</span>
+                            <button class="qty-btn" type="button">+</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="total">$170.00</div>
+                        <a class="remove-link" href="#">Remove</a>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="summary">
+                <h3>Order Summary</h3>
+                <div class="summary-line">
+                    <span>Subtotal</span>
+                    <span>$290.00</span>
+                </div>
+                <div class="summary-line">
+                    <span>Delivery</span>
+                    <span>$10.00</span>
+                </div>
+                <div class="summary-line">
+                    <span>Discount</span>
+                    <span>-$0.00</span>
+                </div>
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span>$300.00</span>
+                </div>
+
+                <button class="checkout-btn" type="button">Proceed to Checkout</button>
+                <button class="continue" type="button" onclick="window.location.href='products.php'">Continue Shopping</button>
+            </aside>
+        </div>
+
+        <!--
+            Show this block when cart is empty.
+            Example: add style display:block to .empty-cart and hide .cart-layout
+        -->
+        <div class="empty-cart">
+            <h3>Your Cart Is Empty</h3>
+            <p>Add products from the shop and they will appear here.</p>
+            <button class="checkout-btn" type="button" onclick="window.location.href='products.php'">Go to Products</button>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h4>Services</h4>
+                <ul>
+                    <li>Web Development</li>
+                    <li>App Development</li>
+                    <li>Digital Marketing</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Social</h4>
+                <ul>
+                    <li>Facebook</li>
+                    <li>Instagram</li>
+                    <li>Twitter</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <ul>
+                    <li>About Us</li>
+                    <li>Our Team</li>
+                    <li>Careers</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <ul>
+                    <li>support@myecom.com</li>
+                    <li>+1 000 123 4567</li>
+                    <li>New York, USA</li>
+                </ul>
+            </div>
+        </div>
+        <p class="copy">Copyright 2026 My Ecom. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
