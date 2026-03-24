@@ -228,7 +228,7 @@ if(isset($_GET['id']))
                 <h2>Edit Product</h2>
                 <div class="profile">
                     <span>Admin</span>
-                    <a href="../logout.php" class="logout-btn">Logout</a>
+                    <a href="../logout.php" style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
                 </div>
             </div>
             <!-- Form -->

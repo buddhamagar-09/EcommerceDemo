@@ -213,7 +213,7 @@ else if($_SESSION['user_role'] !== 'admin') {
                 <h2>Add Product</h2>
                 <div class="profile">
                     <span>Admin</span>
-                    <a href="../logout.php" class="logout-btn">Logout</a>
+                    <a href="../logout.php" style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
                 </div>
             </div>
 

@@ -213,7 +213,7 @@ color:white;
 
 <div class="topbar">
 <h2>View Products</h2>
-<a href="../files/logout.php" class="logout-btn">Logout</a>
+<a href="../files/logout.php" style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
 </div>
 
 

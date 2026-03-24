@@ -200,7 +200,7 @@ body{
             <h2>Dashboard</h2>
             <div class="profile">
                 <span>Admin</span>
-                <a href="../files/logout.php" class="logout-btn">Logout</a>
+                <a href="../files/logout.php" style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
             </div>
         </div>
 
