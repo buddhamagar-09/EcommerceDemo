@@ -162,6 +162,14 @@ $conn->close();
             text-align: center;
             border: 1px solid #ddd;
             border-radius: 8px;
+            font-weight: 600;
+        }
+
+        /* CART FORM */
+        .add-to-cart-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         /* BUTTON */
@@ -176,18 +184,26 @@ $conn->close();
             border-radius: 30px;
             cursor: pointer;
             font-size: 15px;
-            transition: 0.3s;
+            font-weight: 600;
+            transition: 0.3s all ease;
         }
 
         .buy {
             background: #1f7a3d;
             color: white;
+            width: 100%;
+            max-width: 200px;
         }
 
         .buy:hover {
             background: #14532d;
             transform: translateY(-2px);
             color: white;
+            box-shadow: 0 8px 16px rgba(31, 122, 61, 0.3);
+        }
+
+        .buy:active {
+            transform: translateY(0);
         }
 
 
@@ -278,9 +294,10 @@ $conn->close();
         <li><a href="index.php">Home</a></li>
         <li><a href="products.php">Products</a></li>
         <li><a href="contact.php">Contact</a></li>
+        <li><a href="cart.php">Cart</a></li>
         <?php if (isset($_SESSION['name']) && isset($_SESSION['user_email'])) {?>
         <li style="color: white; ">Welcome Back <?php echo htmlspecialchars($_SESSION['name']); ?></li>
-        <li><a href="logout.php" style="color: white; background: red; border-radius: 20px; font-size: large; padding: 5px 8px;">Logout</a></li>
+        <li><a href="logout.php" style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a></li>
         <?php } else { ?>
         <li><a href="register.php">Register</a></li>
         <li><a href="login.php">Login</a></li>
@@ -300,7 +317,7 @@ $conn->close();
         <div class="product-details">
             <h1><?php echo $row['name']; ?></h1>
 
-            <div class="price">Rs<?php echo $row['price']; ?></div>
+            <div class="price">Rs <?php echo $row['price']; ?></div>
 
             <div class="rating">★★★★★</div>
 
@@ -311,16 +328,18 @@ $conn->close();
 
             <div class="stock"><?php echo $row['quantity'] ?> items left</div>
 
-            <!-- Quantity -->
-            <div class="qty">
-                Quantity:
-                <input type="number" value="1" min="1">
-            </div>
-
-            <!-- Buttons -->
-            <div class="buttons">
-                <button class="btn buy">Add to Cart</button>
-            </div>
+            <!-- Add to Cart Form -->
+            <form action="cart.php" method="post" class="add-to-cart-form">
+                <input type="hidden" name="product_id" value="<?php echo $row['id']; ?>">
+                <input type="hidden" name="action" value="add">
+                
+                <div class="qty">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1" max="<?php echo $row['quantity']; ?>">
+                </div>
+                
+                <button type="submit" class="btn buy">Add to Cart</button>
+            </form>
 
         </div>
 
