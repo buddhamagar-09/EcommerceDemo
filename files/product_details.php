@@ -1,7 +1,7 @@
 <?php 
 session_start();
 include '../admin/databaseconnection.php';
-if(isset($_GET['id']));
+if(isset($_GET['id']))
 {
         $product_id = $_GET['id'];
         $query = "Select * from Products where id = $product_id";
