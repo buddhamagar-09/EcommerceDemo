@@ -1,31 +1,40 @@
 <?php
 session_start();
-if($_SERVER['REQUEST_METHOD']== 'Post' && isset($_POST['action']) && $_POST['action'] == 'add')
-    {
-        $product_id = intval($_POST['product_id']);
-        $quantity = intval($_POST['quantity'] ?? 1);
-        $user_id = $_SESSION['user_id'];
+include '../admin/databaseconnection.php';
+$fetch_result = false;
+$has_items = false;
+$subtotal = 0;
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'add') {
+    $product_id = intval($_POST['product_id']);
+    $quantity = intval($_POST['quantity'] ?? 1);
+    $user_id = $_SESSION['user_id'];
 
-        if($user_id)
-            {
-                $check_query = "Select * from Cart where user_id = $user_id and product_id = $product_id";
-                $check_result = mysqli_query($conn,$check_query);
-                if($check_result->num_rows > 0)
-                    {
-                        $update_query = "Update cart set quantity = quantity + $quantity where user_id = $user_id and product_id = $product_id";
-                        $update_result = mysqli_query($conn,$update_query);
-                    }
-                    else{
-                        $price_query = "Select price from products where product_id = $product_id";
-                        $price_result = mysqli_query($conn,$price_query);
-                        $product = mysqli_fetch_assoc($price_result);
-                        $price = $product['price'];
+    if ($user_id) {
+        $check_query = "Select * from Cart where user_id = $user_id and product_id = $product_id";
+        $check_result = mysqli_query($conn, $check_query);
+        if ($check_result->num_rows > 0) {
+            $update_query = "Update cart set quantity = quantity + $quantity where user_id = $user_id and product_id = $product_id";
+            $update_result = mysqli_query($conn, $update_query);
+        } else {
+            $price_query = "Select price from products where id = $product_id";
+            $price_result = mysqli_query($conn, $price_query);
+            $product = mysqli_fetch_assoc($price_result);
+            $price = $product['price'];
 
-                        $insert_query = "Insert into cart (user_id,product_id,quantity,price) values($user_id,$product_id,$quantity,$price)";
-                        mysqli_query($conn,$insert_query);
-                    }
-            }
+            $insert_query = "Insert into cart (user_id,product_id,quantity,price) values($user_id,$product_id,$quantity,$price)";
+            mysqli_query($conn, $insert_query);   
+        }
     }
+}
+if (isset($_SESSION['user_id'])) {
+    $user_id  = $_SESSION['user_id'];
+    $fetch_query = "Select c.*,p.name,p.image from cart c 
+                    inner join products p on c.product_id = p.id
+                    where c.user_id = $user_id";
+    $fetch_result = mysqli_query($conn, $fetch_query);
+    $has_items = $fetch_result && mysqli_num_rows($fetch_result) > 0;
+    $conn->close();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -106,12 +115,13 @@ if($_SERVER['REQUEST_METHOD']== 'Post' && isset($_POST['action']) && $_POST['act
 
         .cart-layout {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
             gap: 30px;
             align-items: start;
         }
 
         .cart-items {
+            grid-column: 1;
             background: #fff;
             border-radius: 16px;
             overflow: hidden;
@@ -206,6 +216,7 @@ if($_SERVER['REQUEST_METHOD']== 'Post' && isset($_POST['action']) && $_POST['act
         }
 
         .summary {
+            grid-column: 2;
             background: #fff;
             border-radius: 16px;
             padding: 24px;
@@ -273,7 +284,7 @@ if($_SERVER['REQUEST_METHOD']== 'Post' && isset($_POST['action']) && $_POST['act
         }
 
         .empty-cart {
-            display: none;
+            display: block;
             background: #fff;
             border-radius: 16px;
             padding: 40px;
@@ -290,6 +301,27 @@ if($_SERVER['REQUEST_METHOD']== 'Post' && isset($_POST['action']) && $_POST['act
         .empty-cart p {
             color: #6b7280;
             margin-bottom: 20px;
+        }
+
+        .empty-cart-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 22px;
+            border-radius: 999px;
+            background: #1f7a3d;
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .empty-cart-cta:hover {
+            background: #14532d;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 16px rgba(20, 83, 45, 0.25);
         }
 
         footer {
@@ -328,12 +360,14 @@ if($_SERVER['REQUEST_METHOD']== 'Post' && isset($_POST['action']) && $_POST['act
             color: #aaa;
         }
 
-        @media(max-width:1100px) {
+        @media(max-width:900px) {
             .cart-layout {
-                grid-template-columns: 1fr;
+                grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+                gap: 16px;
             }
 
             .summary {
+                grid-column: 2;
                 position: static;
             }
         }
@@ -390,7 +424,9 @@ if($_SERVER['REQUEST_METHOD']== 'Post' && isset($_POST['action']) && $_POST['act
             <li><a href="cart.php">Cart</a></li>
             <?php if (isset($_SESSION['name']) && isset($_SESSION['user_email'])) { ?>
                 <li style="color: white;">Welcome Back <?php echo htmlspecialchars($_SESSION['name']); ?></li>
-                <li><a href="logout.php" style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a></li>
+                <li><a href="logout.php"
+                        style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
+                </li>
             <?php } else { ?>
                 <li><a href="register.php">Register</a></li>
                 <li><a href="login.php">Login</a></li>
@@ -406,6 +442,7 @@ if($_SERVER['REQUEST_METHOD']== 'Post' && isset($_POST['action']) && $_POST['act
             Replace this static section with your fetched cart items.
             Keep the same class names to reuse the styling.
         -->
+        <?php if ($has_items) { ?>
         <div class="cart-layout">
             <div class="cart-items">
                 <div class="cart-head">
@@ -414,75 +451,49 @@ if($_SERVER['REQUEST_METHOD']== 'Post' && isset($_POST['action']) && $_POST['act
                     <div>Quantity</div>
                     <div>Total</div>
                 </div>
-
-                <div class="cart-row">
-                    <div class="product-cell">
-                        <img src="../photos/helmet5.jpg" alt="Product">
+                <?php while ($cartitems = mysqli_fetch_assoc($fetch_result)) { ?>
+                <?php if(!empty($cartitems)){
+                    $row_total = $cartitems['price'] * $cartitems['quantity'];
+                    $subtotal += $row_total;
+                ?>
+                    <div class="cart-row">
+                        <div class="product-cell">
+                            <img src="../photos/<?php echo $cartitems['image']; ?>" alt="Product">
+                            <div>
+                                <div class="product-name"><?php echo $cartitems['name']; ?></div>
+                            </div>
+                        </div>
+                        <div class="price">Rs. <?php echo $cartitems['price']; ?></div>
                         <div>
-                            <div class="product-name">Wireless Headphones</div>
-                            <div class="product-meta">Category: Electronics</div>
+                            <div class="qty-box">
+                                <button class="qty-btn" type="button">-</button>
+                                <span class="qty-num"><?php echo (int)$cartitems['quantity']; ?></span>
+                                <button class="qty-btn" type="button">+</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="price">$120.00</div>
-                    <div>
-                        <div class="qty-box">
-                            <button class="qty-btn" type="button">-</button>
-                            <span class="qty-num">1</span>
-                            <button class="qty-btn" type="button">+</button>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="total">$120.00</div>
-                        <a class="remove-link" href="#">Remove</a>
-                    </div>
-                </div>
-
-                <div class="cart-row">
-                    <div class="product-cell">
-                        <img src="../photos/tyre10.jpg" alt="Product">
                         <div>
-                            <div class="product-name">Smart Watch</div>
-                            <div class="product-meta">Category: Gadgets</div>
+                            <div class="total">RS. <?php echo number_format($row_total, 2); ?></div>
+                            <a class="remove-link" href="#">Remove</a>
                         </div>
                     </div>
-                    <div class="price">$85.00</div>
-                    <div>
-                        <div class="qty-box">
-                            <button class="qty-btn" type="button">-</button>
-                            <span class="qty-num">2</span>
-                            <button class="qty-btn" type="button">+</button>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="total">$170.00</div>
-                        <a class="remove-link" href="#">Remove</a>
-                    </div>
-                </div>
+            <?php } } ?>
+
             </div>
+
 
             <aside class="summary">
                 <h3>Order Summary</h3>
                 <div class="summary-line">
                     <span>Subtotal</span>
-                    <span>$290.00</span>
-                </div>
-                <div class="summary-line">
-                    <span>Delivery</span>
-                    <span>$10.00</span>
-                </div>
-                <div class="summary-line">
-                    <span>Discount</span>
-                    <span>-$0.00</span>
-                </div>
-                <div class="summary-total">
-                    <span>Total</span>
-                    <span>$300.00</span>
+                    <span>Rs. <?php echo number_format($subtotal, 2); ?></span>
                 </div>
 
                 <button class="checkout-btn" type="button">Proceed to Checkout</button>
-                <button class="continue" type="button" onclick="window.location.href='products.php'">Continue Shopping</button>
+                <button class="continue" type="button" onclick="window.location.href='products.php'">Continue
+                    Shopping</button>
             </aside>
         </div>
+                <?php } else { ?>
 
         <!--
             Show this block when cart is empty.
@@ -491,8 +502,9 @@ if($_SERVER['REQUEST_METHOD']== 'Post' && isset($_POST['action']) && $_POST['act
         <div class="empty-cart">
             <h3>Your Cart Is Empty</h3>
             <p>Add products from the shop and they will appear here.</p>
-            <button class="checkout-btn" type="button" onclick="window.location.href='products.php'">Go to Products</button>
+            <a class="empty-cart-cta" href="products.php">Browse Products</a>
         </div>
+        <?php } ?>
     </section>
 
     <footer>
