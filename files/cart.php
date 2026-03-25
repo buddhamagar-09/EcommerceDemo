@@ -438,10 +438,7 @@ if (isset($_SESSION['user_id'])) {
         <h1 class="cart-title">Shopping Cart</h1>
         <p class="cart-subtitle">Review your selected items before checkout.</p>
 
-        <!--
-            Replace this static section with your fetched cart items.
-            Keep the same class names to reuse the styling.
-        -->
+     
         <?php if ($has_items) { ?>
         <div class="cart-layout">
             <div class="cart-items">
