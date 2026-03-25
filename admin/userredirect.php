@@ -17,10 +17,12 @@ if (isset($_POST['submit'])) {
             $_SESSION['name'] = $row['name'];
             $_SESSION['user_email'] = $row['email'];
             $_SESSION['user_role'] = $row['userrole'];
+            $_SESSION['user_id'] = $row['id'];
         } elseif ($row['userrole'] == 'user') {
             $_SESSION['name'] = $row['name'];
             $_SESSION['user_email'] = $row['email'];
             $_SESSION['user_role'] = $row['userrole'];
+            $_SESSION['user_id'] = $row['id'];
             header("Location: ../files/index.php");
         }
     } else {
