@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if(!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
 include '../admin/databaseconnection.php';
 $fetch_result = false;
 $has_items = false;
@@ -463,7 +468,7 @@ if (isset($_SESSION['user_id'])) {
             <li><a href="products.php">Products</a></li>
             <li><a href="products.php">Contact</a></li>
             <?php if (isset($_SESSION['name']) && isset($_SESSION['user_email'])) { ?>
-                <li style="color: white;">Welcome Back <?php echo htmlspecialchars($_SESSION['name']); ?></li>
+                <li style="color: white; font-weight: bold;">Welcome Back, <?php echo htmlspecialchars($_SESSION['name']); ?></li>
                 <a href="cart.php" style="color: white; "><li class="fa-solid fa-cart-shopping"><?php if ($cart_count > 0) {
                     echo '<sup style="font-size: 0.82em; font-weight: 700; margin-left: 2px;">' . $cart_count . '</sup>';
                     } ?></li></a>
