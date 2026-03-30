@@ -4,6 +4,7 @@ include '../admin/databaseconnection.php';
 $fetch_result = false;
 $has_items = false;
 $subtotal = 0;
+$cart_count = 0;
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'add') {
     $product_id = intval($_POST['product_id']);
     $quantity = intval($_POST['quantity'] ?? 1);
@@ -28,6 +29,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
 }
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
+    $count_query = "Select count(*) as count from cart where user_id = $user_id";
+    $count_result = mysqli_query($conn, $count_query);
+    if ($count_result) {
+        $count_row = mysqli_fetch_assoc($count_result);
+        $cart_count = (int) ($count_row['count']);
+    }
+
     $fetch_query = "Select c.*,p.name,p.image from cart c 
                     inner join products p on c.product_id = p.id
                     where c.user_id = $user_id";
@@ -43,6 +51,7 @@ if (isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Ecom | Cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -453,9 +462,11 @@ if (isset($_SESSION['user_id'])) {
             <li><a href="index.php">Home</a></li>
             <li><a href="products.php">Products</a></li>
             <li><a href="products.php">Contact</a></li>
-            <li><a href="cart.php">Cart</a></li>
             <?php if (isset($_SESSION['name']) && isset($_SESSION['user_email'])) { ?>
                 <li style="color: white;">Welcome Back <?php echo htmlspecialchars($_SESSION['name']); ?></li>
+                <a href="cart.php" style="color: white; "><li class="fa-solid fa-cart-shopping"><?php if ($cart_count > 0) {
+                    echo '<sup style="font-size: 0.82em; font-weight: 700; margin-left: 2px;">' . $cart_count . '</sup>';
+                    } ?></li></a>
                 <li><a href="logout.php"
                         style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
                 </li>

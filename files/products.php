@@ -12,6 +12,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
    <style>
 *{
     margin:0;
@@ -218,9 +219,10 @@ footer ul li{
         <li><a href="index.php">Home</a></li>
         <li><a href="products.php">Products</a></li>
         <li><a href="contact.php">Contact</a></li>
-        <li><a href="cart.php">Cart</a></li>
+      
         <?php if (isset($_SESSION['name']) && isset($_SESSION['user_email'])) {?>
         <li style="color: white; ">Welcome Back <?php echo htmlspecialchars($_SESSION['name']); ?></li>
+          <a href="cart.php" style="color: white; "><li class="fa-solid fa-cart-shopping"></li></a>
         <li><a href="logout.php" style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a></li>
         <?php } else { ?>
         <li><a href="register.php">Register</a></li>
