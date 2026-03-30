@@ -238,7 +238,7 @@ footer ul li{
                     <img src="../photos/<?php echo $row['image']; ?>">
                     <h3><?php echo $row['name']; ?></h3>
                     <p><?php echo $row['description']; ?></p>
-                    <div class="price">$<?php echo $row['price']; ?></div>
+                    <div class="price">Rs.<?php echo $row['price']; ?></div>
                     <a href="product_details.php?id=<?php echo $row['id']; ?>"><button>Buy Now</button></a>
                 </div>
             <?php } ?>
@@ -246,7 +246,7 @@ footer ul li{
     </section>
 
     <!-- FOOTER -->
-<footer>
+<footer> 
     <div class="footer-grid">
         <div>
             <h4>Services</h4>
