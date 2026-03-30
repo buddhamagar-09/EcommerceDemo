@@ -1,5 +1,20 @@
 <?php
 session_start();
+$cart_count = 0;
+include '../admin/databaseconnection.php';
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $count_query = "Select count(*) as count from cart where user_id = $user_id";
+    $count_result = mysqli_query($conn, $count_query);
+    if ($count_result) {
+        $count_row = mysqli_fetch_assoc($count_result);
+        $cart_count = (int) ($count_row['count']);
+    } else {
+        $cart_count = 0;
+    }
+} else {
+    $cart_count = 0;    
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

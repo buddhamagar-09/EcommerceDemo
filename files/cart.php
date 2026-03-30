@@ -542,7 +542,7 @@ if (isset($_SESSION['user_id'])) {
                         <span>Rs. <?php echo number_format($subtotal, 2); ?></span>
                     </div>
 
-                    <button class="checkout-btn" type="button">Proceed to Checkout</button>
+                    <button class="checkout-btn" type="button" onclick="window.location.href='checkout.php'">Proceed to Checkout</button>
                     <button class="continue" type="button" onclick="window.location.href='products.php'">Continue
                         Shopping</button>
                 </aside>

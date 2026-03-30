@@ -1,5 +1,20 @@
 <?php
 session_start();
+$cart_count = 0;
+include '../admin/databaseconnection.php';
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $count_query = "Select count(*) as count from cart where user_id = $user_id";
+    $count_result = mysqli_query($conn, $count_query);
+    if ($count_result) {
+        $count_row = mysqli_fetch_assoc($count_result);
+        $cart_count = (int) ($count_row['count']);
+    } else {
+        $cart_count = 0;
+    }
+} else {
+    $cart_count = 0;    
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -339,15 +354,17 @@ session_start();
 <body>
 
     <!-- NAVBAR -->
-    <nav>
+   <nav>
         <h2>My Ecom</h2>
         <ul>
             <li><a href="index.php">Home</a></li>
             <li><a href="products.php">Products</a></li>
-            <li><a href="contact.php">Contact</a></li>
+            <li><a href="products.php">Contact</a></li>
             <?php if (isset($_SESSION['name']) && isset($_SESSION['user_email'])) { ?>
-                <li style="color: white; ">Welcome Back <?php echo htmlspecialchars($_SESSION['name']); ?></li>
-                <a href="cart.php" style="color: white; "><li class="fa-solid fa-cart-shopping"></li></a>
+                <li style="color: white; font-weight: bold;">Welcome Back, <?php echo htmlspecialchars($_SESSION['name']); ?></li>
+                <a href="cart.php" style="color: white; "><li class="fa-solid fa-cart-shopping"><?php if ($cart_count > 0) {
+                    echo '<sup style="font-size: 0.82em; font-weight: 700; margin-left: 2px;">' . $cart_count . '</sup>';
+                    } ?></li></a>
                 <li><a href="logout.php"
                         style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
                 </li>
