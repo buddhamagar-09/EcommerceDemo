@@ -45,7 +45,6 @@ if (isset($_SESSION['user_id'])) {
                     inner join products p on c.product_id = p.id
                     where c.user_id = $user_id";
     $fetch_result = mysqli_query($conn, $fetch_query);
-    $has_items = $fetch_result && mysqli_num_rows($fetch_result) > 0;
     $conn->close();
 }
 ?>
@@ -487,7 +486,7 @@ if (isset($_SESSION['user_id'])) {
         <p class="cart-subtitle">Review your selected items before checkout.</p>
 
 
-        <?php if ($has_items) { ?>
+        <?php if ($has_items = mysqli_num_rows($fetch_result) > 0) { ?>
             <div class="cart-layout">
                 <div class="cart-items">
                     <div class="cart-head">
