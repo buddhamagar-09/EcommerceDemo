@@ -235,9 +235,9 @@ if (isset($_SESSION['user_id'])) {
             <p>Have any questions? Send us a message and we will get back to you soon.</p>
 
             <div class="contact-info">
-                <div><strong>Email:</strong> info@gmail.com</div>
-                <div><strong>Phone:</strong> 98XXXXXXXX</div>
-                <div><strong>Address:</strong> Kathmandu, Nepal</div>
+                <div><strong>Email:</strong> busa_bca2080@lict.edu.np</div>
+                <div><strong>Phone:</strong> 9817489281</div>
+                <div><strong>Address:</strong> Gaindakot, Nepal</div>
             </div>
 
             <form class="contact-form" action="#" method="post">
@@ -278,9 +278,9 @@ if (isset($_SESSION['user_id'])) {
             <div>
                 <h4>Contact</h4>
                 <ul>
-                    <li>Kathmandu, Nepal</li>
-                    <li>info@gmail.com</li>
-                    <li>98XXXXXXXX</li>
+                    <li>Gaindakot, Nepal</li>
+                    <li>busa_bca2080@lict.edu.np</li>
+                    <li>9817489281</li>
                 </ul>
             </div>
         </div>
