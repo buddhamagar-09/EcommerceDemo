@@ -33,12 +33,12 @@ if (isset($_SESSION['user_id'])) {
         }
 
         body {
-            background: #eef7f1;
+            background: #f0fdfa;
         }
 
         /* ===== NAVBAR ===== */
         nav {
-            background: linear-gradient(to right, #14532d, #1f7a3d);
+            background: linear-gradient(to right, #115e59, #0f766e);
             padding: 28px 70px;
             display: flex;
             justify-content: space-between;
@@ -70,7 +70,7 @@ if (isset($_SESSION['user_id'])) {
 
         /* ===== HERO (PROFESSIONAL) ===== */
         .hero {
-            background: linear-gradient(135deg, #2f8a4f, #1f7a3d);
+            background: linear-gradient(135deg, #14b8a6, #0f766e);
 
             padding: 130px 20px;
             text-align: center;
@@ -103,7 +103,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .hero-buttons .primary {
-            background: #101010;
+            background: #0f172a;
             color: #fff;
             font-weight: 600;
             padding: 15px 38px;
@@ -130,7 +130,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .features {
-            background: #f6fbf8;
+            background: #ecfeff;
         }
 
         .section-title {
@@ -164,17 +164,17 @@ if (isset($_SESSION['user_id'])) {
             justify-content: center;
             font-size: 24px;
             margin-bottom: 14px;
-            background: #e9f7ef;
+            background: #ccfbf1;
         }
 
         .icon-delivery,
         .icon-support {
-            color: #1f7a3d;
+            color: #0f766e;
         }
 
         .icon-payment,
         .icon-pricing {
-            color: #14532d;
+            color: #115e59;
         }
 
         .icon-quality,
@@ -186,7 +186,7 @@ if (isset($_SESSION['user_id'])) {
         .choose-item h3 {
             font-size: 22px;
             margin-bottom: 10px;
-            color: #14532d;
+            color: #115e59;
         }
 
         .feature-item p,
@@ -198,7 +198,7 @@ if (isset($_SESSION['user_id'])) {
 
         /* ===== WHY CHOOSE US ===== */
         .why-choose-us {
-            background: #eef7f1;
+            background: #f0fdfa;
         }
 
         /* ===== PRODUCTS ===== */
@@ -235,7 +235,7 @@ if (isset($_SESSION['user_id'])) {
             width: 100%;
             height: 220px;
             object-fit: contain;
-            background: #f1f8f3;
+            background: #ecfeff;
             border-radius: 12px;
         }
 
@@ -253,12 +253,12 @@ if (isset($_SESSION['user_id'])) {
             margin: 15px 0;
             font-size: 18px;
             font-weight: bold;
-            color: #1f7a3d;
+            color: #0f766e;
         }
 
         .card button {
             padding: 12px 28px;
-            background: #1f7a3d;
+            background: #0f766e;
             color: white;
             border: none;
             border-radius: 25px;
@@ -266,12 +266,12 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .card button:hover {
-            background: #14532d;
+            background: #115e59;
         }
 
         /* ===== FOOTER ===== */
         footer {
-            background: #101010;
+            background: #0f172a;
             color: #ccc;
             padding: 80px 70px;
         }
@@ -354,7 +354,7 @@ if (isset($_SESSION['user_id'])) {
 <body>
 
     <!-- NAVBAR -->
-   <nav>
+   <nav> 
         <h2>My Ecom</h2>
         <ul>
             <li><a href="index.php">Home</a></li>
@@ -366,7 +366,7 @@ if (isset($_SESSION['user_id'])) {
                     echo '<sup style="font-size: 0.82em; font-weight: 700; margin-left: 2px;">' . $cart_count . '</sup>';
                     } ?></li></a>
                 <li><a href="logout.php"
-                        style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
+                        style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
                 </li>
             <?php } else { ?>
                 <li><a href="register.php">Register</a></li>

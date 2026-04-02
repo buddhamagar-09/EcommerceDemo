@@ -18,7 +18,7 @@ body{
     display:flex;
     align-items:center;
     justify-content:center;
-    background: linear-gradient(135deg, #1f7a3d, #101010);
+    background: linear-gradient(135deg, #0f766e, #0f172a);
     padding:20px;
 }
 
@@ -59,7 +59,7 @@ body{
 }
 
 .form-group input:focus{
-    border-color:#1f7a3d;
+    border-color:#0f766e;
 }
 
 .btn{
@@ -67,7 +67,7 @@ body{
     padding:12px;
     border:none;
     border-radius:6px;
-    background:#1f7a3d;
+    background:#0f766e;
     color:#fff;
     font-size:16px;
     font-weight:bold;
@@ -76,7 +76,7 @@ body{
 }
 
 .btn:hover{
-    background:#14532d;
+    background:#115e59;
 }
 
 /* 📱 Mobile responsive */

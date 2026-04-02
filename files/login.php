@@ -19,7 +19,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #1f7a3d, #101010);
+            background: linear-gradient(135deg, #0f766e, #0f172a);
         }
 
         .login-box {
@@ -57,14 +57,14 @@
         }
 
         .input-box input:focus {
-            border-color: #1f7a3d;
+            border-color: #0f766e;
         }
 
         button {
             width: 100%;
             padding: 10px;
             border: none;
-            background: #1f7a3d;
+            background: #0f766e;
             color: white;
             font-size: 16px;
             border-radius: 5px;
@@ -73,7 +73,7 @@
         }
 
         button:hover {
-            background: #14532d;
+            background: #115e59;
         }
 
         @media(max-width:400px) {

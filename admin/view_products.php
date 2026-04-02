@@ -29,7 +29,7 @@ font-family:'Inter',sans-serif;
 }
 
 body{
-background:#eef7f1;
+background:#f0fdfa;
 }
 
 /* Layout */
@@ -43,7 +43,7 @@ display:flex;
 .sidebar{
 width:250px;
 height:100vh;
-background:#14532d;
+background:#115e59;
 color:white;
 position:fixed;
 padding:30px 20px;
@@ -71,7 +71,7 @@ margin-bottom:15px;
 
 .menu li a{
 text-decoration:none;
-color:#d1fae5;
+color:#99f6e4;
 display:block;
 padding:12px 15px;
 border-radius:8px;
@@ -79,7 +79,7 @@ transition:0.3s;
 }
 
 .menu li a:hover{
-background:#1f7a3d;
+background:#0f766e;
 color:white;
 }
 
@@ -104,7 +104,7 @@ box-shadow:0 4px 15px rgba(0,0,0,0.05);
 }
 
 .logout-btn{
-background:#101010;
+background:#0f172a;
 color:white;
 padding:8px 16px;
 border-radius:20px;
@@ -128,7 +128,7 @@ border-collapse:collapse;
 }
 
 thead{
-background:#14532d;
+background:#115e59;
 color:white;
 }
 
@@ -140,7 +140,7 @@ font-size:14px;
 }
 
 tbody tr:hover{
-background:#e8f5ec;
+background:#ccfbf1;
 }
 
 /* Description column */
@@ -177,12 +177,12 @@ margin-right:5px;
 }
 
 .edit{
-background:#1f7a3d;
+background:#0f766e;
 color:white;
 }
 
 .delete{
-background:#101010;
+background:#0f172a;
 color:white;
 }
 
@@ -213,7 +213,7 @@ color:white;
 
 <div class="topbar">
 <h2>View Products</h2>
-<a href="../files/logout.php" style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
+<a href="../files/logout.php" style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
 </div>
 
 

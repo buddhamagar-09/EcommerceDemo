@@ -65,12 +65,12 @@ if (isset($_SESSION['user_id'])) {
         }
 
         body {
-            background: #eef7f1;
+            background: #f0fdfa;
             color: #111;
         }
 
         nav {
-            background: linear-gradient(to right, #14532d, #1f7a3d);
+            background: linear-gradient(to right, #115e59, #0f766e);
             padding: 28px 70px;
             display: flex;
             justify-content: space-between;
@@ -103,7 +103,7 @@ if (isset($_SESSION['user_id'])) {
 
         .logout-btn {
             color: white;
-            background: #101010;
+            background: #0f172a;
             border-radius: 20px;
             font-size: 16px;
             padding: 6px 14px;
@@ -118,7 +118,7 @@ if (isset($_SESSION['user_id'])) {
         .cart-title {
             font-size: 36px;
             margin-bottom: 12px;
-            color: #14532d;
+            color: #115e59;
         }
 
         .cart-subtitle {
@@ -151,14 +151,14 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .cart-head {
-            background: #f0f7f2;
+            background: #ccfbf1;
             font-weight: 700;
-            color: #14532d;
-            border-bottom: 1px solid #e4efe7;
+            color: #115e59;
+            border-bottom: 1px solid #bfeee6;
         }
 
         .cart-row {
-            border-bottom: 1px solid #edf2ef;
+            border-bottom: 1px solid #d5f5ef;
         }
 
         .cart-row:last-child {
@@ -177,7 +177,7 @@ if (isset($_SESSION['user_id'])) {
             object-fit: contain;
             background: #f7faf8;
             border-radius: 10px;
-            border: 1px solid #e8efea;
+            border: 1px solid #ccefe8;
         }
 
         .product-name {
@@ -192,14 +192,14 @@ if (isset($_SESSION['user_id'])) {
 
         .price,
         .total {
-            color: #1f7a3d;
+            color: #0f766e;
             font-weight: 700;
         }
 
         .qty-box {
             display: inline-flex;
             align-items: center;
-            border: 1px solid #d9e5dc;
+            border: 1px solid #b8e9e1;
             border-radius: 25px;
             overflow: hidden;
             background: #fff;
@@ -219,7 +219,7 @@ if (isset($_SESSION['user_id'])) {
             background: #f7faf8;
             cursor: pointer;
             font-size: 18px;
-            color: #14532d;
+            color: #115e59;
         }
 
         .qty-num {
@@ -228,14 +228,14 @@ if (isset($_SESSION['user_id'])) {
             font-weight: 600;
             border: none;
             background: transparent;
-            color: #14532d;
+            color: #115e59;
             font-size: 15px;
             outline: none;
             padding: 6px 0;
         }
 
         .qty-num:focus {
-            box-shadow: inset 0 0 0 2px #cfe6d8;
+            box-shadow: inset 0 0 0 2px #99f6e4;
             border-radius: 18px;
         }
 
@@ -272,7 +272,7 @@ if (isset($_SESSION['user_id'])) {
         .summary h3 {
             font-size: 24px;
             margin-bottom: 18px;
-            color: #14532d;
+            color: #115e59;
         }
 
         .summary-line {
@@ -298,7 +298,7 @@ if (isset($_SESSION['user_id'])) {
             width: 100%;
             border: none;
             border-radius: 30px;
-            background: #1f7a3d;
+            background: #0f766e;
             color: #fff;
             font-weight: 600;
             font-size: 16px;
@@ -307,16 +307,16 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .checkout-btn:hover {
-            background: #14532d;
+            background: #115e59;
         }
 
         .continue {
             margin-top: 12px;
             width: 100%;
-            border: 1px solid #d4dfd7;
+            border: 1px solid #b8e9e1;
             border-radius: 30px;
             background: #fff;
-            color: #14532d;
+            color: #115e59;
             font-weight: 600;
             font-size: 15px;
             padding: 12px;
@@ -324,7 +324,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .continue:hover {
-            background: #f4faf6;
+            background: #ecfeff;
         }
 
         .empty-cart {
@@ -338,7 +338,7 @@ if (isset($_SESSION['user_id'])) {
 
         .empty-cart h3 {
             font-size: 30px;
-            color: #14532d;
+            color: #115e59;
             margin-bottom: 10px;
         }
 
@@ -354,7 +354,7 @@ if (isset($_SESSION['user_id'])) {
             gap: 8px;
             padding: 12px 22px;
             border-radius: 999px;
-            background: #1f7a3d;
+            background: #0f766e;
             color: #fff;
             text-decoration: none;
             font-size: 15px;
@@ -363,13 +363,13 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .empty-cart-cta:hover {
-            background: #14532d;
+            background: #115e59;
             transform: translateY(-1px);
-            box-shadow: 0 8px 16px rgba(20, 83, 45, 0.25);
+            box-shadow: 0 8px 16px rgba(17, 94, 89, 0.25);
         }
 
         footer {
-            background: #101010;
+            background: #0f172a;
             color: #ccc;
             padding: 80px 70px;
             margin-top: 70px;
@@ -472,7 +472,7 @@ if (isset($_SESSION['user_id'])) {
                     echo '<sup style="font-size: 0.82em; font-weight: 700; margin-left: 2px;">' . $cart_count . '</sup>';
                     } ?></li></a>
                 <li><a href="logout.php"
-                        style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
+                        style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
                 </li>
             <?php } else { ?>
                 <li><a href="register.php">Register</a></li>

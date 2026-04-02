@@ -28,7 +28,7 @@ include '../admin/databaseconnection.php';
         }
 
         body {
-            background: #eef7f1;
+            background: #f0fdfa;
         }
 
         /* Layout */
@@ -40,7 +40,7 @@ include '../admin/databaseconnection.php';
         /* Sidebar */
         .sidebar {
             width: 260px;
-            background: #14532d;
+            background: #115e59;
             color: white;
             padding: 30px 20px;
             position: fixed;
@@ -69,7 +69,7 @@ include '../admin/databaseconnection.php';
 
         .menu li a {
             text-decoration: none;
-            color: #d1fae5;
+            color: #99f6e4;
             display: block;
             padding: 12px 15px;
             border-radius: 8px;
@@ -78,7 +78,7 @@ include '../admin/databaseconnection.php';
 
         .menu li a:hover,
         .menu li.active a {
-            background: #1f7a3d;
+            background: #0f766e;
             color: white;
         }
 
@@ -112,7 +112,7 @@ include '../admin/databaseconnection.php';
         }
 
         .logout-btn {
-            background: #101010;
+            background: #0f172a;
             color: white;
             padding: 8px 18px;
             border-radius: 20px;
@@ -143,7 +143,7 @@ include '../admin/databaseconnection.php';
         .card h3 {
             font-size: 28px;
             margin-bottom: 8px;
-            color: #14532d;
+            color: #115e59;
         }
 
         .card p {
@@ -204,7 +204,7 @@ include '../admin/databaseconnection.php';
                 <div class="profile">
                     <span>Admin</span>
                     <a href="../files/logout.php"
-                        style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
+                        style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
                 </div>
             </div>
 

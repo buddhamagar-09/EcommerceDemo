@@ -41,14 +41,14 @@ $conn->close();
         }
 
         body {
-            background: #eef7f1;
+            background: #f0fdfa;
             color: #111;
         }
 
         /* NAVBAR */
         /* ===== NAVBAR ===== */
         nav {
-            background: linear-gradient(to right, #14532d, #1f7a3d);
+            background: linear-gradient(to right, #115e59, #0f766e);
             padding: 28px 70px;
             display: flex;
             justify-content: space-between;
@@ -100,7 +100,7 @@ $conn->close();
             aspect-ratio: 1/1;
             overflow: hidden;
             border-radius: 20px;
-            background: #f1f8f3;
+            background: #ecfeff;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -132,7 +132,7 @@ $conn->close();
 
         .price {
             font-size: 28px;
-            color: #1f7a3d;
+            color: #0f766e;
             font-weight: 600;
             margin-bottom: 20px;
         }
@@ -149,7 +149,7 @@ $conn->close();
         .stock {
             font-weight: 600;
             margin-bottom: 25px;
-            color: green;
+            color: #0f766e;
         }
 
         /* QUANTITY */
@@ -203,17 +203,17 @@ $conn->close();
         }
 
         .buy {
-            background: #1f7a3d;
+            background: #0f766e;
             color: white;
             width: 100%;
             max-width: 200px;
         }
 
         .buy:hover {
-            background: #14532d;
+            background: #115e59;
             transform: translateY(-2px);
             color: white;
-            box-shadow: 0 8px 16px rgba(31, 122, 61, 0.3);
+            box-shadow: 0 8px 16px rgba(15, 118, 110, 0.3);
         }
 
         .buy:active {
@@ -232,7 +232,7 @@ $conn->close();
 
         /* FOOTER */
         footer {
-            background: #101010;
+            background: #0f172a;
             color: #ccc;
             padding: 80px 70px;
         }
@@ -266,7 +266,7 @@ $conn->close();
             color: #aaa;
         }
                .logout_btn{
-            background-color: orangered;
+            background-color: #0f766e;
             color: white;
             padding: 8px 18px;
             font-weight: bold;
@@ -314,7 +314,7 @@ $conn->close();
                     echo '<sup style="font-size: 0.82em; font-weight: 700; margin-left: 2px;">' . $cart_count . '</sup>';
                     } ?></li></a>
                 <li><a href="logout.php"
-                        style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
+                        style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
                 </li>
             <?php } else { ?>
                 <li><a href="register.php">Register</a></li>

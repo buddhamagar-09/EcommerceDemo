@@ -37,12 +37,12 @@ $conn->close();
 }
 
 body{
-    background:#eef7f1;
+    background:#f0fdfa;
 }
 
 /* ===== NAVBAR ===== */
 nav{
-    background:linear-gradient(to right,#14532d,#1f7a3d);
+    background:linear-gradient(to right,#115e59,#0f766e);
     padding:28px 70px;
     display:flex;
     justify-content:space-between;
@@ -70,7 +70,7 @@ nav ul li a:hover{
 
 /* ===== HERO (PROFESSIONAL) ===== */
 .hero{
-    background:linear-gradient(135deg,#2f8a4f,#1f7a3d);
+    background:linear-gradient(135deg,#14b8a6,#0f766e);
 
     padding:130px 20px;
     text-align:center;
@@ -98,7 +98,7 @@ nav ul li a:hover{
     margin:0 10px;
 }
 .hero-buttons .primary{
-    background:#101010;
+    background:#0f172a;
     color:#fff;
     font-weight:600;
     border:2px solid #fff;
@@ -141,7 +141,7 @@ nav ul li a:hover{
     width:100%;
     height:220px;
     object-fit:contain;
-    background:#f1f8f3;
+    background:#ecfeff;
     border-radius:12px;
 }
 .card h3{
@@ -156,23 +156,23 @@ nav ul li a:hover{
     margin:15px 0;
     font-size:18px;
     font-weight:bold;
-    color:#1f7a3d;
+    color:#0f766e;
 }
 .card button{
     padding:12px 28px;
-    background:#1f7a3d;
+    background:#0f766e;
     color:white;
     border:none;
     border-radius:25px;
     cursor:pointer;
 }
 .card button:hover{
-    background:#14532d;
+    background:#115e59;
 }
 
 /* ===== FOOTER ===== */
 footer{
-    background:#101010;
+    background:#0f172a;
     color:#ccc;
     padding:80px 70px;
 }
@@ -240,7 +240,7 @@ footer ul li{
                     echo '<sup style="font-size: 0.82em; font-weight: 700; margin-left: 2px;">' . $cart_count . '</sup>';
                     } ?></li></a>
                 <li><a href="logout.php"
-                        style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
+                        style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
                 </li>
             <?php } else { ?>
                 <li><a href="register.php">Register</a></li>

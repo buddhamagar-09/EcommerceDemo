@@ -26,7 +26,7 @@ else if($_SESSION['user_role'] !== 'admin') {
         }
 
         body {
-            background: #eef7f1;
+            background: #f0fdfa;
         }
 
         /* Layout */
@@ -38,7 +38,7 @@ else if($_SESSION['user_role'] !== 'admin') {
         /* Sidebar */
         .sidebar {
             width: 260px;
-            background: #14532d;
+            background: #115e59;
             color: white;
             padding: 30px 20px;
             position: fixed;
@@ -66,7 +66,7 @@ else if($_SESSION['user_role'] !== 'admin') {
 
         .menu li a {
             text-decoration: none;
-            color: #d1fae5;
+            color: #99f6e4;
             display: block;
             padding: 12px 15px;
             border-radius: 8px;
@@ -75,7 +75,7 @@ else if($_SESSION['user_role'] !== 'admin') {
 
         .menu li a:hover,
         .menu li.active a {
-            background: #1f7a3d;
+            background: #0f766e;
             color: white;
         }
 
@@ -104,7 +104,7 @@ else if($_SESSION['user_role'] !== 'admin') {
         }
 
         .logout-btn {
-            background: #101010;
+            background: #0f172a;
             color: white;
             padding: 8px 18px;
             border-radius: 20px;
@@ -148,8 +148,8 @@ else if($_SESSION['user_role'] !== 'admin') {
 
         .input-group input:focus,
         .input-group textarea:focus {
-            border-color: #1f7a3d;
-            box-shadow: 0 0 0 3px rgba(31, 122, 61, 0.12);
+            border-color: #0f766e;
+            box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
         }
 
         textarea {
@@ -161,7 +161,7 @@ else if($_SESSION['user_role'] !== 'admin') {
         .btn {
             width: 100%;
             padding: 14px;
-            background: #1f7a3d;
+            background: #0f766e;
             color: white;
             border: none;
             border-radius: 8px;
@@ -172,7 +172,7 @@ else if($_SESSION['user_role'] !== 'admin') {
         }
 
         .btn:hover {
-            background: #14532d;
+            background: #115e59;
         }
 
         /* Responsive */
@@ -213,7 +213,7 @@ else if($_SESSION['user_role'] !== 'admin') {
                 <h2>Add Product</h2>
                 <div class="profile">
                     <span>Admin</span>
-                    <a href="../logout.php" style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
+                    <a href="../logout.php" style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
                 </div>
             </div>
 

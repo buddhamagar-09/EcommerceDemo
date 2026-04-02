@@ -43,12 +43,12 @@ $conn->close();
         }
 
         body {
-            background: #eef7f1;
+            background: #f0fdfa;
             color: #111;
         }
 
         nav {
-            background: linear-gradient(to right, #14532d, #1f7a3d);
+            background: linear-gradient(to right, #115e59, #0f766e);
             padding: 28px 70px;
             display: flex;
             justify-content: space-between;
@@ -86,7 +86,7 @@ $conn->close();
         }
 
         .checkout-title {
-            color: #14532d;
+            color: #115e59;
             font-size: 36px;
             margin-bottom: 10px;
         }
@@ -110,7 +110,7 @@ $conn->close();
         }
 
         .card h3 {
-            color: #14532d;
+            color: #115e59;
             margin-bottom: 16px;
             font-size: 24px;
         }
@@ -124,7 +124,7 @@ $conn->close();
         .checkout-form select,
         .checkout-form textarea {
             width: 100%;
-            border: 1px solid #d7e4da;
+            border: 1px solid #b8e9e1;
             border-radius: 10px;
             padding: 12px 14px;
             font-size: 15px;
@@ -152,7 +152,7 @@ $conn->close();
         .summary-total {
             margin-top: 12px;
             padding-top: 12px;
-            border-top: 1px solid #e5ece7;
+            border-top: 1px solid #ccefe8;
             font-weight: 700;
             color: #111;
             display: flex;
@@ -165,7 +165,7 @@ $conn->close();
             border: none;
             border-radius: 999px;
             padding: 13px 20px;
-            background: #1f7a3d;
+            background: #0f766e;
             color: #fff;
             font-weight: 600;
             font-size: 15px;
@@ -173,7 +173,7 @@ $conn->close();
         }
 
         .place-order-btn:hover {
-            background: #14532d;
+            background: #115e59;
         }
 
         .note {
@@ -183,7 +183,7 @@ $conn->close();
         }
 
         footer {
-            background: #101010;
+            background: #0f172a;
             color: #ccc;
             padding: 80px 70px;
             margin-top: 70px;
@@ -275,7 +275,7 @@ $conn->close();
                     echo '<sup style="font-size: 0.82em; font-weight: 700; margin-left: 2px;">' . $cart_count . '</sup>';
                     } ?></li></a>
                 <li><a href="logout.php"
-                        style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
+                        style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
                 </li>
             <?php } else { ?>
                 <li><a href="register.php">Register</a></li>

@@ -33,12 +33,12 @@ if (isset($_SESSION['user_id'])) {
         }
 
         body {
-            background: #eef7f1;
+            background: #f0fdfa;
             color: #111;
         }
 
         nav {
-            background: linear-gradient(to right, #14532d, #1f7a3d);
+            background: linear-gradient(to right, #115e59, #0f766e);
             padding: 28px 70px;
             display: flex;
             justify-content: space-between;
@@ -83,7 +83,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .contact-card h1 {
-            color: #14532d;
+            color: #115e59;
             margin-bottom: 12px;
             font-size: 34px;
         }
@@ -110,7 +110,7 @@ if (isset($_SESSION['user_id'])) {
         .contact-form input,
         .contact-form textarea {
             width: 100%;
-            border: 1px solid #d7e4da;
+            border: 1px solid #b8e9e1;
             border-radius: 10px;
             padding: 12px 14px;
             font-size: 15px;
@@ -127,18 +127,18 @@ if (isset($_SESSION['user_id'])) {
             border: none;
             border-radius: 999px;
             padding: 12px 24px;
-            background: #1f7a3d;
+            background: #0f766e;
             color: #fff;
             font-weight: 600;
             cursor: pointer;
         }
 
         .contact-form button:hover {
-            background: #14532d;
+            background: #115e59;
         }
 
         footer {
-            background: #101010;
+            background: #0f172a;
             color: #ccc;
             padding: 80px 70px;
             margin-top: 70px;
@@ -221,7 +221,7 @@ if (isset($_SESSION['user_id'])) {
             <?php if (isset($_SESSION['name']) && isset($_SESSION['user_email'])) { ?>
                 <li style="color: white;">Welcome Back <?php echo htmlspecialchars($_SESSION['name']); ?></li>
                 <a href="cart.php" style="color: white;"><li class="fa-solid fa-cart-shopping"></li></a>
-                <li><a href="logout.php" style="color: white; background: black; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a></li>
+                <li><a href="logout.php" style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a></li>
             <?php } else { ?>
                 <li><a href="register.php">Register</a></li>
                 <li><a href="login.php">Login</a></li>
