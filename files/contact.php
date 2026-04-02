@@ -13,7 +13,7 @@ if (isset($_SESSION['user_id'])) {
         $cart_count = 0;
     }
 } else {
-    $cart_count = 0;    
+    $cart_count = 0;
 }
 ?>
 <!DOCTYPE html>
@@ -220,8 +220,14 @@ if (isset($_SESSION['user_id'])) {
             <li><a href="contact.php">Contact</a></li>
             <?php if (isset($_SESSION['name']) && isset($_SESSION['user_email'])) { ?>
                 <li style="color: white;">Welcome Back <?php echo htmlspecialchars($_SESSION['name']); ?></li>
-                <a href="cart.php" style="color: white;"><li class="fa-solid fa-cart-shopping"></li></a>
-                <li><a href="logout.php" style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a></li>
+                <a href="cart.php" style="color: white; ">
+                    <li class="fa-solid fa-cart-shopping"><?php if ($cart_count > 0) {
+                        echo '<sup style="font-size: 0.82em; font-weight: 700; margin-left: 2px;">' . $cart_count . '</sup>';
+                    } ?></li>
+                </a>
+                <li><a href="logout.php"
+                        style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
+                </li>
             <?php } else { ?>
                 <li><a href="register.php">Register</a></li>
                 <li><a href="login.php">Login</a></li>
