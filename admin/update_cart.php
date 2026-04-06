@@ -3,6 +3,7 @@ session_start();
 if (!isset($_SESSION['user_id'])) {
     header('location:../files/login.php');
 }
+
 $user_id = $_SESSION['user_id'];
 include '../admin/databaseconnection.php';
 $action = isset($_POST['action']) ? $_POST['action'] : '';
@@ -41,7 +42,6 @@ if ($action === "remove") {
     header('Location: ' . $redirect_to);
     exit;
 }
-
 $conn->close();
 
 ?>
