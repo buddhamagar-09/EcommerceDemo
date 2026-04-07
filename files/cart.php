@@ -10,6 +10,7 @@ $fetch_result = false;
 $has_items = false;
 $subtotal = 0;
 $cart_count = 0;
+$added_to_cart = false;
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'add') {
     $product_id = intval($_POST['product_id']);
     $quantity = intval($_POST['quantity'] ?? 1);
@@ -21,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
         if ($check_result->num_rows > 0) {
             $update_query = "Update cart set quantity = quantity + $quantity where user_id = $user_id and product_id = $product_id";
             $update_result = mysqli_query($conn, $update_query);
+            $added_to_cart = true;
         } else {
             $price_query = "Select price from products where id = $product_id";
             $price_result = mysqli_query($conn, $price_query);
@@ -29,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
 
             $insert_query = "Insert into cart (user_id,product_id,quantity,price) values($user_id,$product_id,$quantity,$price)";
             mysqli_query($conn, $insert_query);
+            $added_to_cart = true;
         }
     }
 }
@@ -65,8 +68,9 @@ if (isset($_SESSION['user_id'])) {
         }
 
         body {
-            background: #f0fdfa;
+            background: radial-gradient(circle at top right, #ccfbf1 0%, #f0fdfa 40%, #e6fffa 100%);
             color: #111;
+            min-height: 100vh;
         }
 
         nav {
@@ -115,6 +119,36 @@ if (isset($_SESSION['user_id'])) {
             margin: auto;
         }
 
+        .cart-header {
+            background: linear-gradient(130deg, #ffffff 0%, #ecfeff 100%);
+            border: 1px solid #c7f3ec;
+            border-radius: 20px;
+            box-shadow: 0 14px 34px rgba(15, 118, 110, 0.12);
+            padding: 26px;
+            margin-bottom: 26px;
+        }
+
+        .cart-header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .cart-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: #0f766e;
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 8px 20px rgba(15, 118, 110, 0.24);
+        }
+
         .cart-title {
             font-size: 36px;
             margin-bottom: 12px;
@@ -123,7 +157,20 @@ if (isset($_SESSION['user_id'])) {
 
         .cart-subtitle {
             color: #4b5563;
-            margin-bottom: 35px;
+            margin-top: 8px;
+        }
+
+        .success-note {
+            margin-top: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            background: #dcfce7;
+            color: #166534;
+            font-weight: 600;
+            font-size: 14px;
         }
 
         .cart-layout {
@@ -139,6 +186,7 @@ if (isset($_SESSION['user_id'])) {
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #d1f4ed;
         }
 
         .cart-head,
@@ -159,6 +207,11 @@ if (isset($_SESSION['user_id'])) {
 
         .cart-row {
             border-bottom: 1px solid #d5f5ef;
+            transition: background 0.2s ease;
+        }
+
+        .cart-row:hover {
+            background: #f7fffd;
         }
 
         .cart-row:last-child {
@@ -261,12 +314,13 @@ if (isset($_SESSION['user_id'])) {
 
         .summary {
             grid-column: 2;
-            background: #fff;
+            background: linear-gradient(170deg, #ffffff 0%, #f6fffd 100%);
             border-radius: 16px;
             padding: 24px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 16px 35px rgba(15, 118, 110, 0.14);
             position: sticky;
             top: 20px;
+            border: 1px solid #d2f2ec;
         }
 
         .summary h3 {
@@ -308,6 +362,7 @@ if (isset($_SESSION['user_id'])) {
 
         .checkout-btn:hover {
             background: #115e59;
+            box-shadow: 0 8px 20px rgba(17, 94, 89, 0.24);
         }
 
         .continue {
@@ -433,6 +488,10 @@ if (isset($_SESSION['user_id'])) {
                 padding: 30px 12px;
             }
 
+            .cart-header {
+                padding: 18px;
+            }
+
             .cart-head {
                 display: none;
             }
@@ -482,8 +541,18 @@ if (isset($_SESSION['user_id'])) {
     </nav>
 
     <section class="cart-section">
-        <h1 class="cart-title">Shopping Cart</h1>
-        <p class="cart-subtitle">Review your selected items before checkout.</p>
+        <div class="cart-header">
+            <div class="cart-header-top">
+                <div>
+                    <h1 class="cart-title">Shopping Cart</h1>
+                    <p class="cart-subtitle">Review your selected items before checkout.</p>
+                </div>
+                <span class="cart-badge"><i class="fa-solid fa-bag-shopping"></i> <?php echo (int) $cart_count; ?> item(s)</span>
+            </div>
+            <?php if ($added_to_cart) { ?>
+                <div class="success-note"><i class="fa-solid fa-circle-check"></i> Item added to your cart successfully.</div>
+            <?php } ?>
+        </div>
 
 
         <?php if ($has_items = mysqli_num_rows($fetch_result) > 0) { ?>
