@@ -17,9 +17,13 @@ if (isset($_SESSION['user_id'])) {
 }
 if(isset($_GET['id']))
 {
-        $product_id = $_GET['id'];
+    $product_id = intval($_GET['id']);
         $query = "Select * from Products where id = $product_id";
         $result = mysqli_query($conn,$query);
+}
+if (!isset($result) || !$result || mysqli_num_rows($result) === 0) {
+    header('Location: products.php');
+    exit();
 }
 $conn->close();
 ?>
@@ -41,8 +45,9 @@ $conn->close();
         }
 
         body {
-            background: #f0fdfa;
+            background: radial-gradient(circle at top right, #ccfbf1 0%, #f0fdfa 42%, #e6fffa 100%);
             color: #111;
+            min-height: 100vh;
         }
 
         /* NAVBAR */
@@ -82,16 +87,42 @@ $conn->close();
         }
 
         /* MAIN WRAPPER */
+        .page-shell {
+            max-width: 1250px;
+            margin: 42px auto 80px;
+            padding: 0 18px;
+        }
+
+        .breadcrumb {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #115e59;
+            background: #ecfeff;
+            border: 1px solid #b9efe6;
+            border-radius: 999px;
+            padding: 8px 14px;
+            margin-bottom: 18px;
+        }
+
+        .breadcrumb a {
+            color: #0f766e;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
         .product-wrapper {
             max-width: 1200px;
-            margin: 80px auto;
+            margin: 0 auto;
             padding: 40px;
             background: white;
-            border-radius: 20px;
+            border-radius: 26px;
             display: grid;
             grid-template-columns: 1.1fr 1fr;
             gap: 60px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 22px 60px rgba(15, 118, 110, 0.16);
+            border: 1px solid #cff3eb;
         }
 
         /* IMAGE BOX (FIXED PROBLEM) */
@@ -100,11 +131,12 @@ $conn->close();
             aspect-ratio: 1/1;
             overflow: hidden;
             border-radius: 20px;
-            background: #ecfeff;
+            background: linear-gradient(140deg, #ecfeff 0%, #dcfce7 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             transition: 0.3s;
+            border: 1px solid #bcefe5;
         }
 
         .product-image:hover {
@@ -126,30 +158,56 @@ $conn->close();
 
         .product-details h1 {
             font-size: 36px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid #bdeee6;
+            background: #f7fffd;
+            color: #0f766e;
         }
 
         .price {
-            font-size: 28px;
+            font-size: 32px;
             color: #0f766e;
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 14px;
         }
 
 
         .desc {
             color: #555;
             line-height: 1.8;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             max-width: 500px;
         }
 
         /* STOCK */
         .stock {
-            font-weight: 600;
-            margin-bottom: 25px;
-            color: #0f766e;
+            width: fit-content;
+            font-weight: 700;
+            margin-bottom: 22px;
+            color: #166534;
+            background: #dcfce7;
+            border: 1px solid #86efac;
+            border-radius: 999px;
+            padding: 8px 14px;
         }
 
         /* QUANTITY */
@@ -157,7 +215,12 @@ $conn->close();
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 30px;
+            margin-bottom: 22px;
+            background: #f9fffe;
+            border: 1px solid #c8f1ea;
+            padding: 10px 12px;
+            border-radius: 14px;
+            width: fit-content;
         }
 
         .qty button {
@@ -170,20 +233,42 @@ $conn->close();
             border-radius: 8px;
         }
 
+        .qty label {
+            font-weight: 600;
+            color: #115e59;
+        }
+
         .qty input {
-            width: 60px;
-            padding: 8px;
+            width: 80px;
+            padding: 9px;
             text-align: center;
-            border: 1px solid #ddd;
+            border: 1px solid #b8e9e1;
             border-radius: 8px;
             font-weight: 600;
+            color: #0f766e;
+            background: #fff;
         }
 
         /* CART FORM */
         .add-to-cart-form {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
+        }
+
+        .usp-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+            margin: 6px 0 4px;
+            color: #365048;
+            font-size: 14px;
+        }
+
+        .usp-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         /* BUTTON */
@@ -203,10 +288,11 @@ $conn->close();
         }
 
         .buy {
-            background: #0f766e;
+            background: linear-gradient(135deg, #0f766e, #115e59);
             color: white;
             width: 100%;
-            max-width: 200px;
+            max-width: 250px;
+            box-shadow: 0 10px 24px rgba(15, 118, 110, 0.24);
         }
 
         .buy:hover {
@@ -225,8 +311,10 @@ $conn->close();
         /* RATING */
 
         .rating {
-            color: gold;
-            margin-bottom: 15px;
+            color: #f59e0b;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+            font-size: 17px;
         }
 
 
@@ -279,6 +367,7 @@ $conn->close();
             .product-wrapper {
                 grid-template-columns: 1fr;
                 gap: 40px;
+                padding: 24px;
             }
 
             .product-details h1 {
@@ -292,6 +381,14 @@ $conn->close();
                 gap: 15px;
             }
 
+            .page-shell {
+                margin: 20px auto 60px;
+            }
+
+            .buy {
+                max-width: 100%;
+            }
+
             .footer-grid {
                 grid-template-columns: 1fr 1fr;
             }
@@ -303,7 +400,7 @@ $conn->close();
 
    <!-- NAVBAR -->
   <nav>
-        <h2>My Ecom</h2>
+        <h2>Sexy Wears</h2>
         <ul>
             <li><a href="index.php">Home</a></li>
             <li><a href="products.php">Products</a></li>
@@ -324,6 +421,15 @@ $conn->close();
     </nav>
 
 <?php $row = mysqli_fetch_assoc($result); ?>
+    <div class="page-shell">
+        <div class="breadcrumb">
+            <a href="index.php">Home</a>
+            <span>/</span>
+            <a href="products.php">Products</a>
+            <span>/</span>
+            <span><?php echo htmlspecialchars($row['name']); ?></span>
+        </div>
+
     <!-- PRODUCT DETAIL -->
     <div class="product-wrapper">
 
@@ -336,6 +442,11 @@ $conn->close();
         <div class="product-details">
             <h1><?php echo $row['name']; ?></h1>
 
+            <div class="meta-row">
+                <span class="pill"><i class="fa-solid fa-shield-heart"></i> Premium Quality</span>
+                <span class="pill"><i class="fa-solid fa-truck-fast"></i> Fast Delivery</span>
+            </div>
+
             <div class="price">Rs <?php echo $row['price']; ?></div>
 
             <div class="rating">★★★★★</div>
@@ -346,6 +457,11 @@ $conn->close();
             </div>
 
             <div class="stock"><?php echo $row['quantity'] ?> items left</div>
+
+            <div class="usp-list">
+                <span class="usp-item"><i class="fa-solid fa-circle-check"></i> Easy return within 7 days</span>
+                <span class="usp-item"><i class="fa-solid fa-lock"></i> Secure checkout experience</span>
+            </div>
 
             <!-- Add to Cart Form -->
             <form action="cart.php" method="post" class="add-to-cart-form">
@@ -362,6 +478,7 @@ $conn->close();
 
         </div>
 
+    </div>
     </div>
 
     <!-- FOOTER -->

@@ -520,7 +520,7 @@ if (isset($_SESSION['user_id'])) {
 
 <body>
     <nav>
-        <h2>My Ecom</h2>
+        <h2>Sexy Wears</h2>
         <ul>
             <li><a href="index.php">Home</a></li>
             <li><a href="products.php">Products</a></li>
