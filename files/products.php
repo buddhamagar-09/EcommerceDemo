@@ -158,16 +158,41 @@ nav ul li a:hover{
     font-weight:bold;
     color:#0f766e;
 }
-.card button{
-    padding:12px 28px;
+.card-actions{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+    margin-top:12px;
+}
+.card-btn{
+    width:100%;
+    padding:12px 18px;
+    border:none;
+    border-radius:999px;
+    cursor:pointer;
+    font-weight:600;
+    font-size:14px;
+    transition:transform .2s ease,box-shadow .2s ease,background .2s ease;
+}
+.card-btn:hover{
+    transform:translateY(-2px);
+}
+.add-cart-btn{
     background:#0f766e;
     color:white;
-    border:none;
-    border-radius:25px;
-    cursor:pointer;
+    box-shadow:0 8px 20px rgba(15,118,110,.22);
 }
-.card button:hover{
+.add-cart-btn:hover{
     background:#115e59;
+}
+.details-btn{
+    background:#ecfeff;
+    color:#0f766e;
+    border:1px solid #99f6e4;
+}
+.details-btn:hover{
+    background:#cffafe;
+    box-shadow:0 8px 20px rgba(34,197,94,.12);
 }
 
 /* ===== FOOTER ===== */
@@ -257,7 +282,15 @@ footer ul li{
                     <h3><?php echo $row['name']; ?></h3>
                     <p><?php echo $row['description']; ?></p>
                     <div class="price">Rs.<?php echo $row['price']; ?></div>
-                    <a href="product_details.php?id=<?php echo $row['id']; ?>"><button>Buy Now</button></a>
+                    <div class="card-actions">
+                        <form action="cart.php" method="post">
+                            <input type="hidden" name="action" value="add">
+                            <input type="hidden" name="product_id" value="<?php echo $row['id']; ?>">
+                            <input type="hidden" name="quantity" value="1">
+                            <button type="submit" class="card-btn add-cart-btn">Add To Cart</button>
+                        </form>
+                        <a href="product_details.php?id=<?php echo $row['id']; ?>"><button type="button" class="card-btn details-btn">View Details</button></a>
+                    </div>
                 </div>
             <?php } ?>
         </div>
