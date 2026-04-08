@@ -29,7 +29,7 @@ $row = mysqli_fetch_assoc($result);
 $total_price = 0;
 $shipping_fee = 200; // fixed shipping fee
 
-$products_sql = "SELECT p.name, c.quantity, (p.price * c.quantity) AS total_price 
+$products_sql = "SELECT p.name,p.image, c.quantity, (p.price * c.quantity) AS total_price 
                  FROM cart c 
                  JOIN products p ON c.product_id = p.id 
                  WHERE c.user_id = $user_id";
@@ -418,17 +418,19 @@ $conn->close();
                 <table>
 
                     <tr>
+                        <th>Image</th>
                         <th>Product</th>
                         <th>Quantity</th>
                         <th>Total</th>
                     </tr>
                     <?php while ($row = mysqli_fetch_assoc($product_result)) { ?>
                         <tr>
+                            <td><img src="../photos/<?php echo $row['image']; ?>" width="50" height="50"></td>
                             <td><?php echo $row['name']; ?></td>
                             <td><?php echo $row['quantity']; ?></td>
                             <td> Rs <?php echo $row['total_price']; ?></td>
                         </tr>
-                    <?php
+                        <?php
                         $total_price += $row['total_price'];
                     } ?>
                 </table>
@@ -442,11 +444,11 @@ $conn->close();
                     <h3>Payment Method</h3>
 
                     <label>
-                        <input type="radio" name="payment"> COD
+                        <input type="radio" name="payment" onclick="payment('cod')"> COD
                     </label>
 
                     <label>
-                        <input height="50px" width="100px" type="image" src="../photos/esewa.png" alt="eSewa">
+                        <input height="50px" width="100px" type="image" src="../photos/esewa.png" alt="eSewa" onclick="payment('esewa')">
                     </label>
 
                 </div>
@@ -457,8 +459,6 @@ $conn->close();
         </form>
 
     </div>
-
-
     <!-- FOOTER -->
 
     <footer>
@@ -510,5 +510,4 @@ $conn->close();
     </footer>
 
 </body>
-
 </html>
