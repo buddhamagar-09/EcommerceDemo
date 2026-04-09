@@ -21,10 +21,6 @@ if (isset($_SESSION['user_id'])) {
     $cart_count = 0;
 }
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;
-$query = "Select * from users where id = $user_id ";
-$result = mysqli_query($conn, $query);
-$row = mysqli_fetch_assoc($result);
-
 // fetch order details from cart table and calculate total price
 $total_price = 0;
 $shipping_fee = 200; // fixed shipping fee
@@ -390,22 +386,22 @@ $conn->close();
         </div>
 
         <!-- SHIPPING DETAILS -->
-        <form action="" method="" class="checkout-grid">
+        <form action="shipping.php" method="POST" class="checkout-grid">
             <div class="checkout-form">
 
                 <h2>Shipping Details</h2>
 
                 <label>Full Name</label>
-                <input name="user_name" type="text" value="<?php echo $row['name']; ?>" required>
+                <input name="user_name" type="text" required>
 
                 <label>Email</label>
-                <input name="user_email" type="email" value="<?php echo $row['email']; ?>" required>
+                <input name="user_email" type="email" required>
 
                 <label>Phone</label>
-                <input name="user_phone" type="text" value="<?php echo $row['phone']; ?>" required>
+                <input name="user_phone" type="text" required>
 
                 <label>Address</label>
-                <input name="user_address" type="text" value="<?php echo $row['address']; ?>" required>
+                <input name="user_address" type="text" required>
 
             </div>
 
@@ -438,17 +434,23 @@ $conn->close();
                     Shipping: Rs.200<br>
                     Grand Total : Rs <?php echo $total_price + $shipping_fee; ?>
                 </div>
-
+                <input type="hidden" name="total_price" value="<?php echo $total_price+$shipping_fee; ?> ">    
+                <?php 
+                $transaction_uuid = uniqid(); // generate unique transaction ID
+                $total_amount = $total_price+$shipping_fee;
+                ?>
+                <input type="hidden" name="transaction_uuid" value="<?php echo $transaction_uuid; ?>">
+                <input type="hidden" name="total_amount" value="<?php echo $total_amount; ?>">
                 <div class="payment-method">
 
                     <h3>Payment Method</h3>
 
                     <label>
-                        <input type="radio" name="payment" onclick="payment('cod')"> COD
+                        <input type="radio" name="payment"> COD
                     </label>
 
                     <label>
-                        <input height="50px" width="100px" type="image" src="../photos/esewa.png" alt="eSewa" onclick="payment('esewa')">
+                        <input height="50px" width="100px" type="image" src="../photos/esewa.png" alt="eSewa">
                     </label>
 
                 </div>
