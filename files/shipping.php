@@ -21,15 +21,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION['total_price'] = $total_price;
     $_SESSION['transaction_uuid'] = $transaction_uuid;
 
-
-
     $product_code = "EPAYTEST";
     $message="total_amount=$total_price,transaction_uuid=$transaction_uuid,product_code=$product_code";
     $secret_key ="8gBm/:&EnhH.1/q";
     $hash = hash_hmac('sha256',$message, $secret_key,true);
     $signature = base64_encode($hash);
  
-
 
     include '../admin/databaseconnection.php';
     // save shipping details to database
@@ -57,14 +54,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         <input type="hidden" id="product_code" name="product_code" value="<?php echo $product_code ?>" required>
         <input type="hidden" id="product_service_charge" name="product_service_charge" value="0" required>
         <input type="hidden" id="product_delivery_charge" name="product_delivery_charge" value="0" required>
-        <input type="hidden" id="success_url" name="success_url" value="https://developer.esewa.com.np/success" required>
-        <input type="hidden" id="failure_url" name="failure_url" value="https://developer.esewa.com.np/failure" required>
+        <input type="hidden" id="success_url" name="success_url" value="https://localhost/EcommerceDemo/files/success.php" required>
+        <input type="hidden" id="failure_url" name="failure_url" value="https://localhost/EcommerceDemo/files/failure.php" required>
         <input type="hidden" id="signed_field_names" name="signed_field_names"
             value="total_amount,transaction_uuid,product_code" required>
         <input type="hidden" id="signature" name="signature" value="<?php echo $signature; ?>"
             required>
     </form>
-</body>
+</body> 
 <script>
   document.getElementById('esewa_form').submit();
 </script>
