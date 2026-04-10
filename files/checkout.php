@@ -101,14 +101,14 @@ $conn->close();
         /* CHECKOUT CONTAINER */
 
         .checkout-container {
-            width: min(1100px, 92%);
+            width: min(1320px, 95%);
             margin: auto;
-            margin-top: 70px;
-            margin-bottom: 90px;
+            margin-top: 42px;
+            margin-bottom: 56px;
         }
 
         .checkout-heading {
-            margin-bottom: 22px;
+            margin-bottom: 16px;
         }
 
         .checkout-heading h1 {
@@ -146,40 +146,58 @@ $conn->close();
         .checkout-grid {
             display: flex;
             width: 100%;
-            gap: 24px;
-            align-items: flex-start;
+            gap: 18px;
+            align-items: stretch;
         }
 
         /* SHIPPING FORM */
 
         .checkout-form {
-            width: 50%;
+            width: 56%;
             background: white;
-            padding: 30px;
+            padding: 22px 24px;
             border-radius: 16px;
             border-top: 5px solid #14b8a6;
             box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
         }
 
         .checkout-form h2 {
-            margin-bottom: 20px;
+            margin-bottom: 14px;
             color: #0f172a;
+        }
+
+        .shipping-fields {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .field-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field-block.full {
+            grid-column: 1 / -1;
         }
 
         .checkout-form label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
+            font-size: 13px;
+            color: #0f172a;
         }
 
         .checkout-form input,
         .checkout-form textarea {
             width: 100%;
-            padding: 12px 14px;
-            margin-bottom: 15px;
+            padding: 10px 12px;
+            margin-bottom: 0;
             border: 1px solid #cbd5e1;
             border-radius: 10px;
-            font-size: 15px;
+            font-size: 14px;
+            background: #fcfffe;
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
@@ -193,53 +211,98 @@ $conn->close();
         /* ORDER SUMMARY */
 
         .order-summary {
-            width: 50%;
+            width: 44%;
             background: white;
-            padding: 30px;
+            padding: 22px 24px;
             border-radius: 16px;
             border-top: 5px solid #0f766e;
             box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
         }
 
         .order-summary h2 {
-            margin-bottom: 20px;
+            margin-bottom: 14px;
             color: #0f172a;
         }
 
         .order-summary table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
+            border: 1px solid #dbe7e3;
+            border-radius: 12px;
+            overflow: hidden;
         }
 
         .order-summary th,
         .order-summary td {
-            padding: 10px;
+            padding: 9px 8px;
             border-bottom: 1px solid #ddd;
             text-align: left;
+            vertical-align: middle;
+            font-size: 13px;
         }
 
         .order-summary th {
             background: #f0fdfa;
             color: #115e59;
             font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+
+        .order-summary tr:last-child td {
+            border-bottom: none;
+        }
+
+        .order-item-row:nth-child(even) {
+            background: #fafefd;
+        }
+
+        .item-image {
+            width: 52px;
+            height: 52px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid #d5e5e1;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .item-qty {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 34px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: #e6fffa;
+            color: #0f766e;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .item-total {
+            font-weight: 700;
+            color: #115e59;
         }
 
         .total {
             background: #ecfeff;
             border: 1px solid #99f6e4;
             border-radius: 12px;
-            padding: 14px;
-            font-size: 18px;
+            padding: 12px;
+            font-size: 16px;
             font-weight: 600;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            line-height: 1.45;
+            margin-bottom: 14px;
         }
 
         /* PAYMENT */
 
         .payment-method h3 {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: #0f172a;
         }
 
@@ -250,8 +313,8 @@ $conn->close();
             background: #f8fafc;
             border: 1px solid #e2e8f0;
             border-radius: 10px;
-            padding: 10px 12px;
-            margin-bottom: 8px;
+            padding: 8px 10px;
+            margin-bottom: 6px;
         }
 
         /* BUTTON */
@@ -335,6 +398,10 @@ $conn->close();
                 width: 100%;
             }
 
+            .shipping-fields {
+                grid-template-columns: 1fr;
+            }
+
             .footer-grid {
                 grid-template-columns: 1fr 1fr;
             }
@@ -391,17 +458,27 @@ $conn->close();
 
                 <h2>Shipping Details</h2>
 
-                <label>Full Name</label>
-                <input name="user_name" type="text" required>
+                <div class="shipping-fields">
+                    <div class="field-block">
+                        <label for="user_name">Full Name</label>
+                        <input id="user_name" name="user_name" type="text" placeholder="Enter receiver full name" required>
+                    </div>
 
-                <label>Email</label>
-                <input name="user_email" type="email" required>
+                    <div class="field-block">
+                        <label for="user_email">Email</label>
+                        <input id="user_email" name="user_email" type="email" placeholder="name@example.com" required>
+                    </div>
 
-                <label>Phone</label>
-                <input name="user_phone" type="text" required>
+                    <div class="field-block">
+                        <label for="user_phone">Phone</label>
+                        <input id="user_phone" name="user_phone" type="text" placeholder="98XXXXXXXX" required>
+                    </div>
 
-                <label>Address</label>
-                <input name="user_address" type="text" required>
+                    <div class="field-block full">
+                        <label for="user_address">Shipping Address</label>
+                        <input id="user_address" name="user_address" type="text" placeholder="Street, ward, city, nearby landmark" required>
+                    </div>
+                </div>
 
             </div>
 
@@ -420,11 +497,11 @@ $conn->close();
                         <th>Total</th>
                     </tr>
                     <?php while ($row = mysqli_fetch_assoc($product_result)) { ?>
-                        <tr>
-                            <td><img src="../photos/<?php echo $row['image']; ?>" width="50" height="50"></td>
-                            <td><?php echo $row['name']; ?></td>
-                            <td><?php echo $row['quantity']; ?></td>
-                            <td> Rs <?php echo $row['total_price']; ?></td>
+                        <tr class="order-item-row">
+                            <td><img class="item-image" src="../photos/<?php echo $row['image']; ?>" alt="<?php echo $row['name']; ?>"></td>
+                            <td class="item-name"><?php echo $row['name']; ?></td>
+                            <td><span class="item-qty"><?php echo $row['quantity']; ?></span></td>
+                            <td class="item-total">Rs <?php echo $row['total_price']; ?></td>
                         </tr>
                         <?php
                         $total_price += $row['total_price'];
