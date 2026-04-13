@@ -14,6 +14,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $total_price = $_POST['total_price'];
     $transaction_uuid = $_POST['transaction_uuid'];
 
+    $_SESSION['user_id'] = $user_id;
     $_SESSION['name'] = $user_name;
     $_SESSION['email'] = $user_email;
     $_SESSION['phone'] = $user_phone;
