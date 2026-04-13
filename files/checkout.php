@@ -426,8 +426,8 @@ $conn->close();
             <li><a href="index.php">Home</a></li>
             <li><a href="products.php">Products</a></li>
             <li><a href="contact.php">Contact</a></li>
-            <?php if (isset($_SESSION['name']) && isset($_SESSION['user_email'])) { ?>
-                <li style="color: white;">Welcome Back <?php echo htmlspecialchars($_SESSION['name']); ?></li>
+            <?php if (isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) { ?>
+                <li style="color: white;">Welcome Back <?php echo htmlspecialchars($_SESSION['user_name']); ?></li>
                 <a href="cart.php" style="color: white; ">
                     <li class="fa-solid fa-cart-shopping"><?php if ($cart_count > 0) {
                         echo '<sup style="font-size: 0.82em; font-weight: 700; margin-left: 2px;">' . $cart_count . '</sup>';
