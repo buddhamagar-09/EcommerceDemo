@@ -9,63 +9,94 @@ if (!isset($_SESSION['user_id'])) {
 
 $display_name = $_SESSION['user_name'] ?? null;
 
-$status = 'pending';
-$payment_status = 'pending';
-$transaction_code = null;
-$amount = null;
-$transaction_uuid = null;
-$success = false;
-$data = null;
-
 // check if payment data is received from eSewa
 if (!isset($_GET['data'])) {
     die("No payment data received.");
 }
 
+// decode json data from eSewa
 // the 'data' parameter is expected to be a base64-encoded JSON string containing payment details
 $decoded_data = base64_decode($_GET['data']);
 // the decoded data should be a JSON string containing payment details
 
-
 $data = json_decode($decoded_data, true);
 // data example:
 // $data = {
-//     "status" => "COMPLETE",
+//     "status" => "success",
 //     "transaction_code" => "1234567890",
 //     "total_amount" => 1000,
 //     "transaction_uuid" => "abcde-12345-fghij-67890"
 // };
 
 if (!$data) {
-    die("Invalid payment data format.");
+    die("Invalid access. Couldnt decode data !!");
 }
 
-if (isset($data['status'])) {
-    $transaction_code = $data['transaction_code'] ?? null;
-    $amount = $data['total_amount'] ?? null;
-    $transaction_uuid = $data['transaction_uuid'] ?? null;
+// payment details extracted from decoded data
+$amt = $data['total_amount'];
+$oid = $data['transaction_uuid'];
+$ref_id = $data['transaction_code'];
+$status = $data['status'];
 
-    if (strtoupper((string) $data['status']) === 'COMPLETE') {
-        $status = 'completed';
-        $payment_status = 'completed';
-        $success = true;
+// session data
+$user_id = $_SESSION['user_id'];
+$user_name = $_SESSION['name'];
+$user_email = $_SESSION['email'];
+$user_phone = $_SESSION['phone'];
+$user_address = $_SESSION['address'];
+$total_price = $_SESSION['total_price'];
+$transaction_uuid = $_SESSION['transaction_uuid'];
+
+// match check
+if ($amt != $total_price || $oid != $transaction_uuid) {
+    die("transaction mismatch");
+}
+
+//duplicate check
+$check = "select * from orders where transaction_uid = '$oid'";
+$check_reuslt = mysqli_query($conn, $check);
+if (mysqli_num_rows($check_reuslt) > 0) {
+    die("Order Already Exist.");
+}
+
+$payment_status = "paid";
+
+//insert into orders table
+$query = "INSERT INTO orders (user_id, name, email, phone, address, total_amt, transaction_uid, payment_method, payment_status) VALUES ('$user_id', '$user_name', '$user_email', '$user_phone', '$user_address', '$total_price', '$transaction_uuid', 'esewa', '$payment_status')";
+$result = mysqli_query($conn, $query);
+
+// get order id
+$order_id = mysqli_insert_id($conn);
+
+// insert into order items table
+$sql1 = "select * from cart where user_id = '$user_id'";
+$result1 = mysqli_query($conn, $sql1);
+
+while ($row = mysqli_fetch_assoc($result1)) {
+    $product_id = $row['product_id'];
+    $quantity = $row['quantity'];
+    $price = $row['price'];
+
+
+    $sql2 = "insert into order_items (order_id,product_id,quantity,price) values ('$order_id','$product_id','$quantity','$price')";
+    $result2 = mysqli_query($conn, $sql2);
+}
+
+// clear cart items
+$clear_query = "Delete from cart where user_id = '$user_id'";
+$result3 = mysqli_query($conn, $clear_query);
+
+$cart_count = 0;
+    $count_query = "Select count(*) as count from cart where user_id = $user_id";
+    $count_result = mysqli_query($conn, $count_query);
+    if ($count_result) {
+        $count_row = mysqli_fetch_assoc($count_result);
+        $cart_count = (int) ($count_row['count']);
+    } else {
+        $cart_count = 0;
     }
-}
 
-if ($success && isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
-    $user_name = $_SESSION['name'];
-    $user_email = $_SESSION['email'];
-    $user_phone = $_SESSION['phone'];
-    $user_address = $_SESSION['address'];
-    $total_price = $_SESSION['total_price'];
-    $transaction_uuid = $_SESSION['transaction_uuid'];
-
-    $query = "INSERT INTO orders (user_id, name, email, phone, address, total_amt, transaction_uid, payment_method, payment_status) VALUES ('$user_id', '$user_name', '$user_email', '$user_phone', '$user_address', '$total_price', '$transaction_uuid', 'esewa', '$payment_status')";
-    mysqli_query($conn, $query);
-    $conn->close();
-}
-?>
+?> 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -361,7 +392,7 @@ if ($success && isset($_SESSION['user_id'])) {
             <li><a href="contact.php">Contact</a></li>
             <?php if ($display_name) { ?>
                 <li style="color: white; font-weight: bold;">Welcome Back,
-                    <?php echo htmlspecialchars($display_name); ?>
+                    <?php echo ($display_name); ?>
                 </li>
                 <li>
                     <a href="cart.php" style="color: white;">
@@ -383,12 +414,12 @@ if ($success && isset($_SESSION['user_id'])) {
 
     <div class="page-center">
         <div class="success-card">
-            <div class="icon"><?php echo $success ? '✓' : '!'; ?></div>
-            <h1><?php echo $success ? 'Payment Successful' : 'Payment Pending'; ?></h1>
-            <p><?php echo $success ? 'Your order has been placed successfully. Thank you for shopping with us.' : 'We could not confirm a completed payment. Please review the payment result or try again.'; ?>
+            <div class="icon">✓</div>
+            <h1>Payment Successful</h1>
+            <p>Your order has been placed successfully. Thank you for shopping with us.
             </p>
             <div class="order-note">
-                <?php echo $success ? 'A confirmation message will be sent to your registered email or phone.' : 'If your payment was already completed, it may take a short time to update.'; ?>
+                A confirmation message will be sent to your registered email or phone.
             </div>
 
             <div class="shipping-box">
