@@ -306,6 +306,12 @@ $conn->close();
             color: #0f172a;
         }
 
+        .payment-options {
+            display: flex;
+            gap: 10px;
+            align-items: stretch;
+        }
+
         .payment-method label {
             display: flex;
             align-items: center;
@@ -315,6 +321,30 @@ $conn->close();
             border-radius: 10px;
             padding: 8px 10px;
             margin-bottom: 6px;
+        }
+
+        .cod-btn {
+            flex: 1;
+            border: 1px solid #0f766e;
+            background: #0f766e;
+            color: #fff;
+            font-weight: 700;
+            border-radius: 10px;
+            padding: 10px 12px;
+            cursor: pointer;
+            margin-bottom: 0;
+        }
+
+        .cod-btn:hover {
+            background: #115e59;
+            border-color: #115e59;
+        }
+
+        .esewa-option {
+            flex: 1;
+            justify-content: center;
+            margin-bottom: 0;
+            cursor: pointer;
         }
 
         /* BUTTON */
@@ -461,7 +491,8 @@ $conn->close();
                 <div class="shipping-fields">
                     <div class="field-block">
                         <label for="user_name">Full Name</label>
-                        <input id="user_name" name="user_name" type="text" placeholder="Enter receiver full name" required>
+                        <input id="user_name" name="user_name" type="text" placeholder="Enter receiver full name"
+                            required>
                     </div>
 
                     <div class="field-block">
@@ -476,7 +507,8 @@ $conn->close();
 
                     <div class="field-block full">
                         <label for="user_address">Shipping Address</label>
-                        <input id="user_address" name="user_address" type="text" placeholder="Street, ward, city, nearby landmark" required>
+                        <input id="user_address" name="user_address" type="text"
+                            placeholder="Street, ward, city, nearby landmark" required>
                     </div>
                 </div>
 
@@ -498,7 +530,8 @@ $conn->close();
                     </tr>
                     <?php while ($row = mysqli_fetch_assoc($product_result)) { ?>
                         <tr class="order-item-row">
-                            <td><img class="item-image" src="../photos/<?php echo $row['image']; ?>" alt="<?php echo $row['name']; ?>"></td>
+                            <td><img class="item-image" src="../photos/<?php echo $row['image']; ?>"
+                                    alt="<?php echo $row['name']; ?>"></td>
                             <td class="item-name"><?php echo $row['name']; ?></td>
                             <td><span class="item-qty"><?php echo $row['quantity']; ?></span></td>
                             <td class="item-total">Rs <?php echo $row['total_price']; ?></td>
@@ -511,10 +544,10 @@ $conn->close();
                     Shipping: Rs.200<br>
                     Grand Total : Rs <?php echo $total_price + $shipping_fee; ?>
                 </div>
-                <input type="hidden" name="total_price" value="<?php echo $total_price+$shipping_fee; ?> ">    
-                <?php 
+                <input type="hidden" name="total_price" value="<?php echo $total_price + $shipping_fee; ?> ">
+                <?php
                 $transaction_uuid = uniqid(); // generate unique transaction ID
-                $total_amount = $total_price+$shipping_fee;
+                $total_amount = $total_price + $shipping_fee;
                 ?>
                 <input type="hidden" name="transaction_uuid" value="<?php echo $transaction_uuid; ?>">
                 <input type="hidden" name="total_amount" value="<?php echo $total_amount; ?>">
@@ -522,13 +555,13 @@ $conn->close();
 
                     <h3>Payment Method</h3>
 
-                    <label>
-                        <input type="radio" name="payment"> COD
-                    </label>
+                    <div class="payment-options">
+                        <button type="button" class="cod-btn" onclick="Cod_function('cod')">Cash on Delivery</button>
 
-                    <label>
-                        <input height="50px" width="100px" type="image" src="../photos/esewa.png" alt="eSewa">
-                    </label>
+                        <label class="esewa-option">
+                            <input height="50px" width="100px" type="image" src="../photos/esewa.png" alt="eSewa">
+                        </label>
+                    </div>
 
                 </div>
 
@@ -588,5 +621,34 @@ $conn->close();
 
     </footer>
 
+    <script>
+
+        function Cod_function(value) {
+
+            let name = document.getElementById('user_name').value.trim();
+            let email = document.getElementById('user_email').value.trim();
+            let phone = document.getElementById('user_phone').value.trim();
+            let address = document.getElementById('user_address').value.trim();
+
+
+            if (name === '' || email === '' || phone === '' || address === '') {
+                alert('Please fill in all shipping details before placing the order.');
+                return;
+            }
+            if (value == 'cod') {
+                let res = confirm("Are you sure you want to place the order with Cash on Delivery?");
+                if (res == true) {
+                    const checkoutForm = document.querySelector('.checkout-grid');
+                    checkoutForm.action = 'cod_success.php';
+                    checkoutForm.method = 'POST';
+                    checkoutForm.submit();
+
+                } else {
+                    window.location.href = 'cod_failure.php';
+                }
+            }
+        }
+    </script>
 </body>
+
 </html>
