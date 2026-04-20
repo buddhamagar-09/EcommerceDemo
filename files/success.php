@@ -53,9 +53,9 @@ if ($amt != $total_price || $oid != $transaction_uuid) {
 }
 
 //duplicate check
-$check = "select * from orders where transaction_uid = '$oid'";
-$check_reuslt = mysqli_query($conn, $check);
-if (mysqli_num_rows($check_reuslt) > 0) {
+$check = "SELECT * FROM orders WHERE transaction_uid = '$oid'";
+$check_result = mysqli_query($conn, $check);
+if (mysqli_num_rows($check_result) > 0) {
     die("Order Already Exist.");
 }
 
@@ -69,7 +69,7 @@ $result = mysqli_query($conn, $query);
 $order_id = mysqli_insert_id($conn);
 
 // insert into order items table
-$sql1 = "select * from cart where user_id = '$user_id'";
+$sql1 = "SELECT * FROM cart WHERE user_id = '$user_id'";
 $result1 = mysqli_query($conn, $sql1);
 
 while ($row = mysqli_fetch_assoc($result1)) {
@@ -78,7 +78,7 @@ while ($row = mysqli_fetch_assoc($result1)) {
     $price = $row['price'];
 
 
-    $sql2 = "insert into order_items (order_id,product_id,quantity,price) values ('$order_id','$product_id','$quantity','$price')";
+    $sql2 = "INSERT INTO order_items (order_id,product_id,quantity,price) VALUES ('$order_id','$product_id','$quantity','$price')";
     $result2 = mysqli_query($conn, $sql2);
 }
 
@@ -87,16 +87,16 @@ $clear_query = "Delete from cart where user_id = '$user_id'";
 $result3 = mysqli_query($conn, $clear_query);
 
 $cart_count = 0;
-    $count_query = "Select count(*) as count from cart where user_id = $user_id";
-    $count_result = mysqli_query($conn, $count_query);
-    if ($count_result) {
-        $count_row = mysqli_fetch_assoc($count_result);
-        $cart_count = (int) ($count_row['count']);
-    } else {
-        $cart_count = 0;
-    }
+$count_query = "Select count(*) as count from cart where user_id = $user_id";
+$count_result = mysqli_query($conn, $count_query);
+if ($count_result) {
+    $count_row = mysqli_fetch_assoc($count_result);
+    $cart_count = (int) ($count_row['count']);
+} else {
+    $cart_count = 0;
+}
 
-?> 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
