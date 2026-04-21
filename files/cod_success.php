@@ -27,12 +27,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result2 = mysqli_query($conn, $sql2);
 
         while ($row = mysqli_fetch_assoc($result2)) {
-            $product_id = $row['product_id'];
-            $quantity = $row['quantity'];
+            $product_id = (int) $row['product_id'];
+            $quantity = (int) $row['quantity'];
             $price = $row['price'];
 
             $sql3 = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES ('$order_id', '$product_id', '$quantity', '$price')";
             mysqli_query($conn, $sql3);
+
+            $stock_sql = "UPDATE products SET quantity = quantity - $quantity WHERE id = $product_id AND quantity >= $quantity";
+            mysqli_query($conn, $stock_sql);
         }
 
         $sql4 = "DELETE FROM cart WHERE user_id='$user_id'";
