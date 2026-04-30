@@ -27,6 +27,7 @@ if (isset($_POST['submit'])) {
         }
     } else {
         echo "<script>alert('Invalid email or password. Please try again.');</script>";
+        header("Location: ../files/login.php");
     }
 }
 ?>
