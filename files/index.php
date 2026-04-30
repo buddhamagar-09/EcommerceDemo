@@ -35,7 +35,6 @@ if (isset($_SESSION['user_id'])) {
         body {
             background: #f0fdfa;
         }
-
         /* ===== NAVBAR ===== */
         nav {
             background: linear-gradient(to right, #115e59, #0f766e);
@@ -67,7 +66,6 @@ if (isset($_SESSION['user_id'])) {
         nav ul li a:hover {
             opacity: 0.8;
         }
-
         /* ===== HERO (PROFESSIONAL) ===== */
         .hero {
             background: linear-gradient(135deg, #14b8a6, #0f766e);
@@ -382,7 +380,6 @@ if (isset($_SESSION['user_id'])) {
 </head>
 
 <body>
-
     <!-- NAVBAR -->
    <nav> 
         <h2>Sexy Wears</h2>
