@@ -193,6 +193,7 @@ include '../admin/databaseconnection.php';
                 <li><a href="view_users.php">Users</a></li>
                 <li><a href="addproductform.php">Add Products</a></li>
                 <li><a href="view_products.php">View Products</a></li>
+                <li><a href="view_orders.php">View Orders</a></li>
             </ul>
         </aside>
 
