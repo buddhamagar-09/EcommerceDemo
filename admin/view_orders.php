@@ -1,3 +1,14 @@
+<?php
+session_start();
+include 'databaseconnection.php';
+if (!isset($_SESSION['user_email'])) {
+  header('location:../files/login.php');
+} else if ($_SESSION['user_role'] !== 'admin') {
+  header('location:../files/index.php');
+}
+$sql = 'select * from orders';
+$result = mysqli_query($conn, $sql);
+?>	
 <!DOCTYPE html>
 <html lang="en">
 
@@ -148,19 +159,29 @@
 			border-radius: 6px;
 			cursor: pointer;
 			font-size: 14px;
-			margin-right: 5px;
 			text-decoration: none;
-			display: inline-block;
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
 		}
 
 		.view {
-			background: #0f766e;
+			background: #059669; /* emerald */
 			color: white;
 		}
 
 		.delete {
-			background: #0f172a;
+			background: #dc2626; /* red */
 			color: white;
+		}
+
+		/* Action container: aligns buttons horizontally with gap and centers them */
+		.actions {
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			justify-content: center;
+			flex-wrap: wrap;
 		}
 	</style>
 </head>
@@ -191,7 +212,8 @@
 
 			<div class="topbar">
 				<h2>View Orders</h2>
-				<a href="../files/logout.php" style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
+				<a href="../files/logout.php"
+					style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
 			</div>
 
 
@@ -204,7 +226,6 @@
 					<thead>
 						<tr>
 							<th>Order ID</th>
-							<th>Transaction UID</th>
 							<th>Name</th>
 							<th>Email</th>
 							<th>Phone</th>
@@ -217,52 +238,26 @@
 					</thead>
 
 					<tbody>
+						<?php while($row = mysqli_fetch_assoc($result)) { ?>
 						<tr>
-							<td>101</td>
-							<td>txn_abc123</td>
-							<td class="name">John Doe</td>
-							<td>john@example.com</td>
-							<td>+1 555 0100</td>
-							<td class="description">123 Main St, Springfield</td>
-							<td>49.99</td>
-							<td>esewa</td>
-							<td>Paid</td>
+							<td><?php echo $row['id']; ?></td>
+							<td class="name"><?php echo $row['name']; ?></td>
+							<td><?php echo $row['email']; ?></td>
+							<td><?php echo $row['phone']; ?></td>
+							<td class="description"><?php echo $row['address']; ?></td>
+							<td><?php echo $row['total_amt']; ?></td>
+							<td><?php echo $row['payment_method']; ?></td>
+							<td><?php echo $row['payment_status']; ?></td>
 							<td>
-								<a href="#" class="btn view">Details</a>
-								<a href="#" class="btn delete">Delete</a>
+								<div class="actions">
+									<a href="#" class="btn view">Details</a>
+									<?php if($row['payment_status'] === 'Pending') { ?>
+									<a href="#" class="btn delete">Mark Paid</a>
+									<?php }?>
+								</div>
 							</td>
 						</tr>
-						<tr>
-							<td>100</td>
-							<td>txn_def456</td>
-							<td class="name">Jane Smith</td>
-							<td>jane@example.com</td>
-							<td>+1 555 0123</td>
-							<td class="description">45 Elm St, Metropolis</td>
-							<td>129.50</td>
-							<td>Cash on Delivery</td>
-							<td>Pending</td>
-							<td>
-								<a href="#" class="btn view">Details</a>
-								<a href="#" class="btn delete">Delete</a>
-							</td>
-						</tr>
-						<tr>
-							<td>99</td>
-							<td>txn_xxx789</td>
-							<td class="name">Acme Corp</td>
-							<td>sales@acme.com</td>
-							<td>+1 555 0199</td>
-							<td class="description">789 Industrial Rd, Gotham</td>
-							<td>560.00</td>
-							<td>esewa</td>
-							<td>Paid</td>
-							<td>
-								<a href="#" class="btn view">Details</a>
-								<a href="#" class="btn delete">Delete</a>
-							</td>
-						</tr>
-
+                    <?php } ?>
 					</tbody>
 
 				</table>
