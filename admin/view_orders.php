@@ -2,13 +2,13 @@
 session_start();
 include 'databaseconnection.php';
 if (!isset($_SESSION['user_email'])) {
-  header('location:../files/login.php');
+	header('location:../files/login.php');
 } else if ($_SESSION['user_role'] !== 'admin') {
-  header('location:../files/index.php');
+	header('location:../files/index.php');
 }
 $sql = 'select * from orders';
 $result = mysqli_query($conn, $sql);
-?>	
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -166,12 +166,14 @@ $result = mysqli_query($conn, $sql);
 		}
 
 		.view {
-			background: #059669; /* emerald */
+			background: #059669;
+			/* emerald */
 			color: white;
 		}
 
 		.delete {
-			background: #dc2626; /* red */
+			background: #dc2626;
+			/* red */
 			color: white;
 		}
 
@@ -238,26 +240,26 @@ $result = mysqli_query($conn, $sql);
 					</thead>
 
 					<tbody>
-						<?php while($row = mysqli_fetch_assoc($result)) { ?>
-						<tr>
-							<td><?php echo $row['id']; ?></td>
-							<td class="name"><?php echo $row['name']; ?></td>
-							<td><?php echo $row['email']; ?></td>
-							<td><?php echo $row['phone']; ?></td>
-							<td class="description"><?php echo $row['address']; ?></td>
-							<td><?php echo $row['total_amt']; ?></td>
-							<td><?php echo $row['payment_method']; ?></td>
-							<td><?php echo $row['payment_status']; ?></td>
-							<td>
-								<div class="actions">
-									<a href="#" class="btn view">Details</a>
-									<?php if($row['payment_status'] === 'Pending') { ?>
-									<a href="#" class="btn delete">Mark Paid</a>
-									<?php }?>
-								</div>
-							</td>
-						</tr>
-                    <?php } ?>
+						<?php while ($row = mysqli_fetch_assoc($result)) { ?>
+							<tr>
+								<td><?php echo $row['id']; ?></td>
+								<td class="name"><?php echo $row['name']; ?></td>
+								<td><?php echo $row['email']; ?></td>
+								<td><?php echo $row['phone']; ?></td>
+								<td class="description"><?php echo $row['address']; ?></td>
+								<td><?php echo $row['total_amt']; ?></td>
+								<td><?php echo $row['payment_method']; ?></td>
+								<td><?php echo $row['payment_status']; ?></td>
+								<td>
+									<div class="actions">
+										<a href="#" class="btn view">Details</a>
+										<?php if ($row['payment_status'] === 'Pending') { ?>
+											<a href="#" class="btn delete">Mark Paid</a>
+										<?php } ?>
+									</div>
+								</td>
+							</tr>
+						<?php } ?>
 					</tbody>
 
 				</table>
