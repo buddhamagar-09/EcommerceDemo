@@ -195,14 +195,14 @@ $result = mysqli_query($conn, $sql);
 
 		<div class="sidebar">
 
-			<div class="logo"><a href="../index.php">ECOM ADMIN</a></div>
+			<div class="logo"><a href="dashboard.php">ECOM ADMIN</a></div>
 
 			<ul class="menu">
 				<li><a href="dashboard.php">Dashboard</a></li>
 				<li><a href="view_users.php">Users</a></li>
 				<li><a href="addproductform.php">Add Products</a></li>
 				<li><a href="view_products.php">View Products</a></li>
-				<li><a href="view_orders.php">View Orders</a></li>
+				<li class="active"><a href="view_orders.php">View Orders</a></li>
 			</ul>
 
 		</div>
@@ -252,9 +252,9 @@ $result = mysqli_query($conn, $sql);
 								<td><?php echo $row['payment_status']; ?></td>
 								<td>
 									<div class="actions">
-										<a href="#" class="btn view">Details</a>
+										<a href="view_order_details.php?id=<?php echo $row['id']; ?>" class="btn view">Details</a>
 										<?php if ($row['payment_status'] === 'Pending') { ?>
-											<a href="#" class="btn delete">Mark Paid</a>
+											<a href="mark_paid.php?id=<?php echo $row['id']; ?>" class="btn delete">Mark Paid</a>
 										<?php } ?>
 									</div>
 								</td>
