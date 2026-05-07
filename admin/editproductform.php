@@ -216,7 +216,7 @@ if(isset($_GET['id']))
             <ul class="menu">
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="view_users.php">Users</a></li>
-                <li class="active"><a href="addproduct.php">Add Products</a></li>
+                <li class="active"><a href="addproductform.php">Add Products</a></li>
                 <li><a href="view_products.php">View Products</a></li>
             </ul>
         </aside>
@@ -231,7 +231,7 @@ if(isset($_GET['id']))
                     <a href="../files/logout.php" style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px; text-decoration: none;">Logout</a>
                 </div>
             </div>
-            </div>
+
             <!-- Form -->
             <div class="form-card">
                 <?php while($product = mysqli_fetch_assoc($result)){ ?>
