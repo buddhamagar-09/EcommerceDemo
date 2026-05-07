@@ -261,9 +261,11 @@ $result = mysqli_query($conn, $sql);
 								<td><?php echo $row['payment_status']; ?></td>
 								<td>
 									<div class="actions">
-										<a href="view_order_details.php?id=<?php echo $row['id']; ?>" class="btn view">Details</a>
+										<a href="view_order_details.php?id=<?php echo $row['id']; ?>"
+											class="btn view">Details</a>
 										<?php if ($row['payment_status'] === 'Pending') { ?>
-											<a href="mark_paid.php?id=<?php echo $row['id']; ?>" class="btn delete">Mark Paid</a>
+											<a href="mark_paid.php?id=<?php echo $row['id']; ?>" class="btn delete">Mark
+												Paid</a>
 										<?php } ?>
 									</div>
 								</td>
