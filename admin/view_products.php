@@ -110,6 +110,12 @@ $result = mysqli_query($conn, $sql);
       text-decoration: none;
     }
 
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
     /* Table */
 
     .table-container {
@@ -202,7 +208,7 @@ text-overflow:ellipsis; */
         <li><a href="dashboard.php">Dashboard</a></li>
         <li><a href="view_users.php">Users</a></li>
         <li><a href="addproductform.php">Add Products</a></li>
-        <li><a href="view_products.php">View Products</a></li>
+        <li class="active"><a href="view_products.php">View Products</a></li>
         <li><a href="view_orders.php">View Orders</a></li>
       </ul>
 
@@ -215,8 +221,11 @@ text-overflow:ellipsis; */
 
       <div class="topbar">
         <h2>View Products</h2>
-        <a href="../files/logout.php"
-          style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
+         <div class="profile">
+                    <span>Admin</span>
+                    <a href="../files/logout.php"
+                        style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px; text-decoration: none;">Logout</a>
+                </div>
       </div>
 
 

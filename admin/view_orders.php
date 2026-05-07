@@ -110,6 +110,12 @@ $result = mysqli_query($conn, $sql);
 			text-decoration: none;
 		}
 
+		.profile {
+			display: flex;
+			align-items: center;
+			gap: 15px;
+		}
+
 		/* Table */
 
 		.table-container {
@@ -214,8 +220,11 @@ $result = mysqli_query($conn, $sql);
 
 			<div class="topbar">
 				<h2>View Orders</h2>
-				<a href="../files/logout.php"
-					style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
+				<div class="profile">
+					<span>Admin</span>
+					<a href="../files/logout.php"
+						style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px; text-decoration: none;">Logout</a>
+				</div>
 			</div>
 
 

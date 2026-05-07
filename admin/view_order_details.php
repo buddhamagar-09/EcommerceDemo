@@ -266,7 +266,8 @@
                 <h2>Order Details</h2>
                 <div class="profile">
                     <span>Admin</span>
-                    <a href="../logout.php" class="logout-btn">Logout</a>
+                    <a href="../files/logout.php"
+                        style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px; text-decoration: none;">Logout</a>
                 </div>
             </div>
 

@@ -186,10 +186,10 @@ include '../admin/databaseconnection.php';
 
         <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="logo"><a href="../index.php">ECOM ADMIN</a></div>
+            <div class="logo"><a href="dashboard.php">ECOM ADMIN</a></div>
 
             <ul class="menu">
-                <li class="active"><a href="#">Dashboard</a></li>
+                <li class="active"><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="view_users.php">Users</a></li>
                 <li><a href="addproductform.php">Add Products</a></li>
                 <li><a href="view_products.php">View Products</a></li>
@@ -205,7 +205,7 @@ include '../admin/databaseconnection.php';
                 <div class="profile">
                     <span>Admin</span>
                     <a href="../files/logout.php"
-                        style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
+                        style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px; text-decoration: none;">Logout</a>
                 </div>
             </div>
 
@@ -237,7 +237,7 @@ include '../admin/databaseconnection.php';
                     while ($row = mysqli_fetch_assoc($result)) {
                         $revenue += $row['price'] * $row['quantity'];
                     }
-                    echo "Rs.".number_format($revenue);
+                    echo "Rs." . number_format($revenue);
                     ?></h3>
                     <p>Total Revenue</p>
                 </div>
