@@ -337,11 +337,15 @@ if (isset($_GET['id'])) {
                                     </tr>
                                      <tr>
                                         <td class="muted">Payment Method</td>
-                                        <td><span style="background-color: #115e59; padding: 3px 5px; color: white;"><?php echo $row1['payment_method']; ?></span></td>
+                                        <td><span style="background-color: #115e59; padding: 3px 5px; color: white; border-radius: 5px;"><?php echo $row1['payment_method']; ?></span></td>
                                     </tr>
                                      <tr>
                                         <td class="muted">Payment Status</td>
-                                        <td><span class="badge <?php echo strtolower($row1['payment_status']); ?>"><?php echo $row1['payment_status']; ?></span></td>
+                                        <?php if($row1['payment_status'] == 'paid') { ?>
+                                            <td><span class="badge completed" style="background-color: #115e59; padding: 3px 10px; color: white; border-radius: 5px;"><?php echo $row1['payment_status']; ?></span></td>
+                                        <?php } else { ?>
+                                            <td><span class="badge pending" style="background-color: #f97316; padding: 3px 10px; color: white; border-radius: 5px;"><?php echo $row1['payment_status']; ?></span></td>
+                                        <?php } ?>
                                     </tr>
                                
                             </tbody>
