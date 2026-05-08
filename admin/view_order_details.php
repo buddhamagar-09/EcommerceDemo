@@ -15,7 +15,7 @@ if (isset($_GET['id'])) {
     $result1 = mysqli_query($conn, $user_query);
 
     // fetch order items
-    $item_query = "SELECT products.id as product_id,products.name,products.image,order_items.quantity,order_items.price as op 
+    $item_query = "SELECT products.name,products.image,order_items.quantity,order_items.price as op, order_items.product_id
     from products inner join order_items 
     on products.id = order_items.product_id 
     where order_items.order_id = '$order_id'";
@@ -227,8 +227,9 @@ if (isset($_GET['id'])) {
 
         /* Small summary cells */
         .muted {
-            color: #6b7280;
+            color: #010101;
             font-size: 13px;
+            font-weight: 500;
         }
 
         /* User details table (two-column) */
@@ -246,34 +247,7 @@ if (isset($_GET['id'])) {
         }
 
         /* Payment badges */
-        .badge {
-            display: inline-block;
-            padding: 6px 10px;
-            border-radius: 999px;
-            font-size: 13px;
-            color: #fff;
-            font-weight: 600;
-            box-shadow: 0 1px 0 rgba(0,0,0,0.06);
-        }
-        .badge.paid { background: #16a34a; }      /* emerald */
-        .badge.pending { background: #f59e0b; }   /* amber */
-        .badge.failed { background: #ef4444; }    /* red */
 
-        .method {
-            display: inline-block;
-            padding: 6px 10px;
-            border-radius: 8px;
-            font-size: 13px;
-            color: #fff;
-            font-weight: 600;
-            box-shadow: 0 1px 0 rgba(0,0,0,0.06);
-        }
-        .method.cod { background: linear-gradient(90deg,#fb923c,#f97316); }    /* orange */
-        .method.card { background: linear-gradient(90deg,#60a5fa,#3b82f6); }   /* blue */
-        .method.online { background: linear-gradient(90deg,#34d399,#06b6d4); } /* teal */
-        .method.upi { background: linear-gradient(90deg,#06b6d4,#0ea5a9); }    /* teal variant */
-        .method.paypal { background: linear-gradient(90deg,#6366f1,#2563eb); } /* indigo */
-        .method.default { background: #6b7280; }
 
         @media (max-width: 600px) {
 
@@ -339,7 +313,7 @@ if (isset($_GET['id'])) {
                     <div class="table-wrapper">
                         <table class="user-details-table">
                             <tbody>
-                                <?php while ($row1 = mysqli_fetch_assoc($result1)) { ?>
+                                <?php $row1 = mysqli_fetch_assoc($result1) ?>
                                     <tr>
                                         <td class="muted">Customer Name</td>
                                         <td><?php echo $row1['name']; ?></td>
@@ -361,35 +335,15 @@ if (isset($_GET['id'])) {
                                         <td class="muted">Total Amount</td>
                                         <td>Rs. <?php echo number_format($row1['total_amt']); ?></td>
                                     </tr>
-                                    <tr>
+                                     <tr>
                                         <td class="muted">Payment Method</td>
-                                        <td>
-                                            <?php
-                                            $pm_raw = $row1['payment_method'];
-                                            $pm_class = 'default';
-                                            if (preg_match('/cod|cash on delivery|cash/i', $pm_raw)) { $pm_class = 'cod'; }
-                                            elseif (preg_match('/upi/i', $pm_raw)) { $pm_class = 'upi'; }
-                                            elseif (preg_match('/card|credit|debit/i', $pm_raw)) { $pm_class = 'card'; }
-                                            elseif (preg_match('/paypal/i', $pm_raw)) { $pm_class = 'paypal'; }
-                                            elseif (preg_match('/online|netbanking|razorpay|stripe/i', $pm_raw)) { $pm_class = 'online'; }
-                                            ?>
-                                            <span class="method <?php echo $pm_class; ?>"><?php echo htmlspecialchars($pm_raw); ?></span>
-                                        </td>
+                                        <td><span style="background-color: #115e59; padding: 3px 5px; color: white;"><?php echo $row1['payment_method']; ?></span></td>
                                     </tr>
-                                    <tr>
+                                     <tr>
                                         <td class="muted">Payment Status</td>
-                                        <td>
-                                            <?php
-                                            $status_raw = $row1['payment_status'];
-                                            $status_class = 'pending';
-                                            if (preg_match('/paid|completed|success/i', $status_raw)) { $status_class = 'paid'; }
-                                            elseif (preg_match('/failed|declined|cancel/i', $status_raw)) { $status_class = 'failed'; }
-                                            elseif (preg_match('/pending|processing/i', $status_raw)) { $status_class = 'pending'; }
-                                            ?>
-                                            <span class="badge <?php echo $status_class; ?>"><?php echo htmlspecialchars($status_raw); ?></span>
-                                        </td>
+                                        <td><span class="badge <?php echo strtolower($row1['payment_status']); ?>"><?php echo $row1['payment_status']; ?></span></td>
                                     </tr>
-                                <?php } ?>
+                               
                             </tbody>
                         </table>
                     </div>
@@ -414,10 +368,10 @@ if (isset($_GET['id'])) {
                             <tbody>
                                 <?php
                                 $total = 0;
-                                while ($row2 = mysqli_fetch_assoc($result2)) {
+                                while($row2 = mysqli_fetch_assoc($result2)) {
                                     //  $total += ($row2['quantity'] * $row2['op']);
-                                     $item_total = $row2['quantity'] * $row2['op'];
-                                    ?>
+                                    $item_total = $row2['quantity'] * $row2['op'];
+                                ?>
                                     <tr>
                                         <td><?php echo $row2['product_id']; ?></td>
                                         <td><img src="../photos/<?php echo $row2['image']; ?>"
