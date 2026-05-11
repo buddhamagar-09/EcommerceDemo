@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_email'])) {
 } else if ($_SESSION['user_role'] !== 'admin') {
   header('location:../files/index.php');
 }
-$sql = "select * from users where userrole = 'user'";
+$sql = "select * from users where userrole = 'user' and status='active'";
 $result = mysqli_query($conn, $sql);
 mysqli_close($conn);
 ?>
