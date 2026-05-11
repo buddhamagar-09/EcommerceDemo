@@ -246,13 +246,7 @@ include '../admin/databaseconnection.php';
             <!-- Content -->
             <div class="content">
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod quos consequuntur aut optio adipisci
-                    ad quasi quis earum recusandae voluptatibus ducimus mollitia et ipsa commodi enim ex hic tenetur
-                    iusto odio rerum veniam perspiciatis, sed sequi. Delectus consectetur dicta molestias totam ex
-                    optio! Eius quidem iste perferendis, laudantium laboriosam, exercitationem sunt dolores explicabo
-                    expedita nemo, reprehenderit eligendi molestiae? Molestias vero id eos quia alias inventore quasi in
-                    adipisci sint ex sunt aspernatur quisquam nulla nobis labore tempora numquam nostrum optio
-                    voluptatum laboriosam, neque modi.
+                   An eCommerce Admin Dashboard is a centralized management system designed to help store owners monitor and control all business activities efficiently. It provides features such as product management, order tracking, customer handling, sales analysis, and inventory monitoring in a single interface. This demo dashboard is created to showcase how administrators can easily manage online store operations with a user-friendly and organized system.
                 </p>
             </div>
 
