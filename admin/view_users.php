@@ -202,7 +202,7 @@ text-overflow:ellipsis; */
       font-size: 14px;
       margin-right: 5px;
       text-decoration: none;
-      background-color:#dc2626 ;
+      background-color: #dc2626;
       color: white;
     }
   </style>
@@ -271,7 +271,8 @@ text-overflow:ellipsis; */
                 <td><?php echo $row['userrole'] ?></td>
                 <td><?php echo $row['created_at'] ?></td>
                 <td>
-                  <a class="delusers" href="delete_users.php?id=<?php echo $row['id']; ?>">Delete</a>
+                  <a onclick="return confirm('Are you sure you want to delete the user ?')" class="delusers"
+                    href="delete_users.php?id=<?php echo $row['id']; ?>">Delete</a>
                 </td>
               </tr>
             <?php } ?>
