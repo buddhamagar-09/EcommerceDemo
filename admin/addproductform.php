@@ -120,6 +120,7 @@ else if($_SESSION['user_role'] !== 'admin') {
             border-radius: 15px;
             box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
             max-width: 700px;
+            /* justify-self: center; */
         }
 
         /* Input Group */
