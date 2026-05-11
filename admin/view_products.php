@@ -181,6 +181,7 @@ text-overflow:ellipsis; */
       cursor: pointer;
       font-size: 14px;
       margin-right: 5px;
+      text-decoration: none;
     }
 
     .edit {
@@ -189,7 +190,7 @@ text-overflow:ellipsis; */
     }
 
     .delete {
-      background: #0f172a;
+      background: #dc2626;
       color: white;
     }
   </style>

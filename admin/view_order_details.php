@@ -328,7 +328,7 @@ if (isset($_GET['id'])) {
                                         <td><?php echo $row1['phone']; ?></td>
                                     </tr>
                                     <tr>
-                                        <td class="muted">Shipping Address</td>
+                                        <td class="muted">Shipping Address</td> 
                                         <td><?php echo $row1['address']; ?></td>
                                     </tr>
                                     <tr>
