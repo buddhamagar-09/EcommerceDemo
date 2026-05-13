@@ -16,7 +16,13 @@ if (isset($_SESSION['user_id'])) {
 } else {
     $cart_count = 0;
 }
-$sql = "Select * from products";
+if (isset($_GET['search'])) {
+    $search_term = mysqli_real_escape_string($conn, $_GET['search']);
+    $trimmed_search = trim($search_term);
+    $sql = "SELECT * FROM products WHERE concat(name, description, price) LIKE '%$trimmed_search%'";
+} else {
+    $sql = "SELECT * FROM products";
+}
 $result = mysqli_query($conn, $sql);
 $conn->close();
 ?>
@@ -59,6 +65,41 @@ $conn->close();
             list-style: none;
             display: flex;
             gap: 32px;
+        }
+
+        /* nav search */
+        .nav-search {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1 1 320px;
+            max-width: 420px;
+            margin: 12px 24px;
+        }
+
+        .nav-search input {
+            width: 100%;
+            min-width: 0;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 15px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .nav-search button {
+            border: none;
+            border-radius: 15px;
+            padding: 12px 18px;
+            background: #0f172a;
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .nav-search button:hover {
+            opacity: 0.92;
         }
 
         nav ul li a {
@@ -221,6 +262,22 @@ $conn->close();
             box-shadow: 0 8px 20px rgba(34, 197, 94, .12);
         }
 
+        .no-products {
+            min-height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border-radius: 12px;
+            margin: 0 auto;
+        }
+
+        .no-products h2 {
+            font-size: 22px;
+            color: #0f172a;
+            font-weight: 600;
+        }
+
         /* ===== FOOTER ===== */
         footer {
             background: #0f172a;
@@ -282,6 +339,16 @@ $conn->close();
             .hero h1 {
                 font-size: 42px;
             }
+
+            .nav-search {
+                width: 100%;
+                max-width: none;
+                margin: 0;
+            }
+
+            .nav-search input {
+                flex: 1;
+            }
         }
     </style>
 </head>
@@ -291,13 +358,21 @@ $conn->close();
     <!-- NAVBAR -->
     <nav>
         <h2>Sexy Wears</h2>
+
+        <form class="nav-search" action="products.php" method="get">
+            <input type="text" name="search" placeholder="Search products"
+                value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>">
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+        </form>
+
         <ul>
             <li><a href="index.php">Home</a></li>
             <li><a href="products.php">Products</a></li>
             <li><a href="contact.php">Contact</a></li>
             <?php if (isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) { ?>
                 <li style="color: white; font-weight: bold;">Welcome Back,
-                    <?php echo htmlspecialchars($_SESSION['user_name']); ?></li>
+                    <?php echo htmlspecialchars($_SESSION['user_name']); ?>
+                </li>
                 <a href="cart.php" style="color: white; ">
                     <li class="fa-solid fa-cart-shopping"><?php if ($cart_count > 0) {
                         echo '<sup style="font-size: 0.82em; font-weight: 700; margin-left: 2px;">' . $cart_count . '</sup>';
@@ -313,27 +388,34 @@ $conn->close();
         </ul>
     </nav>
     <section class="products">
-        <h2>Our Products</h2>
-        <div class="product-grid">
-            <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-                <div class="card">
-                    <img src="../photos/<?php echo $row['image']; ?>">
-                    <h3><?php echo $row['name']; ?></h3>
-                    <p><?php echo $row['description']; ?></p>
-                    <div class="price">Rs.<?php echo $row['price']; ?></div>
-                    <div class="card-actions">
-                        <form action="cart.php" method="post">
-                            <input type="hidden" name="action" value="add">
-                            <input type="hidden" name="product_id" value="<?php echo $row['id']; ?>">
-                            <input type="hidden" name="quantity" value="1">
-                            <button type="submit" class="card-btn add-cart-btn">Add To Cart</button>
-                        </form>
-                        <a href="product_details.php?id=<?php echo $row['id']; ?>"><button type="button"
-                                class="card-btn details-btn">View Details</button></a>
+
+        <?php if (mysqli_num_rows($result) > 0) { ?>
+            <h2>Our Products</h2>
+            <div class="product-grid">
+                <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+                    <div class="card">
+                        <img src="../photos/<?php echo $row['image']; ?>">
+                        <h3><?php echo $row['name']; ?></h3>
+                        <p><?php echo $row['description']; ?></p>
+                        <div class="price">Rs.<?php echo $row['price']; ?></div>
+                        <div class="card-actions">
+                            <form action="cart.php" method="post">
+                                <input type="hidden" name="action" value="add">
+                                <input type="hidden" name="product_id" value="<?php echo $row['id']; ?>">
+                                <input type="hidden" name="quantity" value="1">
+                                <button type="submit" class="card-btn add-cart-btn">Add To Cart</button>
+                            </form>
+                            <a href="product_details.php?id=<?php echo $row['id']; ?>"><button type="button"
+                                    class="card-btn details-btn">View Details</button></a>
+                        </div>
                     </div>
-                </div>
-            <?php } ?>
-        </div>
+                <?php } ?>
+            </div>
+        <?php } else { ?>
+            <div class="no-products">
+                <h2 style="font-size: 30px; font-weight: bold;">No products found.</h2>
+            </div>
+        <?php } ?>
     </section>
 
     <!-- FOOTER -->
