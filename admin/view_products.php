@@ -6,7 +6,15 @@ if (!isset($_SESSION['user_email'])) {
 } else if ($_SESSION['user_role'] !== 'admin') {
   header('location:../files/index.php');
 }
-$sql = 'select * from products';
+//search product logic
+if (isset($_GET['search'])) {
+  $search_product = trim($_GET['search_product']);
+  if ($search_product != '') {
+    $sql = "SELECT * from products where concat(name,price,description) like '%$search_product%'";
+  }
+} else {
+  $sql = 'select * from products';
+}
 $result = mysqli_query($conn, $sql);
 ?>
 <!DOCTYPE html>
@@ -29,6 +37,40 @@ $result = mysqli_query($conn, $sql);
 
     body {
       background: #f0fdfa;
+    }
+
+    /* nav search */
+    .nav-search {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1 1 320px;
+      max-width: 420px;
+      margin: 12px 24px;
+    }
+
+    .nav-search input {
+      width: 100%;
+      min-width: 0;
+      padding: 12px 16px;
+      border: 1px solid #d1d5db;
+      border-radius: 15px;
+      font-size: 15px;
+    }
+
+    .nav-search button {
+      border: none;
+      border-radius: 15px;
+      padding: 12px 18px;
+      background: #0f172a;
+      color: #fff;
+      font-size: 15px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .nav-search button:hover {
+      opacity: 0.92;
     }
 
     /* Layout */
@@ -222,11 +264,17 @@ text-overflow:ellipsis; */
 
       <div class="topbar">
         <h2>View Products</h2>
-         <div class="profile">
-                    <span>Admin</span>
-                    <a href="../files/logout.php"
-                        style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px; text-decoration: none;">Logout</a>
-                </div>
+        <form class="nav-search" action="view_products.php" method="get">
+          <input type="text" name="search_product" placeholder="Search products"
+            value="<?php echo htmlspecialchars($_GET['search_product'] ?? ''); ?>">
+          <button type="submit" name="search" value="Search"><i class="fa-solid fa-magnifying-glass"></i>
+            Search</button>
+        </form>
+        <div class="profile">
+          <span>Admin</span>
+          <a href="../files/logout.php"
+            style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px; text-decoration: none;">Logout</a>
+        </div>
       </div>
 
 
@@ -248,23 +296,29 @@ text-overflow:ellipsis; */
           </thead>
 
           <tbody>
-            <?php while ($row = mysqli_fetch_assoc($result)) {
-              ?>
+            <?php
+            if ($result->num_rows > 0) {
+              while ($row = mysqli_fetch_assoc($result)) {
+                ?>
+                <tr>
+                  <td><img src="../photos/<?php echo $row['image'] ?>" alt="Product Image"></td>
+                  <td><?php echo $row['name'] ?></td>
+                  <td class="description"><?php echo $row['description'] ?></td>
+                  <td><?php echo $row['price'] ?></td>
+                  <td><?php echo $row['quantity'] ?></td>
+                  <td>
+                    <a onclick=" return confirm('Are you sure you want to edit this Product ?')"
+                      href="editproductform.php?id=<?php echo $row['id']; ?>"><button class="btn edit">Edit</button></a>
+                    <a onclick="return confirm('Are you sure you want to delete this product ?')"
+                      href="deleteproduct.php?id=<?php echo $row['id']; ?>" class="btn delete">Delete</a>
+                  </td>
+                </tr>
+              <?php }
+            } else { ?>
               <tr>
-                <td><img src="../photos/<?php echo $row['image'] ?>" alt="Product Image"></td>
-                <td><?php echo $row['name'] ?></td>
-                <td class="description"><?php echo $row['description'] ?></td>
-                <td><?php echo $row['price'] ?></td>
-                <td><?php echo $row['quantity'] ?></td>
-                <td>
-                  <a onclick=" return confirm('Are you sure you want to edit this Product ?')"
-                    href="editproductform.php?id=<?php echo $row['id']; ?>"><button class="btn edit">Edit</button></a>
-                  <a onclick="return confirm('Are you sure you want to delete this product ?')"
-                    href="deleteproduct.php?id=<?php echo $row['id']; ?>" class="btn delete">Delete</a>
-                </td>
+                <td colspan="6" style="text-align: center; font-weight: bold;">No Products Found.</td>
               </tr>
             <?php } ?>
-
           </tbody>
 
         </table>
