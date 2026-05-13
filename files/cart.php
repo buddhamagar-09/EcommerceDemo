@@ -521,6 +521,10 @@ if (isset($_SESSION['user_id'])) {
 <body>
     <nav>
         <h2>Sexy Wears</h2>
+        <form class="nav-search" action="products.php" method="get">
+            <input type="text" name="search" placeholder="Search products" value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>">
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+        </form>
         <ul>
             <li><a href="index.php">Home</a></li>
             <li><a href="products.php">Products</a></li>

@@ -56,6 +56,40 @@ if (isset($_SESSION['user_id'])) {
             gap: 32px;
         }
 
+        .nav-search {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1 1 320px;
+            max-width: 420px;
+            margin: 12px 24px;
+        }
+
+        .nav-search input {
+            width: 100%;
+            min-width: 0;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 15px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .nav-search button {
+            border: none;
+            border-radius: 15px;
+            padding: 12px 18px;
+            background: #0f172a;
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .nav-search button:hover {
+            opacity: 0.92;
+        }
+
         nav ul li a {
             color: #fff;
             text-decoration: none;
@@ -372,6 +406,16 @@ if (isset($_SESSION['user_id'])) {
                 grid-template-columns: 1fr;
             }
 
+            .nav-search {
+                width: 100%;
+                max-width: none;
+                margin: 0;
+            }
+
+            .nav-search input {
+                flex: 1;
+            }
+
             .hero h1 {
                 font-size: 42px;
             }
@@ -383,6 +427,10 @@ if (isset($_SESSION['user_id'])) {
     <!-- NAVBAR -->
    <nav> 
         <h2>Sexy Wears</h2>
+        <form class="nav-search" action="products.php" method="get">
+            <input type="text" name="search" placeholder="Search products" value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>">
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+        </form>
         <ul>
             <li><a href="index.php">Home</a></li>
             <li><a href="products.php">Products</a></li>
@@ -464,6 +512,13 @@ if (isset($_SESSION['user_id'])) {
     <!-- PRODUCTS -->
     <section class="products">
         <h2>Our Products</h2>
+
+        <div>
+            <form class="nav-search" action="products.php" method="get">
+            <input type="text" name="searchproduct" placeholder="Search products" value="<?php echo htmlspecialchars($_GET['searchproduct'] ?? ''); ?>">
+            <button type="submit" name="search" value="Search"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+        </form>
+        </div>
 
         <div class="product-grid">
             <?php while ($row = mysqli_fetch_assoc($result)) { ?>
