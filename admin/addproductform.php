@@ -189,6 +189,39 @@ else if($_SESSION['user_role'] !== 'admin') {
                 padding: 20px;
             }
         }
+        /* nav search */
+        .nav-search {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1 1 320px;
+            max-width: 420px;
+            margin: 12px 24px;
+        }
+
+        .nav-search input {
+            width: 100%;
+            min-width: 0;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 15px;
+            font-size: 15px;
+        }
+
+        .nav-search button {
+            border: none;
+            border-radius: 15px;
+            padding: 12px 18px;
+            background: #0f172a;
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .nav-search button:hover {
+            opacity: 0.92;
+        }
     </style>
 </head>
 
@@ -213,6 +246,11 @@ else if($_SESSION['user_role'] !== 'admin') {
 
             <div class="topbar">
                 <h2>Add Product</h2>
+                   <form class="nav-search" action="view_products.php" method="get">
+                    <input type="text" name="search_product" placeholder="Search products"
+                        value="<?php echo htmlspecialchars($_GET['search_product'] ?? ''); ?>">
+                    <button type="submit" name="search" value="Search"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+                </form>
                 <div class="profile">
                     <span>Admin</span>
                     <a href="../files/logout.php" style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px; text-decoration: none;">Logout</a>

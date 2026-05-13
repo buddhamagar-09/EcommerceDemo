@@ -82,6 +82,40 @@ include '../admin/databaseconnection.php';
             color: white;
         }
 
+        /* nav search */
+        .nav-search {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1 1 320px;
+            max-width: 420px;
+            margin: 12px 24px;
+        }
+
+        .nav-search input {
+            width: 100%;
+            min-width: 0;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 15px;
+            font-size: 15px;
+        }
+
+        .nav-search button {
+            border: none;
+            border-radius: 15px;
+            padding: 12px 18px;
+            background: #0f172a;
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .nav-search button:hover {
+            opacity: 0.92;
+        }
+
         /* Main */
         .main {
             margin-left: 260px;
@@ -202,6 +236,11 @@ include '../admin/databaseconnection.php';
 
             <div class="topbar">
                 <h2>Dashboard</h2>
+                <form class="nav-search" action="view_products.php" method="get">
+                    <input type="text" name="search_product" placeholder="Search products"
+                        value="<?php echo htmlspecialchars($_GET['search_product'] ?? ''); ?>">
+                    <button type="submit" name="search" value="Search"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+                </form>
                 <div class="profile">
                     <span>Admin</span>
                     <a href="../files/logout.php"
@@ -213,7 +252,7 @@ include '../admin/databaseconnection.php';
             <div class="stats">
                 <div class="card">
                     <h3><?php
-                    $user_query = "select count(*) as count from users where userrole='user'";
+                    $user_query = "SELECT count(*) as count from users where userrole='user'";
                     $result = mysqli_query($conn, $user_query);
                     $row = mysqli_fetch_assoc($result);
                     echo $row['count'];
@@ -222,7 +261,7 @@ include '../admin/databaseconnection.php';
                 </div>
                 <div class="card">
                     <h3><?php
-                    $product_query = "select count(*) as count from products";
+                    $product_query = "SELECT count(*) as count from products";
                     $result = mysqli_query($conn, $product_query);
                     $row = mysqli_fetch_assoc($result);
                     echo $row['count'];
@@ -231,22 +270,43 @@ include '../admin/databaseconnection.php';
                 </div>
                 <div class="card">
                     <h3><?php
-                    $user_query = "select price,quantity from products";
+                    $user_query = "SELECT count(*) as total_orders from orders";
                     $result = mysqli_query($conn, $user_query);
-                    $revenue = 0;
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        $revenue += $row['price'] * $row['quantity'];
-                    }
-                    echo "Rs." . number_format($revenue);
+                    $row = mysqli_fetch_assoc($result);
+                    echo $row['total_orders'];
                     ?></h3>
+                    <p>Total Orders</p>
+                </div>
+                <div class="card">
+                    <h3><?php
+                    $user_query = "SELECT count(*) as paid_orders from orders where payment_status='paid'";
+                    $result = mysqli_query($conn, $user_query);
+                    $row = mysqli_fetch_assoc($result);
+                    echo $row['paid_orders'];
+                    ?></h3>
+                    <p>Paid Orders</p>
+                </div>
+                <div class="card">
+                    <h3>
+                        <?php
+                        $revenue_Query = "SELECT SUM(total_amt) as total_revenue from orders where payment_status='paid'";
+                        $revenue_result = mysqli_query($conn, $revenue_Query);
+                        $row = mysqli_fetch_assoc($revenue_result);
+                        echo "Rs." . number_format($row['total_revenue']);
+                        ?>
+                    </h3>
                     <p>Total Revenue</p>
                 </div>
             </div>
 
             <!-- Content -->
             <div class="content">
-                <p>
-                   An eCommerce Admin Dashboard is a centralized management system designed to help store owners monitor and control all business activities efficiently. It provides features such as product management, order tracking, customer handling, sales analysis, and inventory monitoring in a single interface. This demo dashboard is created to showcase how administrators can easily manage online store operations with a user-friendly and organized system.
+                <p style="text-align: justify;">
+                    An eCommerce Admin Dashboard is a centralized management system designed to help store owners
+                    monitor and control all business activities efficiently. It provides features such as product
+                    management, order tracking, customer handling, sales analysis, and inventory monitoring in a single
+                    interface. This demo dashboard is created to showcase how administrators can easily manage online
+                    store operations with a user-friendly and organized system.
                 </p>
             </div>
 
