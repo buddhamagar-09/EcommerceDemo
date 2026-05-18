@@ -122,6 +122,7 @@ $conn->close();
             font-size: 16px;
             font-weight: 500;
         }
+        
 
         .logout_btn {
             background-color: orangered;
