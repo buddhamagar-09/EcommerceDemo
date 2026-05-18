@@ -495,6 +495,7 @@ $conn->close();
             </div>
 
             <div class="stock"><?php echo $row['quantity'] ?> items left</div>
+            <div style="font-size: 12px; color: #0f766e; margin-bottom: 8px;"><?php echo ($row['quantity'] <= 0) ? 'Out of Stock' : 'In Stock'; ?></div>
 
             <div class="usp-list">
                 <span class="usp-item"><i class="fa-solid fa-circle-check"></i> Easy return within 7 days</span>
@@ -511,7 +512,7 @@ $conn->close();
                     <input type="number" id="quantity" name="quantity" value="1" min="1" max="<?php echo $row['quantity']; ?>">
                 </div>
                 
-                <button type="submit" class="btn buy">Add to Cart</button>
+                <button type="submit" class="btn buy card-btn add-cart-btn" <?php echo ($row['quantity'] <= 0) ? 'disabled' : ''; ?>>Add to Cart</button>
             </form>
 
         </div>

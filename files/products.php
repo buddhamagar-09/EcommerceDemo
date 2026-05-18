@@ -251,6 +251,19 @@ $conn->close();
             background: #115e59;
         }
 
+        .add-cart-btn:disabled {
+            background: #cbd5e1;
+            color: #64748b;
+            cursor: not-allowed;
+            box-shadow: none;
+            opacity: 0.6;
+        }
+
+        .add-cart-btn:disabled:hover {
+            background: #cbd5e1;
+            transform: none;
+        }
+
         .details-btn {
             background: #ecfeff;
             color: #0f766e;
@@ -398,12 +411,13 @@ $conn->close();
                         <h3><?php echo $row['name']; ?></h3>
                         <p><?php echo $row['description']; ?></p>
                         <div class="price">Rs.<?php echo $row['price']; ?></div>
+                        <div style="font-size: 12px; color: #0f766e; margin-bottom: 8px;"><?php echo ($row['quantity'] <= 0) ? 'Out of Stock' : 'In Stock'; ?></div>
                         <div class="card-actions">
                             <form action="cart.php" method="post">
                                 <input type="hidden" name="action" value="add">
                                 <input type="hidden" name="product_id" value="<?php echo $row['id']; ?>">
                                 <input type="hidden" name="quantity" value="1">
-                                <button type="submit" class="card-btn add-cart-btn">Add To Cart</button>
+                                <button type="submit" class="card-btn add-cart-btn" <?php echo ($row['quantity'] <= 0) ? 'disabled' : ''; ?>>Add To Cart</button>
                             </form>
                             <a href="product_details.php?id=<?php echo $row['id']; ?>"><button type="button"
                                     class="card-btn details-btn">View Details</button></a>
