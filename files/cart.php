@@ -44,12 +44,13 @@ if (isset($_SESSION['user_id'])) {
         $cart_count = (int) ($count_row['count']);
     }
 
-    $fetch_query = "Select c.*,p.name,p.image from cart c 
+    $fetch_query = "Select c.*,p.name,p.image,p.quantity as available_quantity from cart c 
                     inner join products p on c.product_id = p.id
                     where c.user_id = $user_id";
     $fetch_result = mysqli_query($conn, $fetch_query);
     $conn->close();
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -619,7 +620,7 @@ if (isset($_SESSION['user_id'])) {
                                             <input type="hidden" name="action" value="update">
                                             <input type="hidden" name="cart_id" value="<?php echo $cartitems['id']; ?>">
                                            
-                                            <input type="number" class="qty-num" name="quantity" value="<?php echo (int) $cartitems['quantity']; ?>" min="1" onchange="this.form.submit()">
+                                            <input type="number" class="qty-num" name="quantity" value="<?php echo (int) $cartitems['quantity'] > $cartitems['available_quantity'] ? $cartitems['available_quantity'] : $cartitems['quantity']; ?>" min="1" onchange="this.form.submit()">
                                           
                                         </form>
                                     </div>
