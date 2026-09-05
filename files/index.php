@@ -24,403 +24,842 @@ if (isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Ecom</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Segoe UI", sans-serif;
-        }
+  <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+    }
 
-        body {
-            background: #f0fdfa;
-        }
-        /* ===== NAVBAR ===== */
-        nav {
-            background: linear-gradient(to right, #115e59, #0f766e);
-            padding: 28px 70px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+    body {
+        background: #F8FAFC;
+        color: #0F172A;
+    }
 
-        nav h2 {
-            color: #fff;
-            font-size: 28px;
-        }
+    /* ===== NAVBAR ===== */
+    nav {
+        background: #f6f7fa;
+        padding: 22px 70px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        border-bottom: 1px solid #ced4dd;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      
+    }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 32px;
-        }
+    nav h2 {
+        color: #010101;
+        font-size: 28px;
+        letter-spacing: 0.5px;
+    }
 
-        .nav-search {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex: 1 1 320px;
-            max-width: 420px;
-            margin: 12px 24px;
-        }
+    nav ul {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 28px;
+    }
 
-        .nav-search input {
-            width: 100%;
-            min-width: 0;
-            padding: 12px 16px;
-            border: none;
-            border-radius: 15px;
-            outline: none;
-            font-size: 15px;
-        }
+    .nav-search {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex: 1 1 320px;
+        max-width: 420px;
+        margin: 12px 24px;
+    }
 
-        .nav-search button {
-            border: none;
-            border-radius: 15px;
-            padding: 12px 18px;
-            background: #0f172a;
-            color: #fff;
-            font-size: 15px;
-            cursor: pointer;
-            white-space: nowrap;
-        }
+    .nav-search input {
+        width: 100%;
+        min-width: 0;
+        padding: 12px 16px;
+        border: 1px solid #CBD5E1;
+        border-radius: 8px;
+        outline: none;
+        font-size: 15px;
+        background: #FFFFFF;
+        color: #0F172A;
+        transition: border 0.2s ease, box-shadow 0.2s ease;
+    }
 
-        .nav-search button:hover {
-            opacity: 0.92;
-        }
+    .nav-search input:focus {
+        border-color: #2563EB;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
 
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 500;
-        }
+    .nav-search button {
+        border: none;
+        border-radius: 8px;
+        padding: 12px 18px;
+        background: #2563EB;
+        color: #FFFFFF;
+        font-size: 15px;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background 0.2s ease;
+    }
 
-        nav ul li a:hover {
-            opacity: 0.8;
-        }
-        /* ===== HERO (PROFESSIONAL) ===== */
-        .hero {
-            background: linear-gradient(135deg, #14b8a6, #0f766e);
+    .nav-search button:hover {
+        background: #1D4ED8;
+    }
 
-            padding: 130px 20px;
-            text-align: center;
-            color: white;
-        }
+    nav ul li a {
+        color: #1f1f20;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        transition: color 0.2s ease;
+    }
 
-        .hero h1 {
-            font-size: 62px;
-            letter-spacing: 1px;
-        }
+    nav ul li a:hover {
+        color: #60A5FA;
+    }
 
-        .hero p {
-            margin: 18px auto;
-            font-size: 20px;
-            max-width: 650px;
-            opacity: 0.95;
-        }
+    /* =========================
+   HERO
+========================= */
 
-        .hero-buttons {
-            margin-top: 35px;
-        }
+.hero {
+    min-height: 620px;
+    background: #FFFFFF;
+    color: #0F172A;
+    padding: 90px 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
 
-        .hero-buttons button {
-            padding: 15px 38px;
-            font-size: 16px;
-            border-radius: 30px;
-            border: none;
-            cursor: pointer;
-            margin: 0 10px;
-        }
+/* Content */
 
-        .hero-buttons .primary {
-            background: #0f172a;
-            color: #fff;
-            font-weight: 600;
-            padding: 15px 38px;
-            font-size: 16px;
-            border-radius: 30px;
-            border: 2px solid #fff;
-            text-decoration: none;
-        }
+.hero-content {
+    max-width: 720px;
+    position: relative;
+    z-index: 2;
+}
 
-        .hero-buttons .secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
+.hero-label {
+    display: inline-block;
+    color: #2563EB;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 22px;
+}
 
-        .hero-buttons button:hover {
-            transform: translateY(-2px);
-        }
+.hero h1 {
+    font-size: clamp(48px, 7vw, 82px);
+    line-height: 0.98;
+    font-weight: 750;
+    letter-spacing: -2px;
+    color: #0F172A;
+    margin-bottom: 25px;
+}
 
-        /* ===== FEATURES ===== */
-        .features,
-        .why-choose-us {
-            padding: 80px 70px;
-        }
+.hero p {
+    max-width: 560px;
+    color: #64748B;
+    font-size: 17px;
+    line-height: 1.7;
+    margin-bottom: 35px;
+}
 
-        .features {
-            background: #ecfeff;
-        }
+/* Buttons */
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 45px;
-            font-size: 34px;
-            color: #0f3f24;
+.hero-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.hero-buttons a,
+.hero-buttons button {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 13px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.25s ease;
+    text-decoration: none;
+}
+
+/* Primary */
+
+.hero-buttons .primary {
+    background: #2563EB;
+    color: #FFFFFF;
+    border: 1px solid #2563EB;
+}
+
+.hero-buttons .primary:hover {
+    background: #1D4ED8;
+    border-color: #1D4ED8;
+}
+
+/* Secondary */
+
+.hero-buttons .secondary {
+    background: #FFFFFF;
+    color: #1E293B;
+    border: 1px solid #CBD5E1;
+}
+
+.hero-buttons .secondary:hover {
+    background: #F8FAFC;
+    color: #2563EB;
+    border-color: #2563EB;
+}
+
+/* Right-side detail */
+
+.hero-side {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding-right: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-side span {
+    color: #64748B;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    writing-mode: vertical-rl;
+}
+
+/* Simple decorative line */
+
+.hero::after {
+    content: "";
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    width: 180px;
+    height: 1px;
+    background: #E2E8F0;
+    transform: rotate(90deg);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .hero {
+        min-height: 560px;
+        padding: 80px 6%;
+    }
+
+    .hero-side,
+    .hero::after {
+        display: none;
+    }
+
+    .hero-content {
+        max-width: 700px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .hero {
+        min-height: 520px;
+        padding: 70px 20px;
+    }
+
+    .hero-label {
+        font-size: 11px;
+        margin-bottom: 18px;
+    }
+
+    .hero h1 {
+        font-size: 46px;
+        letter-spacing: -1.5px;
+    }
+
+    .hero p {
+        font-size: 15px;
+        margin-bottom: 28px;
+    }
+
+    .hero-buttons {
+        width: 100%;
+    }
+
+    .hero-buttons a,
+    .hero-buttons button {
+        padding: 12px 20px;
+    }
+}
+
+  
+   /* =========================
+   FEATURES
+========================= */
+
+.features {
+    background: #FFFFFF;
+    padding: 90px 8%;
+    border-top: 1px solid #E2E8F0;
+}
+
+.features-header {
+    max-width: 650px;
+    margin-bottom: 55px;
+}
+
+.features-label {
+    display: inline-block;
+    margin-bottom: 14px;
+    color: #2563EB;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.section-title {
+    color: #0F172A;
+    font-size: clamp(32px, 4vw, 46px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 16px;
+}
+
+.features-subtitle {
+    color: #64748B;
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 580px;
+}
+
+/* Grid */
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid #E2E8F0;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+/* Feature */
+
+.feature-item {
+    display: flex;
+    gap: 22px;
+    padding: 35px 30px;
+    min-height: 210px;
+    border-right: 1px solid #E2E8F0;
+    transition: background 0.25s ease;
+}
+
+.feature-item:first-child {
+    padding-left: 0;
+}
+
+.feature-item:last-child {
+    border-right: none;
+    padding-right: 0;
+}
+
+.feature-item:hover {
+    background: #F8FAFC;
+}
+
+/* Number */
+
+.feature-number {
+    color: #2563EB;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding-top: 3px;
+    min-width: 28px;
+}
+
+/* Content */
+
+.feature-content h3 {
+    color: #0F172A;
+    font-size: 19px;
+    font-weight: 650;
+    margin-bottom: 12px;
+}
+
+.feature-content p {
+    color: #64748B;
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 260px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .features {
+        padding: 70px 6%;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-item,
+    .feature-item:first-child,
+    .feature-item:last-child {
+        padding: 28px 0;
+        border-right: none;
+        border-bottom: 1px solid #E2E8F0;
+    }
+
+    .feature-item:last-child {
+        border-bottom: none;
+    }
+
+    .feature-content p {
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .features {
+        padding: 60px 20px;
+    }
+
+    .features-header {
+        margin-bottom: 35px;
+    }
+
+    .section-title {
+        font-size: 32px;
+    }
+
+    .features-subtitle {
+        font-size: 14px;
+    }
+
+    .feature-item {
+        gap: 15px;
+    }
+
+    .feature-content h3 {
+        font-size: 17px;
+    }
+}
+ /* =========================
+   WHY CHOOSE US
+========================= */
+
+.why-choose-us {
+    background: #FFFFFF;
+    color: #0F172A;
+    padding: 90px 8%;
+    border-top: 1px solid #E2E8F0;
+}
+
+.why-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 50px;
+    margin-bottom: 60px;
+}
+
+.why-label {
+    display: block;
+    color: #2563EB;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 14px;
+}
+
+.why-header .section-title {
+    color: #0F172A;
+    font-size: clamp(32px, 4vw, 46px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin: 0;
+}
+
+.why-intro {
+    max-width: 440px;
+    color: #64748B;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 2px;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.choose-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid #E2E8F0;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+/* =========================
+   ITEMS
+========================= */
+
+.choose-item {
+    display: flex;
+    gap: 25px;
+    padding: 35px 30px 30px;
+    min-height: 210px;
+    border-right: 1px solid #E2E8F0;
+    transition: background 0.25s ease;
+}
+
+.choose-item:first-child {
+    padding-left: 0;
+}
+
+.choose-item:last-child {
+    border-right: none;
+    padding-right: 0;
+}
+
+.choose-item:hover {
+    background: #F8FAFC;
+}
+
+/* =========================
+   NUMBER
+========================= */
+
+.choose-number {
+    color: #2563EB;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    min-width: 28px;
+    padding-top: 3px;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.choose-item h3 {
+    color: #0F172A;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.choose-item p {
+    color: #64748B;
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 280px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .why-choose-us {
+        padding: 70px 6%;
+    }
+
+    .why-header {
+        display: block;
+        margin-bottom: 40px;
+    }
+
+    .why-intro {
+        margin-top: 18px;
+        max-width: 600px;
+    }
+
+    .choose-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .choose-item,
+    .choose-item:first-child,
+    .choose-item:last-child {
+        padding: 28px 0;
+        border-right: none;
+        border-bottom: 1px solid #E2E8F0;
+    }
+
+    .choose-item:last-child {
+        border-bottom: none;
+    }
+
+    .choose-item p {
+        max-width: 550px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .why-choose-us {
+        padding: 60px 20px;
+    }
+
+    .why-header .section-title {
+        font-size: 32px;
+    }
+
+    .why-intro {
+        font-size: 14px;
+    }
+
+    .choose-item {
+        gap: 16px;
+    }
+
+    .choose-item h3 {
+        font-size: 17px;
+    }
+
+    .choose-item p {
+        font-size: 13px;
+    }
+}
+  
+    /* ===== PRODUCTS ===== */
+    .products {
+        padding: 80px 70px;
+        background: #FFFFFF;
+    }
+
+    .products h2 {
+        text-align: center;
+        margin-bottom: 35px;
+        font-size: 34px;
+        color: #1E293B;
+    }
+
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 28px;
+    }
+
+    .card {
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+        transition: 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .card img {
+        width: 100%;
+        height: 220px;
+        object-fit: contain;
+        background: #F8FAFC;
+        border-radius: 8px;
+    }
+
+    .card h3 {
+        margin: 18px 0 10px;
+        font-size: 20px;
+        color: #1E293B;
+    }
+
+    .card p {
+        font-size: 14px;
+        color: #64748B;
+    }
+
+    .price {
+        margin: 15px 0;
+        font-size: 18px;
+        font-weight: bold;
+        color: #2563EB;
+    }
+
+    .card-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-top: 12px;
+    }
+
+    .card-btn {
+        width: 100%;
+        padding: 12px 18px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.2s ease;
+    }
+
+    .card-btn:hover {
+        transform: translateY(-2px);
+    }
+
+    .add-cart-btn {
+        background: #2563EB;
+        color: #FFFFFF;
+    }
+
+    .add-cart-btn:hover {
+        background: #1D4ED8;
+    }
+
+    .details-btn {
+        background: #FFFFFF;
+        color: #2563EB;
+        border: 1px solid #BFDBFE;
+    }
+
+    .details-btn:hover {
+        background: #EFF6FF;
+        border-color: #2563EB;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+        background: #ffffff;
+        color: #070707;
+        padding: 80px 70px;
+        
+    }
+
+    .footer-grid {
+        max-width: 1200px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 45px;
+    }
+
+    footer h4 {
+        color: #030303;
+        margin-bottom: 20px;
+    }
+
+    footer ul {
+        list-style: none;
+    }
+
+    footer ul li {
+        margin-bottom: 12px;
+        font-size: 14px;
+    }
+
+    footer ul li a {
+        color: #0c0c0c;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    footer ul li a:hover {
+        color: #171717;
+    }
+
+    .copy {
+        text-align: center;
+        margin-top: 55px;
+        font-size: 14px;
+        color: #36383a;
+        border-top: 1px solid #9ea4ae;
+        padding-top: 25px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:992px) {
+        .product-grid {
+            grid-template-columns: repeat(2, 1fr);
         }
 
         .features-grid,
         .choose-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 28px;
+            grid-template-columns: repeat(2, 1fr);
         }
+    }
 
-        .feature-item,
-        .choose-item {
-            background: #fff;
-            border-radius: 16px;
-            padding: 26px;
-            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
-        }
-
-        .item-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 14px;
-            display: inline-flex;
-            align-items: center;
+    @media(max-width:600px) {
+        nav {
+            padding: 20px;
             justify-content: center;
-            font-size: 24px;
-            margin-bottom: 14px;
-            background: #ccfbf1;
+            gap: 20px;
         }
 
-        .icon-delivery,
-        .icon-support {
-            color: #0f766e;
-        }
-
-        .icon-payment,
-        .icon-pricing {
-            color: #115e59;
-        }
-
-        .icon-quality,
-        .icon-trust {
-            color: #0f5132;
-        }
-
-        .feature-item h3,
-        .choose-item h3 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #115e59;
-        }
-
-        .feature-item p,
-        .choose-item p {
-            color: #4f5c53;
-            line-height: 1.6;
-            font-size: 15px;
-        }
-
-        /* ===== WHY CHOOSE US ===== */
-        .why-choose-us {
-            background: #f0fdfa;
-        }
-
-        /* ===== PRODUCTS ===== */
-        .products {
-            padding: 80px 70px;
-        }
-
-        .products h2 {
-            text-align: center;
-            margin-bottom: 55px;
-            font-size: 34px;
+        nav ul {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
         }
 
         .product-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 35px;
-        }
-
-        .card {
-            background: #fff;
-            border-radius: 16px;
-            padding: 22px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-        }
-
-        .card img {
-            width: 100%;
-            height: 220px;
-            object-fit: contain;
-            background: #ecfeff;
-            border-radius: 12px;
-        }
-
-        .card h3 {
-            margin: 18px 0 10px;
-            font-size: 20px;
-        }
-
-        .card p {
-            font-size: 14px;
-            color: #666;
-        }
-
-        .price {
-            margin: 15px 0;
-            font-size: 18px;
-            font-weight: bold;
-            color: #0f766e;
-        }
-
-        .card-actions {
-            display: grid;
             grid-template-columns: 1fr;
-            gap: 10px;
-            margin-top: 12px;
         }
 
-        .card-btn {
-            width: 100%;
-            padding: 12px 18px;
-            border: none;
-            border-radius: 999px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-        }
-
-        .card-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .add-cart-btn {
-            background: #0f766e;
-            color: #fff;
-            box-shadow: 0 8px 20px rgba(15, 118, 110, 0.22);
-        }
-
-        .add-cart-btn:hover {
-            background: #115e59;
-        }
-
-        .details-btn {
-            background: #ecfeff;
-            color: #0f766e;
-            border: 1px solid #99f6e4;
-        }
-
-        .details-btn:hover {
-            background: #cffafe;
-            box-shadow: 0 8px 20px rgba(34, 197, 94, 0.12);
-        }
-
-        /* ===== FOOTER ===== */
+        .features,
+        .why-choose-us,
+        .products,
         footer {
-            background: #0f172a;
-            color: #ccc;
-            padding: 80px 70px;
+            padding: 60px 20px;
+        }
+
+        .features-grid,
+        .choose-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .nav-search {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+        }
+
+        .nav-search input {
+            flex: 1;
+        }
+
+        .hero {
+            padding: 90px 20px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+        }
+
+        .hero-buttons button,
+        .hero-buttons .primary {
+            margin: 8px 4px;
         }
 
         .footer-grid {
-            max-width: 1200px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 45px;
+            grid-template-columns: 1fr;
+            gap: 30px;
         }
-
-        footer h4 {
-            color: white;
-            margin-bottom: 20px;
-        }
-
-        footer ul {
-            list-style: none;
-        }
-
-        footer ul li {
-            margin-bottom: 12px;
-            font-size: 14px;
-        }
-
-        .copy {
-            text-align: center;
-            margin-top: 55px;
-            font-size: 14px;
-            color: #aaa;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media(max-width:992px) {
-            .product-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .features-grid,
-            .choose-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media(max-width:600px) {
-            nav {
-                justify-content: center;
-                gap: 20px;
-            }
-
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .product-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .features,
-            .why-choose-us,
-            .products,
-            footer {
-                padding: 60px 20px;
-            }
-
-            .features-grid,
-            .choose-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-search {
-                width: 100%;
-                max-width: none;
-                margin: 0;
-            }
-
-            .nav-search input {
-                flex: 1;
-            }
-
-            .hero h1 {
-                font-size: 42px;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 
 <body>
@@ -436,12 +875,12 @@ if (isset($_SESSION['user_id'])) {
             <li><a href="products.php">Products</a></li>
             <li><a href="contact.php">Contact</a></li>
             <?php if (isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) { ?>
-                <li style="color: white; font-weight: bold;">Welcome Back, <?php echo htmlspecialchars($_SESSION['user_name']); ?></li>
-                <a href="cart.php" style="color: white; "><li class="fa-solid fa-cart-shopping"><?php if ($cart_count > 0) {
+                <li style="color: black; font-weight: bold;">Welcome Back, <?php echo htmlspecialchars($_SESSION['user_name']); ?></li>
+                <a href="cart.php" style="color: black; "><li class="fa-solid fa-cart-shopping"><?php if ($cart_count > 0) {
                     echo '<sup style="font-size: 0.82em; font-weight: 700; margin-left: 2px;">' . $cart_count . '</sup>';
                     } ?></li></a>
                 <li><a href="logout.php"
-                        style="color: white; background: #0f172a; border-radius: 20px; font-size: large; padding: 5px 15px;">Logout</a>
+                        style="color: white; background: #2563EB; border-radius: 10px; font-size: large; padding: 5px 15px;">Logout</a>
                 </li>
             <?php } else { ?>
                 <li><a href="register.php">Register</a></li>
@@ -450,59 +889,139 @@ if (isset($_SESSION['user_id'])) {
         </ul>
     </nav>
 
-    <!-- HERO -->
-    <section class="hero">
-        <h1>Online Shopping Made Easy</h1>
-        <p>Discover premium products, trusted quality and unbeatable prices — all in one place.</p>
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+
+        <span class="hero-label">SHOP WITH CONFIDENCE</span>
+
+        <h1>Online Shopping<br>Made Easy.</h1>
+
+        <p>
+            Discover quality products, great prices, and a shopping
+            experience designed around you.
+        </p>
+
         <div class="hero-buttons">
             <a href="products.php" class="primary">Shop Now</a>
             <button class="secondary">Explore</button>
         </div>
-    </section>
 
-    <!-- FEATURES -->
-    <section class="features">
-        <h2 class="section-title">Features</h2>
-        <div class="features-grid">
-            <div class="feature-item">
-                <span class="item-icon icon-delivery">&#128666;</span>
+    </div>
+
+    <div class="hero-side">
+        <span>QUALITY</span>
+        <span>STYLE</span>
+        <span>VALUE</span>
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+    <div class="features-header">
+        <span class="features-label">WHY SHOP WITH US</span>
+        <h2 class="section-title">Shopping made simple.</h2>
+        <p class="features-subtitle">
+            From carefully selected products to reliable delivery,
+            we make every part of your shopping experience easy.
+        </p>
+    </div>
+
+    <div class="features-grid">
+
+        <div class="feature-item">
+            <div class="feature-number">01</div>
+            <div class="feature-content">
                 <h3>Fast Delivery</h3>
-                <p>Get your orders delivered quickly with our trusted and efficient shipping process.</p>
-            </div>
-            <div class="feature-item">
-                <span class="item-icon icon-payment">&#128274;</span>
-                <h3>Secure Payment</h3>
-                <p>Shop with confidence using safe and reliable payment options for every transaction.</p>
-            </div>
-            <div class="feature-item">
-                <span class="item-icon icon-quality">&#10004;</span>
-                <h3>Quality Products</h3>
-                <p>We offer carefully selected products that meet high quality and performance standards.</p>
+                <p>
+                    Quick and dependable delivery, so your order
+                    reaches you without unnecessary delays.
+                </p>
             </div>
         </div>
-    </section>
 
-    <!-- WHY CHOOSE US -->
-    <section class="why-choose-us">
-        <h2 class="section-title">Why Choose Us</h2>
-        <div class="choose-grid">
-            <div class="choose-item">
-                <span class="item-icon icon-support">&#128172;</span>
-                <h3>Customer-First Support</h3>
-                <p>Our support team is always ready to help you with orders, products, and any questions.</p>
-            </div>
-            <div class="choose-item">
-                <span class="item-icon icon-pricing">&#128181;</span>
-                <h3>Affordable Pricing</h3>
-                <p>Enjoy competitive prices and great value without compromising on product quality.</p>
-            </div>
-            <div class="choose-item">
-                <span class="item-icon icon-trust">&#11088;</span>
-                <h3>Trusted by Shoppers</h3>
-                <p>Thousands of customers rely on us for a smooth, transparent, and reliable shopping experience.</p>
+        <div class="feature-item">
+            <div class="feature-number">02</div>
+            <div class="feature-content">
+                <h3>Secure Payment</h3>
+                <p>
+                    Your transactions are handled through secure
+                    and reliable payment methods.
+                </p>
             </div>
         </div>
-    </section>
+
+        <div class="feature-item">
+            <div class="feature-number">03</div>
+            <div class="feature-content">
+                <h3>Quality Products</h3>
+                <p>
+                    Carefully selected products with quality you
+                    can rely on every time you shop.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why-choose-us">
+
+    <div class="why-header">
+        <span class="why-label">THE DIFFERENCE</span>
+
+        <h2 class="section-title">Why choose us?</h2>
+
+        <p class="why-intro">
+            We focus on giving you a straightforward shopping experience,
+            from discovering products to receiving your order.
+        </p>
+    </div>
+
+    <div class="choose-grid">
+
+        <div class="choose-item">
+            <span class="choose-number">01</span>
+
+            <div>
+                <h3>Customer-First Support</h3>
+                <p>
+                    Our support team is always ready to help with orders,
+                    products, and any questions you may have.
+                </p>
+            </div>
+        </div>
+
+        <div class="choose-item">
+            <span class="choose-number">02</span>
+
+            <div>
+                <h3>Affordable Pricing</h3>
+                <p>
+                    Enjoy competitive prices and great value without
+                    compromising on the quality of our products.
+                </p>
+            </div>
+        </div>
+
+        <div class="choose-item">
+            <span class="choose-number">03</span>
+
+            <div>
+                <h3>Trusted by Shoppers</h3>
+                <p>
+                    Customers choose us for a smooth, transparent,
+                    and reliable shopping experience.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
     <?php
     include '../admin/databaseconnection.php';
     $fetch_query = "SELECT * FROM products";

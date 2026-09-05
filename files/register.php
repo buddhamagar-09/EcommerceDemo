@@ -18,11 +18,8 @@ body{
     display:grid;
     place-items:center;
     padding:24px;
-    background:
-        radial-gradient(circle at top left, rgba(45, 212, 191, 0.22), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.18), transparent 30%),
-        linear-gradient(135deg, #042f2e 0%, #0f172a 52%, #111827 100%);
-    color:#e5e7eb;
+    background:#F8FAFC;
+    color:#0F172A;
 }
 
 .page-shell{
@@ -36,16 +33,14 @@ body{
 
 .brand-panel,
 .register-box{
-    border:1px solid rgba(255,255,255,0.12);
+    border:1px solid #E2E8F0;
     border-radius:24px;
-    box-shadow:0 28px 60px rgba(0,0,0,0.28);
-    backdrop-filter:blur(14px);
-    -webkit-backdrop-filter:blur(14px);
+    box-shadow:0 28px 60px rgba(15,23,42,0.12);
 }
 
 .brand-panel{
     padding:40px;
-    background:linear-gradient(160deg, rgba(15, 23, 42, 0.78), rgba(4, 120, 87, 0.38));
+    background:#1E293B;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
@@ -58,7 +53,7 @@ body{
     content:"";
     position:absolute;
     border-radius:50%;
-    background:rgba(255,255,255,0.08);
+    background:rgba(255,255,255,0.06);
     pointer-events:none;
 }
 
@@ -82,12 +77,12 @@ body{
     border-radius:18px;
     display:grid;
     place-items:center;
-    background:linear-gradient(135deg, #5eead4, #22c55e);
-    color:#052e2b;
+    background:#2563EB;
+    color:#FFFFFF;
     font-size:24px;
     font-weight:800;
     margin-bottom:28px;
-    box-shadow:0 18px 40px rgba(45, 212, 191, 0.28);
+    box-shadow:0 18px 40px rgba(37,99,235,0.28);
     position:relative;
     z-index:1;
 }
@@ -95,7 +90,7 @@ body{
 .brand-panel h1{
     font-size:clamp(30px, 4vw, 46px);
     line-height:1.05;
-    color:#f8fafc;
+    color:#FFFFFF;
     margin-bottom:14px;
     position:relative;
     z-index:1;
@@ -103,7 +98,7 @@ body{
 
 .brand-panel p{
     max-width:420px;
-    color:#cbd5e1;
+    color:#CBD5E1;
     line-height:1.7;
     font-size:15px;
     position:relative;
@@ -123,7 +118,7 @@ body{
     display:flex;
     align-items:flex-start;
     gap:12px;
-    color:#e2e8f0;
+    color:#E2E8F0;
     font-size:14px;
     line-height:1.55;
 }
@@ -134,8 +129,8 @@ body{
     border-radius:50%;
     display:grid;
     place-items:center;
-    background:rgba(255,255,255,0.14);
-    color:#d1fae5;
+    background:rgba(255,255,255,0.10);
+    color:#BFDBFE;
     flex:0 0 26px;
 }
 
@@ -143,29 +138,29 @@ body{
     margin-top:36px;
     padding-top:18px;
     border-top:1px solid rgba(255,255,255,0.12);
-    color:#cbd5e1;
+    color:#CBD5E1;
     font-size:13px;
     position:relative;
     z-index:1;
 }
 
 .register-box{
-    background:rgba(255,255,255,0.95);
+    background:#FFFFFF;
     padding:34px;
     width:100%;
-    color:#0f172a;
+    color:#0F172A;
 }
 
 .register-box h2{
     text-align:center;
     margin-bottom:10px;
-    color:#0f172a;
+    color:#0F172A;
     font-size:28px;
 }
 
 .register-subtitle{
     text-align:center;
-    color:#64748b;
+    color:#64748B;
     font-size:14px;
     line-height:1.6;
     margin-bottom:26px;
@@ -177,8 +172,8 @@ body{
     gap:8px;
     padding:10px 14px;
     border-radius:999px;
-    background:rgba(15,118,110,0.08);
-    color:#0f766e;
+    background:#EFF6FF;
+    color:#1D4ED8;
     font-size:13px;
     font-weight:700;
     margin-bottom:18px;
@@ -189,7 +184,7 @@ body{
     align-items:center;
     gap:12px;
     margin:18px 0 20px;
-    color:#94a3b8;
+    color:#94A3B8;
     font-size:12px;
     text-transform:uppercase;
     letter-spacing:0.14em;
@@ -199,7 +194,7 @@ body{
 .divider::after{
     content:"";
     height:1px;
-    background:#e2e8f0;
+    background:#E2E8F0;
     flex:1;
 }
 
@@ -224,19 +219,21 @@ body{
 .form-group input{
     width:100%;
     padding:13px 14px;
-    border:1px solid #cbd5e1;
+    border:1px solid #E2E8F0;
     border-radius:14px;
     outline:none;
     font-size:15px;
-    background:#f8fafc;
-    color:#0f172a;
-    transition:border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    background:#F8FAFC;
+    color:#0F172A;
+    transition:border-color 0.25s ease,
+               box-shadow 0.25s ease,
+               transform 0.25s ease;
 }
 
 .form-group input:focus{
-    border-color:#0f766e;
-    box-shadow:0 0 0 4px rgba(15,118,110,0.14);
-    background:#fff;
+    border-color:#2563EB;
+    box-shadow:0 0 0 4px rgba(37,99,235,0.12);
+    background:#FFFFFF;
     transform:translateY(-1px);
 }
 
@@ -245,37 +242,40 @@ body{
     padding:14px;
     border:none;
     border-radius:14px;
-    background:linear-gradient(135deg, #0f766e, #115e59);
-    color:#fff;
+    background:#2563EB;
+    color:#FFFFFF;
     font-size:16px;
     font-weight:800;
     cursor:pointer;
-    transition:transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-    box-shadow:0 16px 30px rgba(15,118,110,0.24);
+    transition:transform 0.2s ease,
+               box-shadow 0.2s ease,
+               background 0.2s ease;
+    box-shadow:0 16px 30px rgba(37,99,235,0.24);
     margin-top:8px;
 }
 
 .btn:hover{
     transform:translateY(-1px);
-    filter:brightness(1.03);
-    box-shadow:0 18px 34px rgba(15,118,110,0.3);
+    background:#1D4ED8;
+    box-shadow:0 18px 34px rgba(37,99,235,0.30);
 }
 
 .form-note{
     margin-top:16px;
-    color:#64748b;
+    color:#64748B;
     font-size:13px;
     line-height:1.6;
     text-align:center;
 }
 
 .form-note a{
-    color:#0f766e;
+    color:#2563EB;
     font-weight:700;
     text-decoration:none;
 }
 
 .form-note a:hover{
+    color:#1D4ED8;
     text-decoration:underline;
 }
 
