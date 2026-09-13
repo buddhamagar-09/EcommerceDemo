@@ -21,7 +21,7 @@ $decoded_data = base64_decode($_GET['data']);
 
 $data = json_decode($decoded_data, true);
 // data example:
-// $data = {
+// $data = {.
 //     "status" => "success",
 //     "transaction_code" => "1234567890",
 //     "total_amount" => 1000,
