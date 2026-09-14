@@ -478,7 +478,7 @@ $result = mysqli_query($conn, $sql);
 
     <div class="sidebar">
 
-      <div class="logo"><a href="../index.php">ECOM ADMIN</a></div>
+      <div class="logo"><a href="../index.php">FashionHub ADMIN</a></div>
 
       <ul class="menu">
         <li><a href="dashboard.php">Dashboard</a></li>

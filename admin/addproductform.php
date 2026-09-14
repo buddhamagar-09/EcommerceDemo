@@ -432,7 +432,7 @@ else if($_SESSION['user_role'] !== 'admin') {
 
         <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="logo"><a href="dashboard.php">ECOM ADMIN</a></div>
+            <div class="logo"><a href="dashboard.php">FashionHub ADMIN</a></div>
             <ul class="menu">
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="view_users.php">Users</a></li>

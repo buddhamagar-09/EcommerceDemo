@@ -469,7 +469,7 @@ $result = mysqli_query($conn, $sql);
 
 		<div class="sidebar">
 
-			<div class="logo"><a href="dashboard.php">ECOM ADMIN</a></div>
+			<div class="logo"><a href="dashboard.php">FashionHub ADMIN</a></div>
 
 			<ul class="menu">
 				<li><a href="dashboard.php">Dashboard</a></li>

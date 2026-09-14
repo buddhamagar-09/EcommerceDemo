@@ -394,7 +394,7 @@ include '../admin/databaseconnection.php';
 
         <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="logo"><a href="dashboard.php">ECOM ADMIN</a></div>
+            <div class="logo"><a href="dashboard.php">FashionHub ADMIN</a></div>
 
             <ul class="menu">
                 <li class="active"><a href="dashboard.php">Dashboard</a></li>

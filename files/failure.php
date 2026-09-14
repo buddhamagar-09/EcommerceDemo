@@ -317,7 +317,7 @@ $display_name = $_SESSION['user_name'] ?? null;
 
 <body>
     <nav>
-        <h2>Sexy Wears</h2>
+        <h2>FashionHub</h2>
         <form class="nav-search" action="products.php" method="get">
             <input type="text" name="search" placeholder="Search products" value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>">
             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
