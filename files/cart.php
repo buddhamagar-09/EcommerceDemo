@@ -6,6 +6,7 @@ if(!isset($_SESSION['user_id'])) {
     exit();
 }
 include '../admin/databaseconnection.php';
+require_once __DIR__ . '/../includes/recommendation_service.php';
 $fetch_result = false;
 $has_items = false;
 $subtotal = 0;
@@ -48,6 +49,15 @@ if (isset($_SESSION['user_id'])) {
                     inner join products p on c.product_id = p.id
                     where c.user_id = $user_id";
     $fetch_result = mysqli_query($conn, $fetch_query);
+
+    // "You May Also Like": similar products, minus anything already in the cart.
+    $recommendation_service = new RecommendationService($conn, $user_id);
+    $recommendation_title = 'You May Also Like';
+    $recommendations = $recommendation_service->recommend(array(
+        'exclude_ids' => $recommendation_service->cart_product_ids(),
+        'limit' => 4,
+    ));
+
     $conn->close();
 }
 
@@ -60,6 +70,7 @@ if (isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Ecom | Cart</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/recommendations.css">
   <style>
     * {
         margin: 0;
@@ -688,6 +699,8 @@ if (isset($_SESSION['user_id'])) {
             </div>
         <?php } ?>
     </section>
+
+    <?php include __DIR__ . '/components/recommendations.php'; ?>
 
     <footer>
         <div class="footer-grid">

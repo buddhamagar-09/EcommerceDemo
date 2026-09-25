@@ -2,6 +2,7 @@
 session_start();
 $cart_count = 0;
 include '../admin/databaseconnection.php';
+require_once __DIR__ . '/../includes/recommendation_service.php';
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     $count_query = "Select count(*) as count from cart where user_id = $user_id";
@@ -24,6 +25,7 @@ if (isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Ecom</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/recommendations.css">
   <style>
     * {
         margin: 0;
@@ -1026,8 +1028,19 @@ if (isset($_SESSION['user_id'])) {
     include '../admin/databaseconnection.php';
     $fetch_query = "SELECT * FROM products";
     $result = mysqli_query($conn, $fetch_query);
+
+    $recommendation_user_id = isset($_SESSION['user_id']) ? max(0, (int) $_SESSION['user_id']) : 0;
+    $recommendation_service = new RecommendationService($conn, $recommendation_user_id);
+    $recommendation_mode = $recommendation_user_id > 0 ? 'personalized' : 'popular';
+    $recommendations = $recommendation_service->recommend(array(
+        'limit' => 4,
+    ));
+
     $conn->close();
     ?>
+
+    <?php include __DIR__ . '/components/recommendations.php'; ?>
+
     <!-- PRODUCTS -->
     <section class="products">
         <h2>Our Products</h2>

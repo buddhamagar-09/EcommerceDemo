@@ -1,6 +1,7 @@
 <?php 
 session_start();
 include '../admin/databaseconnection.php';
+require_once __DIR__ . '/../includes/recommendation_service.php';
 $cart_count = 0;
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
@@ -25,6 +26,18 @@ if (!isset($result) || !$result || mysqli_num_rows($result) === 0) {
     header('Location: products.php');
     exit();
 }
+
+// Recommendations: similar products plus this user's own behaviour.
+$user_id = isset($_SESSION['user_id']) ? max(0, (int) $_SESSION['user_id']) : 0;
+$recommendation_service = new RecommendationService($conn, $user_id);
+$recommendation_service->record_view($product_id);
+$recommendation_mode = 'context';
+$recommendations = $recommendation_service->recommend(array(
+    'context_product_id' => $product_id,
+    'exclude_ids' => array($product_id),
+    'limit' => 4,
+));
+
 $conn->close();
 ?>
 
@@ -36,6 +49,7 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Detail</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/recommendations.css">
 <style>
     * {
         margin: 0;
@@ -537,6 +551,8 @@ $conn->close();
 
     </div>
     </div>
+
+    <?php include __DIR__ . '/components/recommendations.php'; ?>
 
     <!-- FOOTER -->
     <footer>
